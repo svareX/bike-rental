@@ -1,0 +1,30 @@
+<!-- Form render helper -->
+{% macro form_field(field, variant='block') %}
+    <div class="form-field {{ variant }}">
+        <div class="form-field-label">{{ field.label }}</div>
+        {% if field.type == 'RadioField' %}
+            {% for subfield in field %}
+                <label class="radio-inline">
+                    {{ subfield() }} {{ subfield.label.text }}
+                </label>
+            {% endfor %}
+        {% else %}
+            {{ field(**kwargs)|safe }}
+        {% endif %}
+        {% if field.errors %}
+            <ul class=errors>
+                {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro form_inline_field(field) %}
+    {{ form_field(field, 'inline') }}
+{% endmacro %}
+
+{% macro form_submit(label="Submit", name=None, class_name="") %}
+    <input type="submit" value="{{ label }}" name="{{ name }}" class="submit-button {{ class_name }}">
+{% endmacro %}

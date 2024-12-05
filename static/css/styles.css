@@ -1,0 +1,456 @@
+/* --- General styles --- */
+
+* {
+    box-sizing: border-box;
+}
+
+a {
+    color: #9D32C7;
+    text-decoration: none;
+}
+
+input, textarea, button, select {
+    margin: 0;
+    padding: 0.5em 1em;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 0.9em;
+    font-family: sans-serif;
+}
+
+button.danger,
+input.danger {
+    background: red;
+    color: white;
+}
+
+.form-field.block {
+    margin-bottom: 0.75em;
+}
+
+.form-field.inline {
+    display: inline-block;
+    margin-right: 1em;
+}
+
+.form-field.inline .form-field-label {
+    display: inline-block;
+    margin-right: 0.5em;
+}
+
+.form-field-label {
+    font-weight: bold;
+    font-size: 0.9em;
+    margin-bottom: 0.5em;
+}
+
+.radio-inline {
+    display: inline-block;
+    margin-right: 1em;
+}
+
+@media only screen and (max-width: 600px) {
+    input, textarea, button, select {
+        padding: 1em;
+    }
+}
+
+.mr-1 {
+    margin-right: 1em;
+}
+
+
+/* --- Layout --- */
+
+body {
+    padding: 0;
+    margin: 0;
+    background: #f4f4f4;
+    font-family: sans-serif;
+}
+
+.page-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.page {
+    width: 1000px; /* (B) */
+}
+
+.main {
+    display: flex;
+}
+
+@media only screen and (max-width: 600px) {
+    .page {
+        width: 100%; /* (B) */
+    }
+
+    .main {
+        flex-wrap: wrap; /* (C) */
+    }
+}
+
+footer {
+    color: gray;
+    text-align: center;
+    margin: 2em 0;
+    font-size: 0.8em;
+}
+
+
+/* --- Design components --- */
+
+.box {
+    background: white;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.04) 4px 4px 10px;
+    padding: 2em;
+    margin: 1em;
+}
+
+@media only screen and (max-width: 600px) {
+    .box {
+        padding: 1em 2em;
+        margin: 0.5em;
+    }
+}
+
+
+/* --- Topbar and navigation ---  */
+
+.topbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.topbar h1 {
+    margin: 0;
+}
+
+.nav {
+    display: flex; /* (A) */
+}
+
+.nav div {
+    margin-right: 2em;
+}
+
+.nav a.active {
+    background: #f3f3f3;
+    padding: 0.5em 1em;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.mobile-nav {
+    display: none; /* (A) */
+    flex-direction: column;
+    align-items: center;
+    margin-top: -1em;
+    padding-top: 1em;
+}
+
+.mobile-nav a.active {
+    background: #f3f3f3;
+    padding: 0.5em 1em;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.mobile-nav div {
+    padding: 1em 0;
+}
+
+.mobile-nav-toggle-button {
+    display: none; /* (A) */
+    margin-right: 1em;
+}
+
+@media only screen and (max-width: 600px) {
+    .topbar h1 {
+        font-size: 1.3em;
+        margin-right: auto;
+    }
+
+    .nav {
+        display: none; /* (A) */
+    }
+
+    .mobile-nav-toggle-button {
+        display: block; /* (A) */
+    }
+
+    .mobile-nav.visible {
+        display: flex; /* (A) */
+    }
+}
+
+.topbar .user-info {
+    display: flex;
+    align-items: center;
+}
+
+.topbar .user-info .username {
+    margin-right: -1em;
+    padding: 0.4em 1.5em 0.4em 1em;
+    text-align: right;
+    background: #f4f4f4;
+    border-radius: 16px 0 0 16px;
+    font-size: 0.9em;
+}
+
+@media only screen and (max-width: 600px) {
+    .topbar .user-info .username {
+        display: none; /* (A) */
+    }
+}
+
+.topbar .user-avatar {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background: #9D32C7;
+    padding: 0.3em;
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+}
+
+/** -- Flash messages -- */
+
+.flash-messages div {
+    padding: 1em 2em;
+    font-weight: bold;
+}
+
+.flash-messages .error {
+    background: #ffcccc;
+}
+
+.flash-messages .success {
+    background: #ccffcc;
+}
+
+.flash-messages .warning {
+    background: #ffffcc;
+}
+
+.flash-messages .info {
+    background: #ccccff;
+}
+
+
+/** --- Dashboard --- */
+
+.dashboard {
+    flex-grow: 1;
+}
+
+/* --- Account navigation --- */
+
+.account-list-box {
+    width: 20%; /* (C) */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.account-list-top {
+    display: flex;
+    flex-direction: column;
+}
+
+.account-list-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.account-list-heading h3 {
+    margin: 0;
+}
+
+.account-list {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.account-list a {
+    display: block;
+    margin: 0.5em 0;
+}
+
+.hide-accounts-arrow {
+    display: none; /* (A) */
+}
+
+.current-account {
+    display: none; /* (A) */
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.active-account {
+    font-weight: bold;
+}
+
+.account-filter-button {
+    cursor: pointer;
+    padding: 0.5em;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.account-filter-button.active {
+    background: #cccccc;
+}
+
+.account-filter {
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+}
+
+@media only screen and (max-width: 600px) {
+    .account-list-box {
+        display: none; /* (A) */
+    }
+
+    .account-list-box.visible {
+        width: 100%; /* (B) */
+        display: flex; /* (A) */
+    }
+
+    .account-list-bottom {
+        border-top: 1px solid lightgray;
+        margin-top: 0.7em;
+        padding-top: 0.7em;
+    }
+
+    .current-account.visible {
+        display: flex; /* (A) */
+    }
+
+    .hide-accounts-arrow {
+        display: block; /* (A) */
+    }
+}
+
+
+/* --- Account detail --- */
+
+.account-detail {
+    flex-grow: 1;
+}
+
+.account-detail h2 {
+    margin-top: 0.5em;
+}
+
+.new-transaction-form {
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 1em;
+}
+
+.new-transaction-form-layout {
+    display: flex;
+    gap: 3em;
+    width: 100%;
+}
+
+.new-transaction-form .right {
+    flex-grow: 1;
+}
+
+.new-transaction-form textarea {
+    width: 100%;
+}
+
+.new-transaction-form .field-name {
+    display: block;
+}
+
+/* -- Transaction history -- */
+
+.transaction-history-table {
+    width: 100%;
+}
+
+.transaction-history-table th,
+.transaction-history-table td {
+    text-align: left;
+    padding: 0.5em 0;
+}
+
+.transaction-history-table td {
+    border-top: 1px solid lightgrey;
+}
+
+.transaction-history-table button {
+    padding: 0.3em 0.5em;
+    font-size: 0.8em;
+}
+
+.transaction-history-mobile {
+    display: none; /* (A) */
+    width: 100%;
+    flex-direction: column;
+}
+
+.transaction-history-mobile-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5em 0;
+    border-bottom: 1px solid lightgrey;
+}
+
+.transaction-history-mobile-item .income {
+    color: green;
+}
+
+.transaction-history-mobile-item .expense {
+    color: red;
+}
+
+@media only screen and (max-width: 600px) {
+    .new-transaction-form-layout div {
+        width: 100%;
+    }
+
+    .new-transaction-form-layout {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .new-transaction-form .field-name,
+    .new-transaction-form .text-field,
+    .new-transaction-form .select-field,
+    .new-transaction-form .textarea-field,
+    .new-transaction-form .submit-button {
+        width: 100%;
+    }
+
+    .transaction-history-table {
+        display: none; /* (A) */
+    }
+
+    .transaction-history-mobile {
+        display: flex; /* (A) */
+    }
+
+}
+
+.transactions-filter {
+    margin-bottom: 1em;
+}
+
