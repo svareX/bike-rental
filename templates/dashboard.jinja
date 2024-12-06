@@ -12,6 +12,14 @@
                     Aktuálně nejste přihlášen.
                 {% endif %}
             </p>
+            <hr>
+            {% for bike in bikes %}
+                <p>Jméno: {{ bike.name }}</p>
+                <p>Cena na den: {{ bike.price_per_day }}</p>
+                <p>Název značky: {{ bike.brand_name }}</p>
+                <img src="{{ url_for('static', filename=bike.img) }}" alt="{{ bike.name }}" height="200px" >
+                <hr>
+            {% endfor %}
         </div>
     </div>
 {% endblock%}

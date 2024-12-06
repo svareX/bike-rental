@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, flash, session, redirect, url
 
 import forms
 from database import database
+from service.bike_service import BikeService
 from service.user_service import UserService
 
 app = Flask(__name__)
@@ -12,7 +13,8 @@ database.init_app(app)
 
 @app.route("/")
 def view_dashboard_page():
-    return render_template("dashboard.jinja")
+    bikes = BikeService.getAll();
+    return render_template("dashboard.jinja", bikes=bikes)
 
 @app.route("/register", methods=['GET', 'POST'])
 def view_register_page():
