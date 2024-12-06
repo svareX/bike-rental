@@ -5,7 +5,12 @@
         <div class="box dashboard">
             <h2>Přehled</h2>
             <p>
-                Vítejte v půjčovně kol.
+                Vítejte v půjčovně kol. <br>
+                {% if session['authenticated'] %}
+                    Aktuálně jste přihlášen jako: {{ session['email'] }}
+                {% else %}
+                    Aktuálně nejste přihlášen.
+                {% endif %}
             </p>
         </div>
     </div>
