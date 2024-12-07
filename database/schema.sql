@@ -7,7 +7,7 @@ CREATE TABLE users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     first_name VARCHAR NOT NULL,
     last_name VARCHAR NOT NULL,
-    email VARCHAR UNIQUE NOT NULL,
+    email VARCHAR NOT NULL,
     password VARCHAR NOT NULL,
     role INTEGER NOT NULL,
     created_at TIMESTAMP NOT NULL,
@@ -16,14 +16,14 @@ CREATE TABLE users (
 
 CREATE TABLE brands (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name VARCHAR UNIQUE NOT NULL,
+    name VARCHAR NOT NULL,
     motto VARCHAR NOT NULL,
     established DATE NOT NULL
 );
 
 CREATE TABLE bikes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name VARCHAR UNIQUE NOT NULL,
+    name VARCHAR NOT NULL,
     brand_id INTEGER NOT NULL,
     type INTEGER NOT NULL,
     price_per_day DOUBLE NOT NULL,
@@ -48,6 +48,6 @@ INSERT INTO brands(name, motto, established) VALUES ('Brand#1', 'Lorem ipsum', C
 INSERT INTO brands(name, motto, established) VALUES ('Brand#2', 'Lorem ipsum', CURRENT_DATE);
 INSERT INTO brands(name, motto, established) VALUES ('Brand#3', 'Lorem ipsum', CURRENT_DATE);
 
-INSERT INTO bikes(name, brand_id, type, price_per_day, img) VALUES ('Bike#1', 1, 1, 100, 'img/bike_placeholder.png');
-INSERT INTO bikes(name, brand_id, type, price_per_day, img) VALUES ('Bike#2', 1, 1, 100, 'img/bike_placeholder.png');
-INSERT INTO bikes(name, brand_id, type, price_per_day, img) VALUES ('Bike#3', 1, 1, 100, 'img/bike_placeholder.png');
+INSERT INTO bikes(name, brand_id, type, price_per_day, img) VALUES ('Bike#1', 1, 1, 100, 'bike_placeholder.png');
+INSERT INTO bikes(name, brand_id, type, price_per_day, img) VALUES ('Bike#2', 1, 1, 100, 'bike_placeholder.png');
+INSERT INTO bikes(name, brand_id, type, price_per_day, img) VALUES ('Bike#3', 1, 1, 100, 'bike_placeholder.png');

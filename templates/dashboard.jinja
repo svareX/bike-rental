@@ -13,11 +13,12 @@
                 {% endif %}
             </p>
             <hr>
+            <a href={{ url_for("view_add_bike") }}>Přidat kolo</a>
             {% for bike in bikes %}
                 <p>Jméno: {{ bike.name }}</p>
                 <p>Cena na den: {{ bike.price_per_day }}</p>
                 <p>Název značky: {{ bike.brand_name }}</p>
-                <img src="{{ url_for('static', filename=bike.img) }}" alt="{{ bike.name }}" height="200px" >
+                <img src="{{ url_for('static', filename="img/" + bike.img) }}" alt="{{ bike.name }}" height="200px" >
                 <hr>
             {% endfor %}
         </div>
