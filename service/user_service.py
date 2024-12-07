@@ -9,7 +9,6 @@ class UserService():
     def verify(email, password):
         db = get_db()
         hashed_password = hashlib.sha256(f'{password}{config.PASSWORD_SALT}'.encode())
-        # print(hashed_password.hexdigest())
 
         sql = '''
             SELECT u.id, u.first_name, u.last_name, u.email, u.role 

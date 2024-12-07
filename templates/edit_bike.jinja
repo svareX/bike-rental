@@ -1,0 +1,23 @@
+{% extends '__main.jinja' %}
+{% from 'macros/form.jinja' import form_field, form_inline_field, form_submit with context %}
+
+{% block content %}
+    <div class="main">
+        <div class="box dashboard">
+            <h2>Přidat kolo</h2>
+            <form method="POST" enctype="multipart/form-data">
+                {{ form_field(form.name) }}
+                {{ form_field(form.brand_id) }}
+                {{ form_field(form.price_per_day) }}
+                {{ form_field(form.img) }}
+            <i>(Pole "Fotografie" ponechte prázdné, pokud chcete ponechat původní fotografii.)</i> <br> <br>
+                <img src="{{ url_for('static', filename="img/" + bike.img) }}" alt="{{ bike.name }}" height="200px" >
+                <br>
+                {{ form_submit("Potvrdit") }}
+                {% for error in form.img.errors %}
+                    <p style="color: red;">{{ error }}</p>
+                {% endfor %}
+            </form>
+        </div>
+    </div>
+{% endblock%}

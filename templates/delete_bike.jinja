@@ -1,0 +1,18 @@
+{% extends '__main.jinja' %}
+{% from 'macros/form.jinja' import form_field, form_inline_field, form_submit with context %}
+
+{% block content %}
+    <div class="main">
+        <div class="box dashboard">
+            <h2>Přidat kolo</h2>
+            <p>Jméno: {{ bike.name }}</p>
+            <p>Cena na den: {{ bike.price_per_day }}</p>
+            <p>Název značky: {{ bike.brand_name }}</p>
+            <img src="{{ url_for('static', filename="img/" + bike.img) }}" alt="{{ bike.name }}" height="200px" >
+            <form method="post">
+                {{ form_submit("Smazat kolo", name="delete_button", class_name="danger") }}
+                {{ form_submit("Zrušit", name="cancel_button") }}
+            </form>
+        </div>
+    </div>
+{% endblock%}

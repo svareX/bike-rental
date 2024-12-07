@@ -2,6 +2,7 @@ import os
 import secrets
 
 from flask import Flask, render_template, request, flash, session, redirect, url_for
+from flask_wtf.file import FileAllowed
 
 import forms
 from database import database
@@ -73,15 +74,13 @@ def view_add_bike():
 
         if file:
             target_folder = os.path.join(app.root_path, 'static/img/')
-            os.makedirs(target_folder, exist_ok=True)  # Ensure the folder exists
+            os.makedirs(target_folder, exist_ok=True)
 
             file_path = os.path.join(target_folder, filename)
 
-            # Attempt to add the bike
-
             response = BikeService.add(
                 request.form['bike_name'],
-                request.form['brand_id'],  # Replace with the correct brand ID
+                request.form['brand_id'],
                 request.form['price_per_day'],
                 filename
             )
@@ -93,6 +92,74 @@ def view_add_bike():
         return redirect(url_for('view_dashboard_page'))
 
     return render_template("add_bike.jinja", form=form)
+
+@app.route("/edit_bike/<bike_id>", methods=["GET", "POST"])
+def view_edit_bike(bike_id):
+    response = None
+    bike = BikeService.getByID(bike_id)
+    brands = BrandService.getAll()
+
+    # forms
+    bike_form = forms.AddBikeForm(request.form, brands, True)
+    bike_form.fill_with_data(bike)
+
+    # edit transaction
+    if request.method == 'POST':
+        if request.files['img']:
+            file = request.files['img']
+            _, file_extension = os.path.splitext(file.filename)
+            filename = secrets.token_hex(12 // 2) + file_extension
+
+            current_image = bike['img']
+            current_image_path = os.path.join(app.root_path, 'static/img', current_image)
+
+            if os.path.exists(current_image_path) and current_image != "bike_placeholder.png":
+                os.remove(current_image_path)
+
+            response = BikeService.update(bike_id, request.form['bike_name'], request.form['price_per_day'], request.form['brand_id'], filename)
+            if not response:
+                file.save(os.path.join(os.path.join(app.root_path, 'static/img/'), filename))
+        else:
+            response = BikeService.update(bike_id, request.form['bike_name'], request.form['price_per_day'], request.form['brand_id'], bike['img'])
+
+        if response:
+            flash(response['error'], 'error')
+            return render_template(
+                "edit_bike.jinja",
+                form=bike_form,
+                bike=bike,
+                brands=brands
+            )
+
+        flash('✅ Kolo bylo úspěšně upraveno.', 'success')
+        return redirect(url_for('view_dashboard_page'))
+
+    return render_template(
+        "edit_bike.jinja",
+        form=bike_form,
+        bike=bike
+    )
+
+@app.route('/delete_bike/<bike_id>', methods=["GET", "POST"])
+def delete_bike(bike_id):
+    bike = BikeService.getByID(bike_id)
+
+    if request.method == 'POST':
+        if 'delete_button' in request.form:
+                current_image = bike['img']
+                current_image_path = os.path.join(app.root_path, 'static/img', current_image)
+                if os.path.exists(current_image_path) and current_image != "bike_placeholder.png":
+                    os.remove(current_image_path)
+                BikeService.deleteByID(bike['id'])
+                flash('✅ Kolo bylo smazáno z nabídky.', 'success')
+        return redirect(url_for('view_dashboard_page'))
+
+        # render
+    return render_template(
+        "delete_bike.jinja",
+        bike=bike
+    )
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5001, debug=True)

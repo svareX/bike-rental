@@ -5,7 +5,10 @@
                     menu
                 </span>
         </div>
+        <a href="{{ url_for('view_dashboard_page') }}">
     <h1 class="mr-1">Půjčovna kol</h1>
+        </a>
+    <div class="nav">
     {% if session['authenticated'] %}
             <a href="#" class="user-info">
                 <div class="username">{{ session['first_name'] }} {{ session['last_name'] }}</div>
@@ -13,15 +16,17 @@
                     <img src="{{ url_for('static', filename='img/person.svg') }}" alt="Logged-in user menu">
                 </div>
             </a>
+        <div>
+        <a href="{{ url_for('logout') }}">Odhlásit se</a>
+        </div>
         {% else %}
-        <div class="nav">
             <a href={{ url_for("view_register_page")}}>
                 <div class="username">Registrace</div>
             </a>
             <a href="{{ url_for('view_login') }}">
                 <div class="username">Přihlásit se</div>
             </a>
-        </div>
         {% endif %}
+    </div>
     </div>
 {% endblock %}

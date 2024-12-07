@@ -19,6 +19,15 @@
                 <p>Cena na den: {{ bike.price_per_day }}</p>
                 <p>Název značky: {{ bike.brand_name }}</p>
                 <img src="{{ url_for('static', filename="img/" + bike.img) }}" alt="{{ bike.name }}" height="200px" >
+                <br>
+                {% if session['role'] == 1 %}
+                <a href="{{ url_for('view_edit_bike', bike_id=bike.id) }}">
+                    <button>Upravit</button>
+                </a>
+                <a href="{{ url_for('delete_bike', bike_id=bike.id) }}">
+                    <button>Smazat</button>
+                </a>
+                {% endif %}
                 <hr>
             {% endfor %}
         </div>
