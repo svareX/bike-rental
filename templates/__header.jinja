@@ -17,13 +17,13 @@
                 </div>
             </a>
         <div>
-        <a href="{{ url_for('logout') }}">Odhlásit se</a>
+        <a href="{{ url_for('logout.page') }}">Odhlásit se</a>
         </div>
         {% else %}
-            <a href={{ url_for("view_register_page")}}>
+            <a href={{ url_for("register.page")}}>
                 <div class="username">Registrace</div>
             </a>
-            <a href="{{ url_for('view_login') }}">
+            <a href="{{ url_for('login.page') }}">
                 <div class="username">Přihlásit se</div>
             </a>
         {% endif %}
