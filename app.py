@@ -6,6 +6,7 @@ from flask_wtf.file import FileAllowed
 
 import forms
 from database import database
+from service.bike_event_service import BikeEventService
 from service.bike_service import BikeService
 from service.brand_service import BrandService
 from service.user_service import UserService
@@ -19,7 +20,7 @@ database.init_app(app)
 @app.route("/")
 def view_dashboard_page():
     bikes = BikeService.getAll();
-    return render_template("dashboard.jinja", bikes=bikes)
+    return render_template("dashboard.jinja", bikes=bikes, is_rented=BikeService.checkRented, getRentDate=BikeEventService.getRentEndDateByID)
 
 @app.route("/register", methods=['GET', 'POST'])
 def view_register_page():
@@ -65,7 +66,7 @@ def logout():
 @app.route("/add_bike", methods=['GET', 'POST'])
 def view_add_bike():
     brands = BrandService.getAll()
-    form = forms.AddBikeForm(request.form, brands)
+    form = forms.BikeForm(request.form, brands)
 
     if request.method == 'POST':
         file = request.files['img']
@@ -100,7 +101,7 @@ def view_edit_bike(bike_id):
     brands = BrandService.getAll()
 
     # forms
-    bike_form = forms.AddBikeForm(request.form, brands, True)
+    bike_form = forms.BikeForm(request.form, brands, True)
     bike_form.fill_with_data(bike)
 
     # edit transaction
@@ -159,6 +160,17 @@ def delete_bike(bike_id):
         "delete_bike.jinja",
         bike=bike
     )
+
+@app.route('/rent_bike/<user_id>/<bike_id>', methods=["GET", "POST"])
+def view_rent_bike(user_id,bike_id):
+    user = UserService.getByID(user_id)
+    bike = BikeService.getByID(bike_id)
+
+    form = forms.RentBikeForm(request.form)
+    if request.method == "POST":
+        BikeEventService.rent(user['id'], bike['id'], request.form['rent_date_from'], request.form['rent_date_to'])
+        return redirect(url_for('view_dashboard_page'))
+    return render_template("rent_bike.jinja", form=form, bike=bike, user=user)
 
 
 if __name__ == '__main__':

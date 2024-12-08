@@ -1,0 +1,72 @@
+{% extends '__main.jinja' %}
+{% from 'macros/form.jinja' import form_field, form_inline_field, form_submit with context %}
+
+{% block content %}
+    <div class="main">
+        <div class="box dashboard">
+            <h2>Vypůjčit si kolo</h2>
+            <p>Jméno: {{ bike.name }}</p>
+            <p>Cena na den: {{ bike.price_per_day }}</p>
+            <p>Název značky: {{ bike.brand_name }}</p>
+            <form method="post">
+                {{ form_field(form.rent_datetime_from) }}
+                {{ form_field(form.rent_datetime_to) }}
+                <div>
+                    <p><strong>Dny pronájmu:</strong> <span id="rental_days">0</span></p>
+                </div>
+                {{ form_submit('Potvrdit zápůjčku') }}
+            </form>
+        </div>
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const fromDateInput = document.querySelector('input[name="{{ form.rent_datetime_from.name }}"]');
+        const toDateInput = document.querySelector('input[name="{{ form.rent_datetime_to.name }}"]');
+        const rentalDaysSpan = document.getElementById('rental_days');
+
+        if (!fromDateInput || !toDateInput || !rentalDaysSpan) {
+            return;
+        }
+
+        function calculateRentalDays() {
+            if (fromDateInput.value && toDateInput.value) {
+                const fromDate = new Date(fromDateInput.value);
+                const toDate = new Date(toDateInput.value);
+
+                // Calculate difference in milliseconds and convert to days
+                const diffTime = Math.abs(toDate - fromDate);
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+                // Update rental days display
+                rentalDaysSpan.textContent = diffDays;
+            }
+        }
+
+        // Set max date for fromDateInput when toDateInput changes
+        toDateInput.addEventListener('change', function() {
+            if (this.value) {
+                fromDateInput.setAttribute('max', this.value);
+            } else {
+                fromDateInput.removeAttribute('max');
+            }
+        });
+
+        // Set min date for toDateInput when fromDateInput changes
+        fromDateInput.addEventListener('change', function() {
+            if (this.value) {
+                toDateInput.setAttribute('min', this.value);
+
+                // Recalculate days if both dates are selected
+                if (toDateInput.value) {
+                    calculateRentalDays();
+                }
+            } else {
+                toDateInput.removeAttribute('min');
+            }
+        });
+
+        // Add event listener to calculate days when both dates are selected
+        toDateInput.addEventListener('change', calculateRentalDays);
+    });
+    </script>
+{% endblock %}

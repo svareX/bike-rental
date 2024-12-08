@@ -1,6 +1,9 @@
+import datetime
+
 from flask_wtf.file import FileAllowed, FileRequired
 from wtforms import Form, StringField, validators
 from wtforms.fields.choices import SelectField
+from wtforms.fields.datetime import DateTimeField, DateField
 from wtforms.fields.numeric import FloatField, DecimalField
 from wtforms.fields.simple import PasswordField, EmailField, FileField
 from wtforms.validators import InputRequired
@@ -16,9 +19,9 @@ class SignInForm(Form):
     email = EmailField(name="email", label='E-mail', validators=[validators.InputRequired(), validators.Length(min=3, max=40), validators.Email()])
     password = PasswordField(name='password', label='Heslo', validators=[validators.Length(min=3), validators.InputRequired()])
 
-class AddBikeForm(Form):
+class BikeForm(Form):
     def __init__(self, data, brands, editing=False):
-        super(AddBikeForm, self).__init__(data)
+        super(BikeForm, self).__init__(data)
         self.brand_id.choices = [(item['id'], item['name']) for item in brands]
         self.editing = editing
 
@@ -38,3 +41,8 @@ class AddBikeForm(Form):
     img = FileField(name="img", label='Fotografie', validators=[ validators.InputRequired(),
         FileAllowed(['jpg', 'png'], 'Images only!')
     ])
+
+#Temporary
+class RentBikeForm(Form):
+    rent_datetime_from = DateField(name="rent_date_from", label="Datum začátku zápůjčky",render_kw={"min": datetime.date.today().isoformat()}, validators=[validators.InputRequired()])
+    rent_datetime_to = DateField(name="rent_date_to", label="Datum konce zápůjčky", validators=[validators.InputRequired()])

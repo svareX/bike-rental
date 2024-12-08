@@ -38,8 +38,8 @@ CREATE TABLE bike_events (
     type INTEGER NOT NULL,
     date_from DATETIME NOT NULL,
     date_to DATETIME NOT NULL,
-    status INTEGER NOT NULL,
-    description VARCHAR NOT NULL,
+    status INTEGER,
+    description VARCHAR,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (bike_id) REFERENCES bikes(id)
 );

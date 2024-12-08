@@ -37,3 +37,10 @@ class UserService():
         """
         db.execute(insert_user_sql, [first_name, last_name, email, hashed_password])
         db.commit()
+
+    @staticmethod
+    def getByID(user_id):
+        db = get_db()
+        sql = "SELECT * FROM users WHERE id = ?"
+        user = db.execute(sql, [user_id]).fetchone()
+        return user

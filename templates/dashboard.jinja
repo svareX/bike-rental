@@ -27,6 +27,12 @@
                 <a href="{{ url_for('delete_bike', bike_id=bike.id) }}">
                     <button>Smazat</button>
                 </a>
+                    {% elif session['role'] == 0 %}
+                    {% if not is_rented(bike.id) %}
+                        <a href="{{ url_for('view_rent_bike', user_id=session['user_id'], bike_id=bike.id) }}">Zapůjčit si</a>
+                    {% else %}
+                        <b>Kolo je již zapůjčeno do: {{ getRentDate(bike.id) }}</b>
+                    {% endif %}
                 {% endif %}
                 <hr>
             {% endfor %}
