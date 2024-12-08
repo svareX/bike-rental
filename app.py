@@ -1,5 +1,6 @@
 import os
 import secrets
+from datetime import datetime
 
 from flask import Flask, render_template, request, flash, session, redirect, url_for
 from flask_wtf.file import FileAllowed
@@ -172,6 +173,12 @@ def view_rent_bike(user_id,bike_id):
         return redirect(url_for('view_dashboard_page'))
     return render_template("rent_bike.jinja", form=form, bike=bike, user=user)
 
+
+@app.route('/profile/<user_id>')
+def view_profile_page(user_id):
+    user = UserService.getByID(user_id)
+    bikes = BikeEventService.getRentedBikesByID(user_id)
+    return render_template("profile.jinja", user=user, bikes=bikes)
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5001, debug=True)

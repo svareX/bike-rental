@@ -1,0 +1,38 @@
+{% extends '__main.jinja' %}
+
+{% block content %}
+    <div class="main">
+        <div class="box dashboard">
+            <h2>Přehled profilu</h2>
+            <hr>
+            <p>{{ user.first_name }} {{ user.last_name }}</p>
+            <p>{{ user.email }}</p>
+            <hr>
+        {% if bikes %}
+            <h2>Historie vypůjčených kol</h2>
+        <table style="width:100%;text-align:center" border="1px">
+            <tr>
+            <th>Jméno</th>
+            <th>Značka</th>
+            <th>Datum od</th>
+            <th>Datum do</th>
+            </tr>
+            {% for bike in bikes %}
+            <tr>
+                <td>{{ bike.bike_name }}</td>
+                <td>{{ bike.brand_name }}</td>
+                <td>{{ bike.date_from }}</td>
+                <td>{{ bike.date_to }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+            {% else %}
+            {% if user.role == 0 %}
+            <h2>Uživatel si zatím nevypůjčil žádná kola.</h2>
+            {% else %}
+                <h2>Uživatel si nemůže vypůjčovat kola.</h2>
+            {% endif %}
+        {% endif %}
+        </div>
+    </div>
+{% endblock%}
