@@ -17,6 +17,9 @@
                 </div>
             </a>
         <div>
+        {% if session['role'] == 1 %}
+            <a href="{{ url_for('list_bike.page') }}">Správa kol</a>
+        {% endif %}
         <a href="{{ url_for('logout.page') }}">Odhlásit se</a>
         </div>
         {% else %}

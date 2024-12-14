@@ -5,7 +5,7 @@ from wtforms import Form, StringField, validators
 from wtforms.fields.choices import SelectField
 from wtforms.fields.datetime import DateTimeField, DateField
 from wtforms.fields.numeric import FloatField, DecimalField
-from wtforms.fields.simple import PasswordField, EmailField, FileField
+from wtforms.fields.simple import PasswordField, EmailField, FileField, TextAreaField
 from wtforms.validators import InputRequired
 
 
@@ -22,9 +22,9 @@ class SignInForm(Form):
 class BikeForm(Form):
     def __init__(self, data, brands, editing=False):
         super(BikeForm, self).__init__(data)
-        self.brand_id.choices = [(item['id'], item['name']) for item in brands]
+        if brands is not None:
+            self.brand_id.choices = [(item['id'], item['name']) for item in brands]
         self.editing = editing
-
         if self.editing:
             self.img.render_kw = {'accept': 'image/png, image/jpeg', 'required': False}  # No 'required'
         else:
@@ -41,6 +41,9 @@ class BikeForm(Form):
     img = FileField(name="img", label='Fotografie', validators=[ validators.InputRequired(),
         FileAllowed(['jpg', 'png'], 'Images only!')
     ])
+
+    #Pouze pro vyřizování kol
+    description = TextAreaField(label='Poznámka', render_kw={'rows': 5})
 
 #Temporary
 class RentBikeForm(Form):

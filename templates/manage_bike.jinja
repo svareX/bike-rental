@@ -1,0 +1,18 @@
+{% extends '__main.jinja' %}
+{% from 'macros/form.jinja' import form_field, form_inline_field, form_submit with context %}
+
+{% block content %}
+    <div class="main">
+        <div class="box dashboard">
+            <h2>Upravit kolo</h2>
+            <p>Název kola: {{ bike.name }}</p>
+            <p>Název značky: {{ bike.brand_name }}</p>
+            <p>Datum začátku zápůjčky: {{ dates.date_from }}</p>
+            <p>Datum konce zápůjčky: {{ dates.date_to }}</p>
+            <form method="POST">
+                {{ form_field(form.description) }}
+                {{ form_submit('Vrátit kolo') }}
+            </form>
+        </div>
+    </div>
+{% endblock%}

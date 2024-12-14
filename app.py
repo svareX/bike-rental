@@ -17,6 +17,8 @@ from views.auth.register import register
 from views.bike_management.add_bike import add_bike
 from views.bike_management.delete_bike import page, delete_bike
 from views.bike_management.edit_bike import edit_bike
+from views.bike_management.list_bike import list_bike
+from views.bike_management.manage_bike import manage_bike
 from views.bike_management.rent_bike import rent_bike
 
 app = Flask(__name__)
@@ -33,11 +35,16 @@ app.register_blueprint(add_bike)
 app.register_blueprint(edit_bike)
 app.register_blueprint(delete_bike)
 app.register_blueprint(rent_bike)
+app.register_blueprint(list_bike)
+app.register_blueprint(manage_bike)
 
+@app.before_request
+def before_request():
+    BikeEventService.check_rents()
 @app.route("/")
 def view_dashboard_page():
     bikes = BikeService.getAll();
-    return render_template("dashboard.jinja", bikes=bikes, is_rented=BikeService.checkRented, getRentDate=BikeEventService.getRentEndDateByID)
+    return render_template("dashboard.jinja", bikes=bikes, is_rented=BikeService.checkState, getRentDate=BikeEventService.getRentDatesByID)
 
 
 @app.route('/profile/<user_id>')

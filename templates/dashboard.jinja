@@ -30,12 +30,14 @@
                     <button>Smazat</button>
                 </a>
                     {% elif session['role'] == 0 %}
-                    {% if not is_rented(bike.id) %}
+                    {% if is_rented(bike.id) == 0 or is_rented(bike.id) == 3 %}
                         <a href="{{ url_for('rent_bike.page', user_id=session['user_id'], bike_id=bike.id) }}">
                         <button>Vypůjčit si</button>
                         </a>
-                    {% else %}
-                        <b>Kolo je již zapůjčeno do: {{ getRentDate(bike.id) }}</b>
+                    {% elif is_rented(bike.id) == 1 %}
+                        <b>Kolo je již zapůjčeno do: {{ getRentDate(bike.id).date_to }}</b>
+                        {% else %}
+                        <b>Kolo se vyřizuje zaměstnanci.</b>
                     {% endif %}
                 {% endif %}
                 <hr>

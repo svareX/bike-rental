@@ -62,11 +62,17 @@ class BikeService():
         db.commit()
 
     @staticmethod
-    def checkRented(bike_id):
+    @staticmethod
+    def checkState(bike_id):
         db = get_db()
-        sql = 'SELECT * FROM bike_events WHERE bike_id=? AND type=0 AND date_to > CURRENT_DATE'
+        sql = '''
+            SELECT status 
+            FROM bike_events 
+            WHERE bike_id = ? 
+              AND type = 1 
+              AND (status = 1 OR status = 2) -- Include rented or in processing
+            ORDER BY date_to DESC 
+            LIMIT 1
+        '''
         rented = db.execute(sql, [bike_id]).fetchone()
-        if rented is not None:
-            return True
-        else:
-            return False
+        return rented['status'] if rented else 0
