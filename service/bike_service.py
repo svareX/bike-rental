@@ -76,3 +76,39 @@ class BikeService():
         '''
         rented = db.execute(sql, [bike_id]).fetchone()
         return rented['status'] if rented else 0
+
+    @staticmethod
+    def getByBrand(brand_id):
+        db = get_db()
+        sql = '''
+            SELECT b.id, b.name, b.price_per_day, b.type, b.img, br.name AS brand_name, br.id AS bike_brand_id
+            FROM bikes b
+            JOIN brands br ON b.brand_id = br.id
+            WHERE br.id = ?
+        '''
+        bikes = db.execute(sql, [brand_id]).fetchall()
+        return bikes
+
+    @staticmethod
+    def getByBrandAndSearch(brand_id, search_query):
+        db = get_db()
+        sql = '''
+            SELECT b.id, b.name, b.price_per_day, b.type, b.img, br.name AS brand_name, br.id AS bike_brand_id
+            FROM bikes b
+            JOIN brands br ON b.brand_id = br.id
+            WHERE br.id = ? AND b.name LIKE ?
+        '''
+        bikes = db.execute(sql, [brand_id, f"%{search_query}%"]).fetchall()
+        return bikes
+
+    @staticmethod
+    def getBySearch(search_query):
+        db = get_db()
+        sql = '''
+            SELECT b.id, b.name, b.price_per_day, b.type, b.img, br.name AS brand_name, br.id AS bike_brand_id
+            FROM bikes b
+            JOIN brands br ON b.brand_id = br.id
+            WHERE b.name LIKE ?
+        '''
+        bikes = db.execute(sql, [f"%{search_query}%"]).fetchall()
+        return bikes

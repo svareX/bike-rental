@@ -12,36 +12,80 @@
                     Aktuálně nejste přihlášen.
                 {% endif %}
             </p>
-            <hr>
-        {% if session['role'] == 1 %}
-            <a href={{ url_for("add_bike.page") }}>Přidat kolo</a>
-        {% endif %}
-            {% for bike in bikes %}
-                <p>Jméno: {{ bike.name }}</p>
-                <p>Cena na den: {{ bike.price_per_day }}</p>
-                <p>Název značky: {{ bike.brand_name }}</p>
-                <img src="{{ url_for('static', filename="img/" + bike.img) }}" alt="{{ bike.name }}" height="200px" >
-                <br>
-                {% if session['role'] == 1 %}
-                <a href="{{ url_for('edit_bike.page', bike_id=bike.id) }}">
-                    <button>Upravit</button>
-                </a>
-                <a href="{{ url_for('delete_bike.page', bike_id=bike.id) }}">
-                    <button>Smazat</button>
-                </a>
-                    {% elif session['role'] == 0 %}
-                    {% if is_rented(bike.id) == 0 or is_rented(bike.id) == 3 %}
-                        <a href="{{ url_for('rent_bike.page', user_id=session['user_id'], bike_id=bike.id) }}">
-                        <button>Vypůjčit si</button>
+            <div class="filter">
+                <form method="GET" action="{{ url_for('view_dashboard_page') }}"
+                      onsubmit="return cleanEmptyParams(this)">
+                    <label for="brand">Filtr podle značky:</label>
+                    <select name="brand_id" id="brand">
+                        <option value="" {% if not selected_brand %}selected{% endif %}>Všechny značky</option>
+                        {% for brand in brands %}
+                            <option value="{{ brand.id }}"
+                                    {% if selected_brand == brand.id|string %}selected{% endif %}>
+                                {{ brand.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <label for="search">Vyhledat:</label>
+                    <input
+                            type="text"
+                            name="search"
+                            id="search"
+                            placeholder="Název kola"
+                            value="{{ search_query or '' }}"
+                    />
+                    <br>
+                    <button type="submit">Hledat</button>
+                    {% if selected_brand or search_query %}
+                        <a href="{{ url_for('view_dashboard_page') }}">
+                            <button type="button">Resetovat filtry</button>
                         </a>
-                    {% elif is_rented(bike.id) == 1 %}
-                        <b>Kolo je již zapůjčeno do: {{ getRentDate(bike.id).date_to }}</b>
-                        {% else %}
-                        <b>Kolo se vyřizuje zaměstnanci.</b>
                     {% endif %}
-                {% endif %}
-                <hr>
-            {% endfor %}
+                </form>
+            </div>
+            <hr>
+            {% if session['role'] == 1 %}
+                <a href={{ url_for("add_bike.page") }}>Přidat kolo</a>
+            {% endif %}
+            {% if bikes %}
+                {% for bike in bikes %}
+                    <p>Jméno: {{ bike.name }}</p>
+                    <p>Cena na den: {{ bike.price_per_day }}</p>
+                    <p>Název značky: {{ bike.brand_name }}</p>
+                    <img src="{{ url_for('static', filename="img/" + bike.img) }}" alt="{{ bike.name }}" height="200px">
+                    <br>
+                    {% if session['role'] == 1 %}
+                        <a href="{{ url_for('edit_bike.page', bike_id=bike.id) }}">
+                            <button>Upravit</button>
+                        </a>
+                        <a href="{{ url_for('delete_bike.page', bike_id=bike.id) }}">
+                            <button>Smazat</button>
+                        </a>
+                    {% elif session['role'] == 0 %}
+                        {% if is_rented(bike.id) == 0 or is_rented(bike.id) == 3 %}
+                            <a href="{{ url_for('rent_bike.page', user_id=session['user_id'], bike_id=bike.id) }}">
+                                <button>Vypůjčit si</button>
+                            </a>
+                        {% elif is_rented(bike.id) == 1 %}
+                            <b>Kolo je již zapůjčeno do: {{ getRentDate(bike.id).date_to }}</b>
+                        {% else %}
+                            <b>Kolo se vyřizuje zaměstnanci.</b>
+                        {% endif %}
+                    {% endif %}
+                    <hr>
+                {% endfor %}
+            {% else %}
+                <p>Nebyla nalezena žádná kola.</p>
+            {% endif %}
         </div>
     </div>
-{% endblock%}
+    <script>
+        function cleanEmptyParams(form) {
+            const searchInput = form.querySelector('input[name="search"]');
+            if (searchInput && searchInput.value.trim() === '') {
+                searchInput.disabled = true;
+            }
+            return true;
+        }
+    </script>
+{% endblock %}

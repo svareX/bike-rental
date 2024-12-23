@@ -41,10 +41,23 @@ app.register_blueprint(manage_bike)
 @app.before_request
 def before_request():
     BikeEventService.check_rents()
-@app.route("/")
+@app.route("/", methods=['GET'])
 def view_dashboard_page():
-    bikes = BikeService.getAll();
-    return render_template("dashboard.jinja", bikes=bikes, is_rented=BikeService.checkState, getRentDate=BikeEventService.getRentDatesByID)
+    brand_id = request.args.get('brand_id', None)
+    search_query = request.args.get('search', None)
+    brands = BrandService.getAll()
+
+    if brand_id and brand_id.isdigit():
+        if search_query:
+            bikes = BikeService.getByBrandAndSearch(brand_id, search_query)
+        else:
+            bikes = BikeService.getByBrand(brand_id)
+    elif search_query:
+        bikes = BikeService.getBySearch(search_query)
+    else:
+        bikes = BikeService.getAll()
+
+    return render_template("dashboard.jinja", bikes=bikes, is_rented=BikeService.checkState, getRentDate=BikeEventService.getRentDatesByID, brands=brands, selected_brand=brand_id, search_query=search_query)
 
 
 @app.route('/profile/<user_id>')
