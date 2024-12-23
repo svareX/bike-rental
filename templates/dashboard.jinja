@@ -61,8 +61,6 @@
                             </p>
                             <img src="{{ url_for('static', filename='img/' + bike.img) }}" alt="{{ bike.name }}" class="bike-img">
                             <p class="bike-price">Cena na den: <span>{{ bike.price_per_day }}</span></p>
-                            <br>
-
                             {% if session['role'] == 1 %}
                                 <a href="{{ url_for('edit_bike.page', bike_id=bike.id) }}">
                                     <button>Upravit</button>
@@ -81,7 +79,6 @@
                                     <b>Kolo se vyřizuje zaměstnanci.</b>
                                 {% endif %}
                             {% endif %}
-                            <hr>
                         </div>
                     {% endfor %}
                 {% endif %}

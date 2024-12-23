@@ -18,3 +18,4 @@ views/bike_management/__pycache__/delete_bike.cpython-312.pyc
 views/bike_management/__pycache__/edit_bike.cpython-312.pyc
 views/bike_management/__pycache__/list_bike.cpython-312.pyc
 views/bike_management/__pycache__/manage_bike.cpython-312.pyc
+*.pyc
