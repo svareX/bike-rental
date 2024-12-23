@@ -5,9 +5,9 @@ from service.bike_event_service import BikeEventService
 from service.bike_service import BikeService
 from service.user_service import UserService
 
-list_bike = Blueprint('list_bike', __name__)
+bike_history = Blueprint('bike_history', __name__)
 
-@list_bike.route('/list_bike', methods=["GET", "POST"])
+@bike_history.route('/bike-history')
 def page():
-    bikes = BikeEventService.getRented()
-    return render_template("list_bike.jinja", bikes=bikes)
+    bike_events = BikeEventService.getAll()
+    return render_template("bike_manage_history.jinja", bike_events=bike_events)

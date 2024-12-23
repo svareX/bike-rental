@@ -11,8 +11,14 @@ manage_bike = Blueprint('manage_bike', __name__)
 def page(bike_id):
     bike = BikeService.getByID(bike_id)
     dates = BikeEventService.getRentDatesByID(bike_id)
+    eventType = BikeEventService.getEventTypeByID(bike_id)
     form = forms.BikeForm(request.form, None, False)
     if request.method == 'POST':
-        BikeEventService.returnBike(bike_id, request.form['description'])
-        return redirect(url_for('list_bike.page'))
-    return render_template("manage_bike.jinja", bike=bike, form=form, dates=dates)
+        if request.form.get('return_bike'):
+            BikeEventService.changeBikeInfo(bike_id, request.form['description'], 1)
+            flash('Kolo bylo úspěšně vráceno zpátky.', 'info')
+        elif request.form.get('service_bike') and eventType != 2:
+            BikeEventService.changeBikeInfo(bike_id, request.form['description'], 2)
+            flash('Kolo bylo zasláno do servisu.', 'info')
+        return redirect(url_for('list_manage_bike.page'))
+    return render_template("manage_bike.jinja", bike=bike, form=form, dates=dates, eventType=eventType)

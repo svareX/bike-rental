@@ -18,7 +18,9 @@
             </a>
         <div>
         {% if session['role'] == 1 %}
-            <a href="{{ url_for('list_bike.page') }}">Správa kol</a>
+            <a href="{{ url_for('list_manage_bike.page') }}">Vrácení kol</a>
+            <a href="{{ url_for('list_service_bike.page') }}">Oprava kol</a>
+            <a href="{{ url_for('bike_history.page') }}">Historie správy</a>
         {% endif %}
         <a href="{{ url_for('logout.page') }}">Odhlásit se</a>
         </div>

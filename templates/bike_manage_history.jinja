@@ -1,0 +1,29 @@
+{% extends '__main.jinja' %}
+
+{% block content %}
+    <div class="main">
+        <div class="box dashboard">
+            {% if bike_events %}
+                <h2>Historie správy kol</h2>
+                <table style="width:100%;text-align:center;table-layout:fixed;" border="1px">
+                <tr>
+                    <th>ID</th>
+                    <th>Jméno</th>
+                    <th>Značka</th>
+                    <th>Typ</th>
+                    <th>Stav</th>
+                </tr>
+                {% for bike_event in bike_events %}
+                    <tr>
+                        <td>{{ bike_event.id }}</td>
+                        <td>{{ bike_event.bike_name }}</td>
+                        <td>{{ bike_event.brand_name }}</td>
+                        <td>{{ bike_event.type }}</td>
+                        <td>{{ bike_event.status }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

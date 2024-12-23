@@ -1,0 +1,36 @@
+{% extends '__main.jinja' %}
+
+{% block content %}
+    <div class="main">
+        <div class="box dashboard">
+            {% if bikes %}
+                <h2>Kola čekající na opravu</h2>
+                <table style="width:100%;text-align:center" border="1px">
+                <tr>
+                    <th>Jméno</th>
+                    <th>Značka</th>
+                    <th>Datum od</th>
+                    <th>Datum do</th>
+                    <th>Kdo si vypůjčil</th>
+                    <th>Akce</th>
+                </tr>
+                {% for bike in bikes %}
+                    <tr>
+                        <td>{{ bike.bike_name }}</td>
+                        <td>{{ bike.brand_name }}</td>
+                        <td>{{ bike.date_from }}</td>
+                        <td>{{ bike.date_to }}</td>
+                        <td><a href="{{ url_for('view_profile_page', user_id=bike.user_id) }}">{{ bike.user_name }}</a>
+                        </td>
+                        <td><a href="{{ url_for('manage_bike.page', bike_id=bike.id) }}">
+                            <button>Vyřídit</button>
+                        </a></td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <p>Žádná kola nečekají na opravu.</p>
+            {% endif %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

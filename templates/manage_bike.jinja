@@ -11,7 +11,10 @@
             <p>Datum konce zápůjčky: {{ dates.date_to }}</p>
             <form method="POST">
                 {{ form_field(form.description) }}
-                {{ form_submit('Vrátit kolo') }}
+                {{ form_submit('Vrátit kolo', name='return_bike') }}
+                {% if eventType != 2 %}
+                    {{ form_submit('Poslat do servisu', name='service_bike') }}
+                {% endif %}
             </form>
         </div>
     </div>

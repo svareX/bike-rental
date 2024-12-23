@@ -24,6 +24,8 @@
                 <td><a href="{{ url_for('manage_bike.page', bike_id=bike.id) }}"><button>Vyřídit</button></a></td>
             </tr>
             {% endfor %}
+                {% else %}
+                <p>Žádná kola nečekají na vrácení.</p>
             {% endif %}
         </table>
         </div>

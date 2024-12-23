@@ -45,16 +45,46 @@ class BikeEventService():
         db.commit()
 
     @staticmethod
-    def getRented():
+    def getByType(type):
         db = get_db()
-        sql = '''SELECT b.id, user_id, u.first_name ||' '|| u.last_name AS user_name, b.name AS bike_name, br.name AS brand_name, date_from, date_to FROM bike_events JOIN bikes b ON bike_events.bike_id = b.id JOIN brands br ON b.brand_id = br.id JOIN users u ON user_id=u.id WHERE bike_events.status = 2'''
-        bikes = db.execute(sql).fetchall()
+        sql = '''SELECT b.id, user_id, u.first_name ||' '|| u.last_name AS user_name, b.name AS bike_name, br.name AS brand_name, date_from, date_to FROM bike_events JOIN bikes b ON bike_events.bike_id = b.id JOIN brands br ON b.brand_id = br.id JOIN users u ON user_id=u.id WHERE bike_events.status = 2 AND bike_events.type=?'''
+        bikes = db.execute(sql, [type]).fetchall()
         return bikes
 
     @staticmethod
-    def returnBike(bike_id, description):
+    def changeBikeInfo(bike_id, description, operation):
         db = get_db()
-        sql = 'UPDATE bike_events SET status = 3, description = ? WHERE status = 2 AND bike_id = ?'
+        if operation == 1:
+            sql = 'UPDATE bike_events SET status = 3, description = ? WHERE status = 2 AND bike_id = ?'
+        elif operation == 2:
+            sql = 'UPDATE bike_events SET type = 2, description = ? WHERE status = 2 AND bike_id = ?'
         db.execute(sql, [description, bike_id])
         db.commit()
 
+
+    @staticmethod
+    def getAll():
+        db = get_db()
+        sql = '''
+        SELECT bike_events.id AS id, b.name AS bike_name, brands.name AS brand_name, 
+        CASE bike_events.type 
+            WHEN 1 THEN 'Výpůjčka a vrácení'
+            WHEN 2 THEN 'Výpůjčka -> Servis'
+        END AS type, 
+        CASE bike_events.status 
+            WHEN 1 THEN 'Aktuálně pronajaté'
+            WHEN 2 THEN 'Čeká na vyřízení'
+            WHEN 3 THEN 'Vráceno/Opraveno'
+        END AS status, bike_events.description AS description FROM bike_events 
+        JOIN bikes b ON b.id = bike_events.bike_id 
+        JOIN brands ON b.brand_id = brands.id
+        '''
+        bike_events = db.execute(sql).fetchall()
+        return bike_events
+
+    @staticmethod
+    def getEventTypeByID(bike_id):
+        db = get_db()
+        sql = 'SELECT bike_events.type FROM bike_events WHERE bike_id = ? AND status = 2'
+        type = db.execute(sql, [bike_id]).fetchone()
+        return type[0] if type else None

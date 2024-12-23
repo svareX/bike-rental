@@ -15,9 +15,11 @@ from views.auth.login import login
 from views.auth.logout import page, logout
 from views.auth.register import register
 from views.bike_management.add_bike import add_bike
+from views.bike_management.bike_history import bike_history
 from views.bike_management.delete_bike import page, delete_bike
 from views.bike_management.edit_bike import edit_bike
-from views.bike_management.list_bike import list_bike
+from views.bike_management.list_manage_bike import list_manage_bike
+from views.bike_management.list_service_bike import list_service_bike
 from views.bike_management.manage_bike import manage_bike
 from views.bike_management.rent_bike import rent_bike
 
@@ -35,8 +37,11 @@ app.register_blueprint(add_bike)
 app.register_blueprint(edit_bike)
 app.register_blueprint(delete_bike)
 app.register_blueprint(rent_bike)
-app.register_blueprint(list_bike)
+app.register_blueprint(list_manage_bike)
+app.register_blueprint(list_service_bike)
 app.register_blueprint(manage_bike)
+
+app.register_blueprint(bike_history)
 
 @app.before_request
 def before_request():

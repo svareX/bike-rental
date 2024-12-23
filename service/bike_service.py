@@ -62,7 +62,6 @@ class BikeService():
         db.commit()
 
     @staticmethod
-    @staticmethod
     def checkState(bike_id):
         db = get_db()
         sql = '''
@@ -76,7 +75,6 @@ class BikeService():
         '''
         rented = db.execute(sql, [bike_id]).fetchone()
         return rented['status'] if rented else 0
-
     @staticmethod
     def getByBrand(brand_id):
         db = get_db()
