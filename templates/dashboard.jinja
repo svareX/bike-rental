@@ -7,9 +7,9 @@
             <p>
                 Vítejte v půjčovně kol. <br>
                 {% if session['authenticated'] %}
-                    Aktuálně jste přihlášen jako: {{ session['email'] }}
+                Aktuálně jste přihlášen jako: {{ session['email'] }}
                 {% else %}
-                    Aktuálně nejste přihlášen.
+                Aktuálně nejste přihlášen.
                 {% endif %}
             </p>
             <div class="filter">
@@ -45,38 +45,47 @@
             </div>
             <hr>
             {% if session['role'] == 1 %}
-                <a href={{ url_for("add_bike.page") }}>Přidat kolo</a>
+            <a href={{ url_for("add_bike.page") }}>Přidat kolo</a>
             {% endif %}
-            {% if bikes %}
-                {% for bike in bikes %}
-                    <p>Jméno: {{ bike.name }}</p>
-                    <p>Cena na den: {{ bike.price_per_day }}</p>
-                    <p>Název značky: {{ bike.brand_name }}</p>
-                    <img src="{{ url_for('static', filename="img/" + bike.img) }}" alt="{{ bike.name }}" height="200px">
-                    <br>
-                    {% if session['role'] == 1 %}
-                        <a href="{{ url_for('edit_bike.page', bike_id=bike.id) }}">
-                            <button>Upravit</button>
-                        </a>
-                        <a href="{{ url_for('delete_bike.page', bike_id=bike.id) }}">
-                            <button>Smazat</button>
-                        </a>
-                    {% elif session['role'] == 0 %}
-                        {% if is_rented(bike.id) == 0 or is_rented(bike.id) == 3 %}
-                            <a href="{{ url_for('rent_bike.page', user_id=session['user_id'], bike_id=bike.id) }}">
-                                <button>Vypůjčit si</button>
-                            </a>
-                        {% elif is_rented(bike.id) == 1 %}
-                            <b>Kolo je již zapůjčeno do: {{ getRentDate(bike.id).date_to }}</b>
-                        {% else %}
-                            <b>Kolo se vyřizuje zaměstnanci.</b>
-                        {% endif %}
-                    {% endif %}
-                    <hr>
-                {% endfor %}
-            {% else %}
-                <p>Nebyla nalezena žádná kola.</p>
-            {% endif %}
+            <div class="grid">
+                {% if bikes %}
+                    {% for bike in bikes %}
+                        <div class="bike">
+                            <p class="bike-header">
+                                <span>
+                                    {{ bike.brand_name }}
+                                </span>
+                                <span>
+                                    <b>{{ bike.name }}</b>
+                                </span>
+                            </p>
+                            <img src="{{ url_for('static', filename='img/' + bike.img) }}" alt="{{ bike.name }}" class="bike-img">
+                            <p class="bike-price">Cena na den: <span>{{ bike.price_per_day }}</span></p>
+                            <br>
+
+                            {% if session['role'] == 1 %}
+                                <a href="{{ url_for('edit_bike.page', bike_id=bike.id) }}">
+                                    <button>Upravit</button>
+                                </a>
+                                <a href="{{ url_for('delete_bike.page', bike_id=bike.id) }}">
+                                    <button>Smazat</button>
+                                </a>
+                            {% elif session['role'] == 0 %}
+                                {% if is_rented(bike.id) == 0 or is_rented(bike.id) == 3 %}
+                                    <a href="{{ url_for('rent_bike.page', user_id=session['user_id'], bike_id=bike.id) }}">
+                                        <button>Vypůjčit si</button>
+                                    </a>
+                                {% elif is_rented(bike.id) == 1 %}
+                                    <b>Kolo je již zapůjčeno do: {{ getRentDate(bike.id).date_to }}</b>
+                                {% else %}
+                                    <b>Kolo se vyřizuje zaměstnanci.</b>
+                                {% endif %}
+                            {% endif %}
+                            <hr>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
         </div>
     </div>
     <script>

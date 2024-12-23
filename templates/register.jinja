@@ -2,16 +2,20 @@
 {% from 'macros/form.jinja' import form_field, form_inline_field, form_submit with context %}
 
 {% block content %}
-    <div class="main">
-        <div class="box dashboard">
-            <h2>Registrace</h2>
-            <form method="POST" >
-                {{ form_field(form.first_name) }}
-                {{ form_field(form.last_name) }}
-                {{ form_field(form.email) }}
-                {{ form_field(form.password) }}
-                {{ form_submit("Registrovat se") }}
-            </form>
-        </div>
+<div class="main">
+    <div class="box dashboard">
+        <h2>Registrace</h2>
+        <form method="POST">
+            {{ form_field(form.first_name) }}
+            {{ form_field(form.last_name) }}
+            {{ form_field(form.email) }}
+            {{ form_field(form.password) }}
+            {{ form_submit("Registrovat se") }}
+        </form>
+        <p>
+            Už jste se registrovali?
+            <a href="{{ url_for('login.page') }}">Přihlásit se</a>
+        </p>
     </div>
+</div>
 {% endblock%}
