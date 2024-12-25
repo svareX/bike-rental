@@ -20,6 +20,7 @@ def page():
             session['last_name'] = user['last_name']
             session['email'] = user['email']
             session['role'] = user['role']
+            session['avatar'] = user['avatar']
             return redirect(url_for('view_dashboard_page'))
 
     return render_template("login.jinja", form=form)

@@ -11,6 +11,7 @@ from service.bike_event_service import BikeEventService
 from service.bike_service import BikeService
 from service.brand_service import BrandService
 from service.user_service import UserService
+from views.auth.edit_profile import edit_profile
 from views.auth.login import login
 from views.auth.logout import page, logout
 from views.auth.register import register
@@ -32,6 +33,7 @@ database.init_app(app)
 app.register_blueprint(login)
 app.register_blueprint(register)
 app.register_blueprint(logout)
+app.register_blueprint(edit_profile)
 
 app.register_blueprint(add_bike)
 app.register_blueprint(edit_bike)
@@ -69,7 +71,7 @@ def view_dashboard_page():
 def view_profile_page(user_id):
     user = UserService.getByID(user_id)
     bikes = BikeEventService.getRentedBikesByID(user_id)
-    return render_template("profile.jinja", user=user, bikes=bikes)
+    return render_template("profile.jinja", user=user, bikes=bikes, getReliability=UserService.getReliability)
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5001, debug=True)

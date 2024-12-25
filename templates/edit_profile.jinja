@@ -1,0 +1,29 @@
+{% extends '__main.jinja' %}
+{% from 'macros/form.jinja' import form_field, form_inline_field, form_submit with context %}
+
+{% block content %}
+    <div class="main">
+        <div class="box dashboard">
+            <h1>Změna údajů profilu</h1>
+            <hr>
+            <h2>Změna e-mailu</h2>
+            <form method="post">
+                {{ form_field(form.email) }}
+                {{ form_submit('Změnit') }}
+            </form>
+            <hr>
+            <h2>Změna jména</h2>
+            <form method="post">
+                {{ form_field(form.first_name) }}
+                {{ form_field(form.last_name) }}
+                {{ form_submit('Změnit') }}
+            </form>
+            <hr>
+            <h2>Změna profilového obrázku</h2>
+            <form method="post" enctype="multipart/form-data">
+                {{ form_field(form.img) }}
+                {{ form_submit('Změnit') }}
+            </form>
+        </div>
+    </div>
+{% endblock %}

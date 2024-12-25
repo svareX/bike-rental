@@ -5,7 +5,7 @@ from wtforms import Form, StringField, validators
 from wtforms.fields.choices import SelectField
 from wtforms.fields.datetime import DateTimeField, DateField
 from wtforms.fields.numeric import FloatField, DecimalField
-from wtforms.fields.simple import PasswordField, EmailField, FileField, TextAreaField
+from wtforms.fields.simple import PasswordField, EmailField, FileField, TextAreaField, HiddenField
 from wtforms.validators import InputRequired
 
 
@@ -19,6 +19,14 @@ class SignInForm(Form):
     email = EmailField(name="email", label='E-mail', validators=[validators.InputRequired(), validators.Length(min=3, max=40), validators.Email()])
     password = PasswordField(name='password', label='Heslo', validators=[validators.Length(min=3), validators.InputRequired()])
 
+class EditProfileForm(Form):
+    first_name = StringField(name="first_name", label="Nové křestní jméno",validators=[validators.InputRequired(), validators.length(min=1, max=20)])
+    last_name = StringField(name="last_name", label="Nové příjmení",validators=[validators.InputRequired(), validators.length(min=1, max=20)])
+    email = EmailField(name="email", label='Nový e-mail', validators=[validators.InputRequired(), validators.Length(min=3, max=40), validators.Email()])
+    password = PasswordField(name='password', label='Nové heslo', validators=[validators.Length(min=3), validators.InputRequired()])
+
+    img = FileField(name="img", label='Profilový obrázek', validators=[validators.InputRequired(),
+        FileAllowed(['jpg', 'png'], 'Images only!')])
 class BikeForm(Form):
     def __init__(self, data, brands, editing=False):
         super(BikeForm, self).__init__(data)

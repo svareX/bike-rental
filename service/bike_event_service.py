@@ -40,7 +40,7 @@ class BikeEventService():
     @staticmethod
     def check_rents():
         db = get_db()
-        sql = 'UPDATE bike_events SET status = 2 WHERE date_to < CURRENT_DATE AND type = 1 AND status = 1'
+        sql = 'UPDATE bike_events SET status = 2 WHERE date_to < CURRENT_DATE AND (type = 1 OR type = 2) AND status = 1'
         db.execute(sql)
         db.commit()
 

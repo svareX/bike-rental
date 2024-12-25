@@ -1,52 +1,56 @@
 {% extends '__main.jinja' %}
 
 {% block content %}
-        <div class="main profile-box">
-            <div class="box dashboard ">
-                <div class="profile">
-                    <div class="profile-img">
-                        <img src="https://placehold.co/400x400" alt="Profilový obrázek">
+    <div class="main profile-box">
+        <div class="box dashboard ">
+            <div class="profile">
+                <div class="profile-img">
+                    <img src="{{ url_for('static', filename='img/' + user.avatar) }}"
+                         alt="{{ user.first_name, " ", user.last_name }}" class="bike-img">
+                </div>
+                <div class="profile-info">
+                    <h2>Informace o uživateli</h2>
+                    {% if user.id == session['user_id'] %}
+                        <a href="{{ url_for('edit_profile.page', user_id=user.id) }}">Změnit údaje profilu</a>
+                    {% endif %}
+                    <div class="profile-info-div">
+                        <p class="profile-info-item">
+                            <span>Jméno: </span>
+                            {{ user.first_name }} {{ user.last_name }}
+                        </p>
+                        <p class="profile-info-item">
+                            <span>Role: </span>
+                            {% if user.role == 0 %}
+                                Uživatel
+                            {% else %}
+                                Správce
+                            {% endif %}
+                        </p>
+                        <p class="profile-info-item">
+                            <span>Email: </span>
+                            <span class="italic">{{ user.email }}</span>
+                        </p>
                     </div>
-                    <div class="profile-info">
-                        <h2>Informace o uživateli</h2>
+                    {% if user.id == session['user_id'] or session['role'] == 1 %}
+                        <h2>Statistiky</h2>
                         <div class="profile-info-div">
                             <p class="profile-info-item">
-                                <span>Jméno: </span>
-                                {{ user.first_name }} {{ user.last_name }}
+                                <span>Počet vypůjčených kol: </span>
+                                {{ getReliability(user.id)[0] }}
                             </p>
                             <p class="profile-info-item">
-                                <span>Role: </span>
-                                {% if user.role == 0 %}
-                                    Uživatel
-                                {% else %}
-                                    Správce
-                                {% endif %}
+                                <span>Počet v pořádku vrácených kol: </span>
+                                {{ getReliability(user.id)[1] }}
                             </p>
                             <p class="profile-info-item">
-                                <span>Email: </span>
-                                <span class="italic">{{ user.email }}</span>
-                            </p>                            
-                        </div>
-                        {% if user.id == session['user_id'] or session['role'] == 1  %}
-                            <h2>Statistiky</h2>
-                            <div class="profile-info-div">
-                                <p class="profile-info-item">
-                                    <span>Počet vypůjčených kol: </span>
-                                    {{ '1' }}
-                                </p>
-                                <p class="profile-info-item">
-                                    <span>Počet v pořádku vrácených kol: </span>
-                                    {{ '1' }}
-                                </p>
-                                <p class="profile-info-item">
                                 {## 0 / 0 => specialni case => Spolehlivost: 'XX'  ##}
-                                    <span>Spolehlivost: </span>
-                                    {{ '100 %' }}
-                                </p>
-                            </div>
-                        {% endif %}
-                    </div>
+                                <span>Spolehlivost: </span>
+                                {{ getReliability(user.id)[2] }}%
+                            </p>
+                        </div>
+                    {% endif %}
                 </div>
+            </div>
             {% if bikes %}
                 <h2>Historie vypůjčených kol</h2>
                 <table style="width:100%;text-align:center" border="1px">
@@ -57,12 +61,12 @@
                         <th>Datum do</th>
                     </tr>
                     {% for bike in bikes %}
-                    <tr>
-                        <td>{{ bike.bike_name }}</td>
-                        <td>{{ bike.brand_name }}</td>
-                        <td>{{ bike.date_from }}</td>
-                        <td>{{ bike.date_to }}</td>
-                    </tr>
+                        <tr>
+                            <td>{{ bike.bike_name }}</td>
+                            <td>{{ bike.brand_name }}</td>
+                            <td>{{ bike.date_from }}</td>
+                            <td>{{ bike.date_to }}</td>
+                        </tr>
                     {% endfor %}
                 </table>
             {% else %}
@@ -72,6 +76,6 @@
                     <h2>Uživatel si nemůže vypůjčovat kola.</h2>
                 {% endif %}
             {% endif %}
-            </div>
         </div>
-{% endblock%}
+    </div>
+{% endblock %}
