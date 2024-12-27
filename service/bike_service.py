@@ -62,7 +62,7 @@ class BikeService():
         db.commit()
 
     @staticmethod
-    def checkState(bike_id):
+    def getStatus(bike_id):
         db = get_db()
         sql = '''
             SELECT status 

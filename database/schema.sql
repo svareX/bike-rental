@@ -39,6 +39,8 @@ CREATE TABLE bike_events (
     type INTEGER NOT NULL,
     date_from DATETIME NOT NULL,
     date_to DATETIME NOT NULL,
+    total_price INTEGER NOT NULL,
+    payment_method INTEGER NOT NULL, -- Platba na místě: 1 | Platba kartou online: 2
     status INTEGER,
     description VARCHAR,
     FOREIGN KEY (user_id) REFERENCES users(id),
@@ -58,6 +60,6 @@ INSERT INTO bikes(name, brand_id, type, price_per_day, img) VALUES ('Bike#1', 2,
 INSERT INTO bikes(name, brand_id, type, price_per_day, img) VALUES ('Bike#2', 3, 1, 210, 'bike_placeholder.png');
 INSERT INTO bikes(name, brand_id, type, price_per_day, img) VALUES ('Bike#3', 1, 1, 100, 'bike_placeholder.png');
 
-INSERT INTO bike_events(user_id, bike_id, type, date_from, date_to, status) VALUES (1,1,1,'2024-12-8', '2024-12-11', 1);
-INSERT INTO bike_events(user_id, bike_id, type, date_from, date_to, status) VALUES (1,2,1,'2024-12-9', '2024-12-16', 1);
-INSERT INTO bike_events(user_id, bike_id, type, date_from, date_to, status) VALUES (1,3,2,'2024-12-01', '2024-12-03', 1);
+INSERT INTO bike_events(user_id, bike_id, type, date_from, date_to, total_price, payment_method, status) VALUES (1,1,1,'2024-12-8', '2024-12-11', 185*4, 1, 1);
+INSERT INTO bike_events(user_id, bike_id, type, date_from, date_to, total_price, payment_method, status) VALUES (1,2,1,'2024-12-9', '2024-12-16', 210*8, 2, 1);
+INSERT INTO bike_events(user_id, bike_id, type, date_from, date_to, total_price, payment_method, status) VALUES (1,3,2,'2024-12-01', '2024-12-03',100*3, 2, 1);

@@ -19,6 +19,13 @@
                 {{ form_submit('Změnit') }}
             </form>
             <hr>
+            <h2>Změna hesla</h2>
+            <form method="post">
+                {{ form_field(form.prev_password) }}
+                {{ form_field(form.curr_password) }}
+                {{ form_submit('Změnit') }}
+            </form>
+            <hr>
             <h2>Změna profilového obrázku</h2>
             <form method="post" enctype="multipart/form-data">
                 {{ form_field(form.img) }}

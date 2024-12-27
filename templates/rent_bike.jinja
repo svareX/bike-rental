@@ -13,60 +13,86 @@
                 {{ form_field(form.rent_datetime_to) }}
                 <div>
                     <p><strong>Dny pronájmu:</strong> <span id="rental_days">0</span></p>
+                    <p><strong>Celková cena:</strong> <span id="total_price" style="display: none;">0</span> Kč</p>
                 </div>
+                {{ form_field(form.payment_method) }}
                 {{ form_submit('Potvrdit zápůjčku') }}
             </form>
         </div>
     </div>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const fromDateInput = document.querySelector('input[name="{{ form.rent_datetime_from.name }}"]');
         const toDateInput = document.querySelector('input[name="{{ form.rent_datetime_to.name }}"]');
         const rentalDaysSpan = document.getElementById('rental_days');
+        const totalPriceSpan = document.getElementById('total_price');
+        const pricePerDay = {{ bike.price_per_day }};
+        const form = document.querySelector('form');
 
-        if (!fromDateInput || !toDateInput || !rentalDaysSpan) {
+        if (!fromDateInput || !toDateInput || !rentalDaysSpan || !totalPriceSpan) {
             return;
         }
 
-        function calculateRentalDays() {
+        function calculateRentalDetails() {
             if (fromDateInput.value && toDateInput.value) {
                 const fromDate = new Date(fromDateInput.value);
                 const toDate = new Date(toDateInput.value);
 
                 // Calculate difference in milliseconds and convert to days
-                const diffTime = Math.abs(toDate - fromDate);
-                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
+                const diffTime = toDate - fromDate;
+                const diffDays = diffTime >= 0 ? Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1 : 0;
 
                 // Update rental days display
                 rentalDaysSpan.textContent = diffDays;
+
+                // Update total price display
+                if (diffDays > 0) {
+                    const totalPrice = diffDays * pricePerDay;
+                    totalPriceSpan.textContent = totalPrice.toLocaleString();
+                    totalPriceSpan.style.display = 'inline';
+
+                    // Update or create hidden input for total price
+                    let priceInput = document.querySelector('input[name="calculated_price"]');
+                    if (!priceInput) {
+                        priceInput = document.createElement('input');
+                        priceInput.type = 'hidden';
+                        priceInput.name = 'calculated_price';
+                        form.appendChild(priceInput);
+                    }
+                    priceInput.value = totalPrice;
+                } else {
+                    totalPriceSpan.style.display = 'none';
+                    const priceInput = document.querySelector('input[name="calculated_price"]');
+                    if (priceInput) {
+                        priceInput.remove();
+                    }
+                }
+            } else {
+                // Reset total price if no valid dates
+                rentalDaysSpan.textContent = 0;
+                totalPriceSpan.style.display = 'none';
+                const priceInput = document.querySelector('input[name="calculated_price"]');
+                if (priceInput) {
+                    priceInput.remove();
+                }
             }
         }
 
-        // Set max date for fromDateInput when toDateInput changes
-        toDateInput.addEventListener('change', function() {
-            if (this.value) {
-                fromDateInput.setAttribute('max', this.value);
-            } else {
-                fromDateInput.removeAttribute('max');
-            }
-        });
-
-        // Set min date for toDateInput when fromDateInput changes
-        fromDateInput.addEventListener('change', function() {
-            if (this.value) {
-                toDateInput.setAttribute('min', this.value);
-
-                // Recalculate days if both dates are selected
-                if (toDateInput.value) {
-                    calculateRentalDays();
-                }
+        function setToDateMin() {
+            if (fromDateInput.value) {
+                toDateInput.setAttribute('min', fromDateInput.value);
             } else {
                 toDateInput.removeAttribute('min');
             }
+        }
+
+        // Add event listeners for date inputs
+        fromDateInput.addEventListener('change', function () {
+            setToDateMin();
+            calculateRentalDetails();
         });
 
-        // Add event listener to calculate days when both dates are selected
-        toDateInput.addEventListener('change', calculateRentalDays);
+        toDateInput.addEventListener('change', calculateRentalDetails);
     });
-    </script>
+</script>
 {% endblock %}

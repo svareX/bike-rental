@@ -2,6 +2,7 @@ import os
 
 from flask import Blueprint, request, flash, session, redirect, url_for, render_template
 
+import auth
 import forms
 from service.bike_service import BikeService
 from service.user_service import UserService
@@ -9,6 +10,8 @@ from service.user_service import UserService
 delete_bike = Blueprint('delete_bike', __name__)
 
 @delete_bike.route('/delete_bike/<bike_id>', methods=["GET", "POST"])
+@auth.login_required
+@auth.employees_only
 def page(bike_id):
     from app import app
     bike = BikeService.getByID(bike_id)

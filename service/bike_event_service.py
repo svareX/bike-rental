@@ -7,10 +7,10 @@ from service.brand_service import BrandService
 class BikeEventService():
 
     @staticmethod
-    def rent(user_id, bike_id, date_from, date_to):
+    def rent(user_id, bike_id, date_from, date_to, total_price, payment_method):
         db = get_db()
-        bike_event = 'INSERT INTO bike_events(user_id, bike_id, type, date_from, date_to, status) VALUES(?, ?, 1, ?, ?, 1)'
-        arguments = [user_id, bike_id, date_from, date_to]
+        bike_event = 'INSERT INTO bike_events(user_id, bike_id, type, date_from, date_to, total_price, payment_method, status) VALUES(?, ?, 1, ?, ?, ?, ?, 1)'
+        arguments = [user_id, bike_id, date_from, date_to, total_price, payment_method]
         db.execute(bike_event, arguments).fetchone()
         db.commit()
     @staticmethod

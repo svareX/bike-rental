@@ -3,6 +3,7 @@ import secrets
 
 from flask import Blueprint, request, flash, session, redirect, url_for, render_template
 
+import auth
 import forms
 from service.bike_service import BikeService
 from service.brand_service import BrandService
@@ -10,6 +11,8 @@ from service.brand_service import BrandService
 edit_bike = Blueprint('edit_bike', __name__)
 
 @edit_bike.route("/edit_bike/<bike_id>", methods=["GET", "POST"])
+@auth.login_required
+@auth.employees_only
 def page(bike_id):
     from app import app
     response = None

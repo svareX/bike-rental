@@ -64,7 +64,7 @@ def view_dashboard_page():
     else:
         bikes = BikeService.getAll()
 
-    return render_template("dashboard.jinja", bikes=bikes, is_rented=BikeService.checkState, getRentDate=BikeEventService.getRentDatesByID, brands=brands, selected_brand=brand_id, search_query=search_query)
+    return render_template("dashboard.jinja", bikes=bikes, is_rented=BikeService.getStatus, getRentDate=BikeEventService.getRentDatesByID, brands=brands, selected_brand=brand_id, search_query=search_query)
 
 
 @app.route('/profile/<user_id>')

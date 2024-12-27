@@ -4,7 +4,7 @@ from database.database import get_db
 import config
 
 class UserService():
-  
+
     @staticmethod
     def verify(email, password):
         db = get_db()
@@ -67,17 +67,16 @@ class UserService():
         return all_bikes, good_condition_bikes, reliability
 
     @staticmethod
-    def changeName(user_id, new_first_name, new_last_name):
+    def changeName(user_id, first_name, last_name):
         db = get_db()
         sql = '''
         UPDATE users SET first_name=?, last_name=? WHERE id=?
         '''
-        db.execute(sql, [new_first_name, new_last_name, user_id])
+        db.execute(sql, [first_name.strip(), last_name.strip(), user_id])
         db.commit()
     @staticmethod
     def changeEmail(user_id, email):
         db = get_db()
-
         sql = '''
         SELECT email FROM users WHERE email=?
         '''
@@ -87,6 +86,26 @@ class UserService():
             UPDATE users SET email=? WHERE id=?
             '''
             db.execute(sql, [email, user_id])
+            db.commit()
+            return True
+        else:
+            return False
+
+    @staticmethod
+    def changePassword(user_id, prev_pass, curr_pass):
+        db = get_db()
+        hashed_prev_password = hashlib.sha256(f'{prev_pass}{config.PASSWORD_SALT}'.encode()).hexdigest()
+
+        sql = '''
+        SELECT password FROM users WHERE id=? AND password=?
+        '''
+        user = db.execute(sql, [user_id, hashed_prev_password]).fetchone()
+        if user:
+            hashed_curr_password = hashlib.sha256(f'{curr_pass}{config.PASSWORD_SALT}'.encode()).hexdigest()
+            sql = '''
+            UPDATE users SET password=? WHERE id=?
+            '''
+            db.execute(sql, [hashed_curr_password, user_id])
             db.commit()
             return True
         else:
