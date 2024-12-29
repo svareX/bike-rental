@@ -3,6 +3,7 @@
     --accent: #9D32C7;
     --accent-2: #EC2F4B;
     --text: #5c0e61;
+    --text-2: #731422;
     --text-hover: var(--accent);
     --text-active: #FFFFFF;
     --border-width: 0.125em;
@@ -617,7 +618,7 @@ input[class="submit-button"] {
     margin-left: 5vw;
 }
 
-.filter select, .filter button{
+.filter select{
     width: 10vw;
     margin-left: 10vw;
     text-align-last: center;
@@ -698,8 +699,8 @@ input[class="submit-button"] {
 .custom-select {
     margin-right: 2vw;
     display: flex;
+    flex-direction: row;
     justify-content: end;
-    min-width: 350px;
   }
   
   .custom-select select, .custom-select input, .custom-submit {
@@ -720,6 +721,9 @@ input[class="submit-button"] {
   }
 
   .custom-submit {
+    width: 10vw;
+    margin-left: 2vw;
+    text-align-last: center;
     padding: 0.675em 1em;
     transition: all 0.2s ease-out;
   }
@@ -737,4 +741,28 @@ input[class="submit-button"] {
   .custom-option:hover {
     background-color: var(--accent);
     box-shadow: 0 0 10px 100px var(--accent) inset;
+}
+
+  .reset {
+    display: flex;
+    justify-content: center;
+    width: 3vw;
+    height: 2.25vw;
+    text-align: center;
+    background-color: #fff;
+    border: 0.3em solid var(--accent-2);
+    border-radius: 10rem;
+    color: #000;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+  }
+
+  .reset:hover {
+    background-color: var(--accent-2);
+    color: var(--accent-2)
+  }
+
+  .reset:active {
+    background-color: var(--text-2);
+    border: 0.3em solid var(--text-2);  
 }

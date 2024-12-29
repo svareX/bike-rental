@@ -39,23 +39,29 @@
 
                         <div class="custom-select">
                             <div class="hidden-toggles">
-                                <input type="radio" id="rented" name="rent_status" value="rented" {% if select_rent_status == "rented" %}checked{% endif %}class="hidden-toggles__input">
+                                <input type="radio" id="rented" name="rent_status" value="rented" {% if rent_status == "rented" %}checked{% endif %} class="hidden-toggles__input">
                                 <label for="rented" class="hidden-toggles__label">Pronajatá</label>
 
-                                <input type="radio" id="all" name="rent_status" value="all" {% if select_rent_status == "all" or select_rent_status == null %}checked{% endif %} class="hidden-toggles__input">
+                                <input type="radio" id="all" name="rent_status" value="all" {% if rent_status == "all" or rent_status == null %}checked{% endif %} class="hidden-toggles__input">
                                 <label for="all" class="hidden-toggles__label">Všechna</label>
 
-                                <input type="radio" id="free" name="rent_status" value="free" {% if select_rent_status == "free" %}checked{% endif %} class="hidden-toggles__input">
+                                <input type="radio" id="free" name="rent_status" value="free" {% if rent_status == "free" %}checked{% endif %} class="hidden-toggles__input">
                                 <label for="free" class="hidden-toggles__label">Dostupná</label>                            
                             </div>
                         </div>
                         
-                        <button type="submit" class="custom-submit">Hledat</button>
-                        {% if selected_brand or search_query %}
-                            <a href="{{ url_for('view_dashboard_page') }}">
-                                <button type="button">Resetovat filtry</button>
-                            </a>
-                        {% endif %}
+                        <div class="custom-select">
+                            {% if selected_brand or search_query %}
+                                <div>
+                                    <a href="{{ url_for('view_dashboard_page') }}">
+                                        <button type="button" class="reset">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
+                                        </button>
+                                    </a>
+                                </div>                            
+                            {% endif %}
+                            <button type="submit" class="custom-submit">Hledat</button>
+                        </div>
                     </form>
                 </div>
             </div>
