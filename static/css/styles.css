@@ -1,11 +1,19 @@
 /* --- General styles --- */
+:root {
+    --accent: #9D32C7;
+    --accent-2: #EC2F4B;
+    --text: #5c0e61;
+    --text-hover: var(--accent);
+    --text-active: #FFFFFF;
+    --border-width: 0.125em;
+}
 
 * {
     box-sizing: border-box;
 }
 
 a {
-    color: #9D32C7;
+    color: var(--accent);
     text-decoration: none;
 }
 
@@ -484,6 +492,18 @@ footer {
     border-radius: 8px;
     box-shadow: rgba(0, 0, 0, 0.12) 10px 10px 10px;
     padding: 1em 1em 1em 1em;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+}
+
+.bike:hover, .bike:focus, .bike:active {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+    cursor: pointer;
 }
 
 .bike-header {
@@ -502,6 +522,26 @@ footer {
     display: flex;
     justify-content: space-between;
     margin: 2em 2em 1em 2em;
+}
+
+.auth-box {
+    margin: auto;
+    width: 35vw;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.auth-link {
+    margin: 2em 0 1em 0;
+}
+
+input[class="submit-button"] {
+    padding-top: 4em;    
+}
+
+.auth-submit {
+    margin-top: 1.5em;
 }
 
 .profile-box {
@@ -554,4 +594,147 @@ footer {
 
 .italic {
     font-style: italic;
+}
+
+.flex {
+    display: flex;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.filter {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    margin: 2.5em 1em 1em 0;
+    text-align: center;
+}
+
+.filter input[type="text"] {
+    width: 15vw;
+    margin-left: 5vw;
+}
+
+.filter select, .filter button{
+    width: 10vw;
+    margin-left: 10vw;
+    text-align-last: center;
+}
+
+/** --- Dashboard bike status filter --- **/
+.hidden-toggles {
+    position: relative;
+    margin-left: 5vw;
+    border-radius: 999em;
+    overflow: hidden;
+
+    height: 2.75em;
+    width: 15vw; /* Adjusted for three elements */
+
+    display: flex;
+    flex-direction: row-reverse;
+
+    > * {
+        flex: 0 0 33.33%; /* Divides into 3 equal parts */
+    }
+
+    &:after {
+        content: "";
+
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        border: var(--border-width) solid var(--accent);
+        border-radius: 999em;
+        pointer-events: none;
+    }
+}
+
+.hidden-toggles__input {
+    display: none;
+
+    &:checked + .hidden-toggles__label {
+        background-color: var(--accent);
+        color: var(--text-active);
+
+        &:before {
+            opacity: 1;
+        }
+    }
+
+    &:nth-of-type(1) + label { order: 3; }
+    &:nth-of-type(2) + label { order: 2; }
+    &:nth-of-type(3) + label { order: 1; }
+
+}
+
+.hidden-toggles__label {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+    color: var(--text);
+
+    &:hover {
+        color: var(--text-hover);
+    }
+
+    &:nth-of-type(2) {
+        border-left: var(--border-width) solid var(--accent);
+        border-right: var(--border-width) solid var(--accent);
+    }
+
+}
+
+/** --- Dashoard bike brand filter --- **/
+.custom-select {
+    margin-right: 2vw;
+    display: flex;
+    justify-content: end;
+    min-width: 350px;
+  }
+  
+  .custom-select select, .custom-select input, .custom-submit {
+    text-align: center;
+    width: 15vw;
+    margin-left: 5vw;
+    font-size: 1rem;
+    padding: 0.675em 6em 0.675em 1em;
+    background-color: #fff;
+    border: var(--border-width) solid var(--accent);
+    border-radius: 999em;
+    color: #000;
+    cursor: pointer;
+  }
+
+  .custom-select input {
+    padding: 0.675em 1em;
+  }
+
+  .custom-submit {
+    padding: 0.675em 1em;
+    transition: all 0.2s ease-out;
+  }
+
+  .custom-submit:hover {
+    background-color: var(--accent);
+    color: var(--text-active);
+  }
+
+  .custom-submit:active {
+    background-color: var(--text);
+    border: var(--border-width) solid var(--text);
+  }
+
+  .custom-option:hover {
+    background-color: var(--accent);
+    box-shadow: 0 0 10px 100px var(--accent) inset;
 }

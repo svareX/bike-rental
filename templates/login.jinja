@@ -2,15 +2,15 @@
 {% from 'macros/form.jinja' import form_field, form_inline_field, form_submit with context %}
 
 {% block content %}
-<div class="main">
+<div class="main auth-box">
     <div class="box dashboard">
         <h2>Přihlášení</h2>
-        <form method="POST">
-            {{ form_field(form.email, class="bg-red") }}
+        <form method="POST" class="auth-form">
+            {{ form_field(form.email, class_="bg-red") }}
             {{ form_field(form.password) }}
             {{ form_submit("Přihlásit se") }}
         </form>
-        <p>
+        <p class="auth-link">
             Ještě nejste zaregistrovaní?
             <a href="{{ url_for('register.page') }}">Zaregistrovat se</a>
         </p>

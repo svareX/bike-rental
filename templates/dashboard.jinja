@@ -3,54 +3,75 @@
 {% block content %}
     <div class="main">
         <div class="box dashboard">
-            <h2>Přehled</h2>
-            <p>
-                Vítejte v půjčovně kol. <br>
-                {% if session['authenticated'] %}
-                Aktuálně jste přihlášen jako: {{ session['email'] }}
-                {% else %}
-                Aktuálně nejste přihlášen.
-                {% endif %}
-            </p>
-            <div class="filter">
-                <form method="GET" action="{{ url_for('view_dashboard_page') }}"
-                      onsubmit="return cleanEmptyParams(this)">
-                    <label for="brand">Filtr podle značky:</label>
-                    <select name="brand_id" id="brand">
-                        <option value="" {% if not selected_brand %}selected{% endif %}>Všechny značky</option>
-                        {% for brand in brands %}
-                            <option value="{{ brand.id }}"
-                                    {% if selected_brand == brand.id|string %}selected{% endif %}>
-                                {{ brand.name }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                    <br>
-                    <label for="search">Vyhledat:</label>
-                    <input
-                            type="text"
-                            name="search"
-                            id="search"
-                            placeholder="Název kola"
-                            value="{{ search_query or '' }}"
-                    />
-                    <br>
-                    <button type="submit">Hledat</button>
-                    {% if selected_brand or search_query %}
-                        <a href="{{ url_for('view_dashboard_page') }}">
-                            <button type="button">Resetovat filtry</button>
-                        </a>
-                    {% endif %}
-                </form>
+            <div class="flex space-between">
+                <div>
+                    <h2>Vítejte</h2>
+                    <p>
+                        Vítejte v nejspolehlivější půjčovně kol na českém trhu! <br>
+                        V naší nabídce naleznete široký výběr kol od nejlepších výrobců. <br>
+                        Vyberte si to své a vyrazte na cestu! <br>
+                        <i>Jednička na českém trhu již 14 let.</i>
+                    </p>
+                </div>
+                <div>
+                    <form method="GET" action="{{ url_for('view_dashboard_page') }}"
+                          onsubmit="return cleanEmptyParams(this)" class="filter">
+                                                
+                        <div class="custom-select">
+                            <input type="text"
+                                name="search"
+                                id="search"
+                                placeholder="Název kola"
+                                value="{{ search_query or '' }}"/>
+                        </div>
+                        
+                        <div class="custom-select">
+                            <select name="brand_id" id="brand">
+                                <option value="" {% if not selected_brand %}selected{% endif %}>Všechny značky</option>
+                                {% for brand in brands %}
+                                    <option value="{{ brand.id }}"
+                                            {% if selected_brand == brand.id|string %}selected{% endif %} class="custom-option">
+                                        {{ brand.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="custom-select">
+                            <div class="hidden-toggles">
+                                <input type="radio" id="rented" name="rent_status" value="rented" {% if select_rent_status == "rented" %}checked{% endif %}class="hidden-toggles__input">
+                                <label for="rented" class="hidden-toggles__label">Pronajatá</label>
+
+                                <input type="radio" id="all" name="rent_status" value="all" {% if select_rent_status == "all" or select_rent_status == null %}checked{% endif %} class="hidden-toggles__input">
+                                <label for="all" class="hidden-toggles__label">Všechna</label>
+
+                                <input type="radio" id="free" name="rent_status" value="free" {% if select_rent_status == "free" %}checked{% endif %} class="hidden-toggles__input">
+                                <label for="free" class="hidden-toggles__label">Dostupná</label>                            
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="custom-submit">Hledat</button>
+                        {% if selected_brand or search_query %}
+                            <a href="{{ url_for('view_dashboard_page') }}">
+                                <button type="button">Resetovat filtry</button>
+                            </a>
+                        {% endif %}
+                    </form>
+                </div>
             </div>
-            <hr>
-            {% if session['role'] == 1 %}
-            <a href={{ url_for("add_bike.page") }}>Přidat kolo</a>
-            {% endif %}
+
+            <div>
+                <hr>
+                {% if session['role'] == 1 %}
+                <a href={{ url_for("add_bike.page") }}>Přidat kolo</a>
+                {% endif %}
+            </div>
+
             <div class="grid">
                 {% if bikes %}
                     {% for bike in bikes %}
-                        <div class="bike">
+                        <div class="bike" onclick="window.location.href='{{ url_for('rent_bike.page', user_id=session['user_id']|e, bike_id=bike.id|e) }}'">
+
                             <p class="bike-header">
                                 <span>
                                     {{ bike.brand_name }}
@@ -85,6 +106,7 @@
             </div>
         </div>
     </div>
+
     <script>
         function cleanEmptyParams(form) {
             const searchInput = form.querySelector('input[name="search"]');

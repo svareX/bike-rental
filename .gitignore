@@ -19,3 +19,12 @@ views/bike_management/__pycache__/edit_bike.cpython-312.pyc
 views/bike_management/__pycache__/list_bike.cpython-312.pyc
 views/bike_management/__pycache__/manage_bike.cpython-312.pyc
 *.pyc
+service/__pycache__/user_service.cpython-312.pyc
+service/__pycache__/bike_service.cpython-312.pyc
+database/db.sqlite
+database/__pycache__/database.cpython-312.pyc
+__pycache__/forms.cpython-312.pyc
+__pycache__/config.cpython-312.pyc
+database/db.sqlite
+*.pyc
+*.sqlite
