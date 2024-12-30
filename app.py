@@ -52,19 +52,20 @@ def before_request():
 def view_dashboard_page():
     brand_id = request.args.get('brand_id', None)
     search_query = request.args.get('search', None)
+    rent_status = request.args.get('rent_status', 'all')
     brands = BrandService.getAll()
+    bikes = BikeService.getBikesFiltered(brand_id, search_query, rent_status)
 
-    if brand_id and brand_id.isdigit():
-        if search_query:
-            bikes = BikeService.getByBrandAndSearch(brand_id, search_query)
-        else:
-            bikes = BikeService.getByBrand(brand_id)
-    elif search_query:
-        bikes = BikeService.getBySearch(search_query)
-    else:
-        bikes = BikeService.getAll()
-
-    return render_template("dashboard.jinja", bikes=bikes, is_rented=BikeService.getStatus, getRentDate=BikeEventService.getRentDatesByID, brands=brands, selected_brand=brand_id, search_query=search_query)
+    return render_template(
+        "dashboard.jinja",
+        bikes=bikes,
+        is_rented=BikeService.getStatus,
+        getRentDate=BikeEventService.getRentDatesByID,
+        brands=brands,
+        selected_brand=brand_id,
+        search_query=search_query,
+        rent_status = rent_status
+    )
 
 
 @app.route('/profile/<user_id>')

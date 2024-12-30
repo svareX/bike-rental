@@ -29,14 +29,18 @@ class UserService():
         user = db.execute(check_user_sql, [email]).fetchone()
 
         if user:
-            return user
+            return None
 
         insert_user_sql = """
-        INSERT INTO users (first_name, last_name, email, password, role, created_at, updated_at)
-        VALUES (?, ?, ?, ?, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+        INSERT INTO users (first_name, last_name, email, password, role, avatar, created_at, updated_at)
+        VALUES (?, ?, ?, ?, 0, 'person.png', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
         """
         db.execute(insert_user_sql, [first_name, last_name, email, hashed_password])
         db.commit()
+
+        new_user_sql = "SELECT * FROM users WHERE email = ?"
+        new_user = db.execute(new_user_sql, [email]).fetchone()
+        return new_user
 
     @staticmethod
     def getByID(user_id):

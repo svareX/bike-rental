@@ -8,11 +8,11 @@ from service.user_service import UserService
 
 rent_bike = Blueprint('rent_bike', __name__)
 
-@rent_bike.route('/rent_bike/<user_id>/<bike_id>', methods=["GET", "POST"])
+@rent_bike.route('/rent_bike/<bike_id>', methods=["GET", "POST"])
 @auth.login_required
-@auth.user_permission_required
-def page(user_id, bike_id):
-    user = UserService.getByID(user_id)
+#@auth.user_permission_required
+def page(bike_id):
+    user = UserService.getByID(session['user_id'])
     bike = BikeService.getByID(bike_id)
     if BikeService.getStatus(bike['id']) != 0:
         flash('Kolo je aktuálně zapůjčené nebo čeká na vyřízení, počkejte prosím.', 'info')
@@ -24,7 +24,7 @@ def page(user_id, bike_id):
         price = request.form.get('calculated_price')
         if not price or int(price) <= 0:
             flash('Chyba při výpočtu ceny zápůjčky. Zkuste to znovu.', 'error')
-            return redirect(url_for('rent_bike.page', user_id=user_id, bike_id=bike_id))
+            return redirect(url_for('rent_bike.page', bike_id=bike_id))
 
 
         BikeEventService.rent(user['id'],bike['id'],request.form['rent_date_from'],request.form['rent_date_to'], price, payment_method)

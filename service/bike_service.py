@@ -68,8 +68,8 @@ class BikeService():
             SELECT status 
             FROM bike_events 
             WHERE bike_id = ? 
-              AND type = 1 
-              AND (status = 1 OR status = 2) -- Include rented or in processing
+              AND (type = 1 OR type = 2) -- Group type conditions
+              AND (status = 1 OR status = 2) -- Group status conditions
             ORDER BY date_to DESC 
             LIMIT 1
         '''
@@ -109,4 +109,39 @@ class BikeService():
             WHERE b.name LIKE ?
         '''
         bikes = db.execute(sql, [f"%{search_query}%"]).fetchall()
+        return bikes
+
+    @staticmethod
+    def getBikesFiltered(brand_id=None, search_query=None, rent_status=None):
+        db = get_db()
+
+        query = '''
+        SELECT bikes.*, brands.name AS brand_name
+        FROM bikes
+        LEFT JOIN bike_events ON bikes.id = bike_events.bike_id
+        LEFT JOIN brands ON bikes.brand_id = brands.id
+        WHERE 1=1
+        '''
+        params = []
+
+        # Add filters dynamically
+        if brand_id and brand_id.isdigit():
+            query += " AND bikes.brand_id = ?"
+            params.append(brand_id)
+
+        if search_query:
+            query += " AND bikes.name LIKE ?"
+            params.append(f"%{search_query}%")
+
+        if rent_status == "free":
+            query += """
+            AND (bike_events.id IS NULL OR bike_events.status = 3)
+            """
+        elif rent_status == "rented":
+            query += """
+            AND (bike_events.status = 1 OR bike_events.status = 2)
+            """
+
+        # Execute the query
+        bikes = db.execute(query, params).fetchall()
         return bikes

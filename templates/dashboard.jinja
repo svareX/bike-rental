@@ -59,7 +59,7 @@
                         </div>
                         
                         <div class="custom-select">
-                            {% if selected_brand or search_query %}
+                            {% if selected_brand or search_query or rent_status in ['free', 'rented'] %}
                                 <div>
                                     <a href="{{ url_for('view_dashboard_page') }}">
                                         <button type="button" class="reset">
@@ -84,8 +84,7 @@
             <div class="grid">
                 {% if bikes %}
                     {% for bike in bikes %}
-                        <div class="bike" onclick="window.location.href='{{ url_for('rent_bike.page', user_id=session['user_id']|e, bike_id=bike.id|e) }}'">
-
+                        <div class="bike" onclick="window.location.href='{{ url_for('rent_bike.page', bike_id=bike.id|e) }}'">
                             <p class="bike-header">
                                 <span>
                                     {{ bike.brand_name }}
@@ -102,20 +101,22 @@
                                 </a>
                                 <a href="{{ url_for('delete_bike.page', bike_id=bike.id) }}">
                                     <button>Smazat</button>
-                                </a>
+                                </a>er
                             {% elif session['role'] == 0 %}
-                                {% if is_rented(bike.id) == 0 or is_rented(bike.id) == 3 %}
-                                    <a href="{{ url_for('rent_bike.page', user_id=session['user_id'], bike_id=bike.id) }}">
+                                {% if is_rented(bike.id) == 3 %}
+                                    <a href="{{ url_for('rent_bike.page', bike_id=bike.id) }}">
                                         <button>Vypůjčit si</button>
                                     </a>
                                 {% elif is_rented(bike.id) == 1 %}
                                     <b>Kolo je již zapůjčeno do: {{ getRentDate(bike.id).date_to }}</b>
-                                {% else %}
+                                {% elif is_rented(bike.id) == 2 %}
                                     <b>Kolo se vyřizuje zaměstnanci.</b>
                                 {% endif %}
                             {% endif %}
                         </div>
                     {% endfor %}
+                    {% else %}
+                    <p>Žádná kola nebyla nalezena.</p>
                 {% endif %}
             </div>
         </div>
