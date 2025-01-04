@@ -116,9 +116,17 @@ class BikeService():
         db = get_db()
 
         query = '''
-        SELECT bikes.*, brands.name AS brand_name
+        SELECT DISTINCT bikes.*, brands.name AS brand_name
         FROM bikes
-        LEFT JOIN bike_events ON bikes.id = bike_events.bike_id
+        LEFT JOIN (
+            SELECT bike_id, status
+            FROM bike_events
+            WHERE date_to = (
+                SELECT MAX(date_to)
+                FROM bike_events AS sub
+                WHERE sub.bike_id = bike_events.bike_id
+            )
+        ) AS latest_event ON bikes.id = latest_event.bike_id
         LEFT JOIN brands ON bikes.brand_id = brands.id
         WHERE 1=1
         '''
@@ -134,13 +142,11 @@ class BikeService():
             params.append(f"%{search_query}%")
 
         if rent_status == "free":
-            query += """
-            AND (bike_events.id IS NULL OR bike_events.status = 3)
-            """
+            # Free bikes: No latest event, or latest event status = 3 (returned)
+            query += " AND (latest_event.bike_id IS NULL OR latest_event.status = 3)"
         elif rent_status == "rented":
-            query += """
-            AND (bike_events.status = 1 OR bike_events.status = 2)
-            """
+            # Rented bikes: Latest event status = 1 (rented) or 2 (managed)
+            query += " AND latest_event.status IN (1, 2)"
 
         # Execute the query
         bikes = db.execute(query, params).fetchall()

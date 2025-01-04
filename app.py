@@ -23,6 +23,7 @@ from views.bike_management.list_manage_bike import list_manage_bike
 from views.bike_management.list_service_bike import list_service_bike
 from views.bike_management.manage_bike import manage_bike
 from views.bike_management.rent_bike import rent_bike
+from views.statistics import statistics
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -44,6 +45,7 @@ app.register_blueprint(list_service_bike)
 app.register_blueprint(manage_bike)
 
 app.register_blueprint(bike_history)
+app.register_blueprint(statistics)
 
 @app.before_request
 def before_request():

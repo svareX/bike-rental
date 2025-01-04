@@ -1,0 +1,16 @@
+{% extends '__main.jinja' %}
+{% from 'macros/form.jinja' import form_field, form_inline_field, form_submit with context %}
+
+{% block content %}
+<div class="main auth-box">
+    <div class="box dashboard">
+        <h1>Statistika</h1>
+        <p>Počet registrovaných uživatelů: {{ userCount }}</p>
+        <p>Celkový příjem z výpůjček: {{ totalBikeRevenue }} Kč</p>
+        <p>Nejvíce vypůjčené kolo: {{ mostRentedBike }}</p>
+        <p>Nejvíce vypůjčená značka kol: {{ mostRentedBrand }}</p>
+        <p>Celkový počet výpůjček: {{ totalNumberOfRents }}</p>
+        <img src="data:image/png;base64,{{ chart_data }}" alt="Graf nejvíce vypůjčených značek">
+    </div>
+</div>
+{% endblock%}
