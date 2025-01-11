@@ -52,7 +52,7 @@ class BikeForm(Form):
     ])
 
     #Pouze pro vyřizování kol
-    description = TextAreaField(label='Poznámka', render_kw={'rows': 5})
+    description = TextAreaField(label="", render_kw={'rows': 5, 'placeholder': 'Poznámka'})
 
 #Temporary
 class RentBikeForm(Form):

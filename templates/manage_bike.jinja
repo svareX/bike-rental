@@ -2,18 +2,22 @@
 {% from 'macros/form.jinja' import form_field, form_inline_field, form_submit with context %}
 
 {% block content %}
-    <div class="main">
+    <div class="main manage-bike-box">
         <div class="box dashboard">
-            <h2>Upravit kolo</h2>
+            {% if eventType == 2 %}
+                <h2>Vyřízení opravy kola</h2>
+            {% else %}
+                <h2>Vyřízení vrácení kola</h2>
+            {% endif %}
             <p>Název kola: {{ bike.name }}</p>
             <p>Název značky: {{ bike.brand_name }}</p>
             <p>Datum začátku zápůjčky: {{ dates.date_from }}</p>
             <p>Datum konce zápůjčky: {{ dates.date_to }}</p>
             <form method="POST">
                 {{ form_field(form.description) }}
-                {{ form_submit('Vrátit kolo', name='return_bike') }}
+                {{ form_submit('Potvrdit operaci', name='return_bike', class_name="button-green mr-2") }}
                 {% if eventType != 2 %}
-                    {{ form_submit('Poslat do servisu', name='service_bike') }}
+                    {{ form_submit('Poslat do servisu', name='service_bike', class_name="button-red") }}
                 {% endif %}
             </form>
         </div>

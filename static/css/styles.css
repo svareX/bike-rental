@@ -559,7 +559,7 @@ footer {
 }
 
 input[class="submit-button"] {
-    padding-top: 4em;    
+    padding-top: 4em;   
 }
 
 .auth-submit {
@@ -852,12 +852,15 @@ input[class="submit-button"] {
     font-weight: bolder;
 }
 
-.edit-bike, .delete-bike, .table-button {
+.edit-bike, .delete-bike  {
     margin: 0 1em 0 1em;
+}
+
+.edit-bike, .delete-bike, .table-button, .submit-button {
     transition: all 0.2s ease-out;
 }
 
-.edit-bike:hover, .delete-bike:hover, .table-button:hover {
+.edit-bike:hover, .delete-bike:hover, .table-button:hover, .submit-button:hover {
     color: var(--text-active);
     background-color: var(--text);
     cursor: pointer;
@@ -923,4 +926,28 @@ input[class="submit-button"] {
 
 .status-rented {
     color: var(--text);
+}
+
+.button-green, .button-red {
+    transition: all 0.2s ease-out;
+}
+
+.button-green:hover {
+    background-color: rgb(24, 141, 24);
+}
+
+.button-red:hover {
+    background-color: rgb(170, 34, 34);
+}
+
+.mr-2 {
+    margin-right: 2em;
+}
+
+.manage-bike-box {
+    margin: auto;
+    width: 35vw;
+    display: flex;
+    justify-content: center;
+    text-align: center;
 }
