@@ -11,7 +11,7 @@
                             Vítejte v nejspolehlivější půjčovně kol na českém trhu!
                         </p>
                         <p class="dashboard-text-item">
-                            V naší nabídce naleznete široký výběr kol od nejlepších výrobců.
+                            V naší nabídce naleznete výběr kol od nejlepších výrobců.
                         </p>
                         <p class="dashboard-text-item">
                             Vyberte si to své a vyrazte na cestu!
@@ -84,7 +84,11 @@
             <div class="grid">
                 {% if bikes %}
                     {% for bike in bikes %}
+                        {% if session['role'] == 0 and (is_rented(bike.id) == 1 or is_rented(bike.id) == 2) %}
+                        <div class="bike muted" onclick="window.location.href='{{ url_for('rent_bike.page', bike_id=bike.id|e) }}'">
+                        {% else %}
                         <div class="bike" onclick="window.location.href='{{ url_for('rent_bike.page', bike_id=bike.id|e) }}'">
+                        {% endif %}
                             <p class="bike-header">
                                 <span>
                                     {{ bike.brand_name }}
@@ -94,7 +98,7 @@
                                 </span>
                             </p>
                             <img src="{{ url_for('static', filename='img/' + bike.img) }}" alt="{{ bike.name }}" class="bike-img">
-                            <p class="bike-price">Cena na den: <span>{{ bike.price_per_day }}</span></p>
+                            <p class="bike-price">Cena na den: <span>{{ bike.price_per_day }} Kč</span></p>
                             {% if session['role'] == 1 %}
                                 <a href="{{ url_for('edit_bike.page', bike_id=bike.id) }}">
                                     <button>Upravit</button>
