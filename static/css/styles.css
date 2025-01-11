@@ -59,7 +59,7 @@ input.danger {
     margin-right: 1em;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 720px) {
     input, textarea, button, select {
         padding: 1em;
     }
@@ -94,7 +94,7 @@ body {
     display: flex;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 720px) {
     .page {
         width: 100%; /* (B) */
     }
@@ -122,9 +122,9 @@ footer {
     margin: 1em;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 720px) {
     .box {
-        padding: 1em 2em;
+        padding: 1em 1em;
         margin: 0.5em;
     }
 }
@@ -197,7 +197,7 @@ footer {
     margin-right: 1em;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 720px) {
     .topbar h1 {
         font-size: 1.3em;
         margin-right: auto;
@@ -230,7 +230,7 @@ footer {
     font-size: 0.9em;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 720px) {
     .topbar .user-info .username {
         display: none; /* (A) */
     }
@@ -360,7 +360,7 @@ footer {
     margin-bottom: 1em;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 720px) {
     .account-list-box {
         display: none; /* (A) */
     }
@@ -462,7 +462,7 @@ footer {
     color: red;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 720px) {
     .new-transaction-form-layout div {
         width: 100%;
     }
@@ -577,19 +577,46 @@ input[class="submit-button"] {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     gap: 3em;
     padding: 2em 3em 1em 3em;
     min-height: 50vh;
 }
 
-.profile-img {
-    width: 100%;
-    height: 250px;
-    object-fit: fill;
+@media only screen and (max-width: 720px) {
+    .profile-box {
+        margin: auto;
+        width: 98%;
+        display: flex;
+        justify-content: center;
+    }
+    .profile {
+        flex-direction: column;
+        padding: 0.5em;
+        gap: 1em;
+    }
 }
+
 
 .profile-img img {
     border-radius: 48%;
+    width: 20em;
+    height: 20em;
+    object-fit: fill;
+}
+
+@media only screen and (max-width: 1300px) {
+    .profile-img img {
+        width: 15em;
+        height: 15em;
+    }
+}
+
+@media only screen and (max-width: 720px) {
+    .profile-img img {
+        width: 10em;
+        height: 10em;
+    }
 }
 
 .profile-info {
@@ -601,6 +628,27 @@ input[class="submit-button"] {
 .profile-info-div {
     width: 17.5vw;
     padding: 0 0 0 2em;
+}
+
+.profile-info-header {
+    text-align: center;
+}
+
+@media screen and (max-width: 720px) {
+    .profile-info {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .profile-info-div {
+        width: 100%;
+        padding: 0;
+    }
+    
+    .profile-info-header {
+        margin: 0;
+    }
 }
 
 .profile-info-item {
@@ -906,6 +954,21 @@ input[class="submit-button"] {
     font-weight: bolder;
 }
 
+@media screen and (max-width: 1300px) {
+    .table {
+        overflow-x:auto;
+        margin-top: 1em;
+    }
+    
+    .table-header {
+        height: 12vh;
+    }
+
+    .table-row {
+        height: 10vh;
+    }
+}
+
 .chart {
     display: flex;
     justify-content: center;
@@ -950,4 +1013,21 @@ input[class="submit-button"] {
     display: flex;
     justify-content: center;
     text-align: center;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+}
+
+.edit-profile svg{
+    width: 20px;
+    height: 20px;
+    margin-left: 2em;
+    transition: all 0.25s ease-out;
+}
+
+.edit-profile:hover {
+    cursor: pointer;
+    fill: var(--text);
 }
