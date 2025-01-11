@@ -75,16 +75,15 @@
             </div>
 
             <div>
-                <hr>
                 {% if session['role'] == 1 %}
-                <a href={{ url_for("add_bike.page") }}>Přidat kolo</a>
+                    <a class="add-bike" href={{ url_for("add_bike.page") }}>Přidat kolo</a>
                 {% endif %}
             </div>
 
             <div class="grid">
                 {% if bikes %}
                     {% for bike in bikes %}
-                        {% if session['role'] == 0 and (is_rented(bike.id) == 1 or is_rented(bike.id) == 2) %}
+                        {% if is_rented(bike.id) == 1 or is_rented(bike.id) == 2 %}
                         <div class="bike muted" onclick="window.location.href='{{ url_for('rent_bike.page', bike_id=bike.id|e) }}'">
                         {% else %}
                         <div class="bike" onclick="window.location.href='{{ url_for('rent_bike.page', bike_id=bike.id|e) }}'">
@@ -101,11 +100,11 @@
                             <p class="bike-price">Cena na den: <span>{{ bike.price_per_day }} Kč</span></p>
                             {% if session['role'] == 1 %}
                                 <a href="{{ url_for('edit_bike.page', bike_id=bike.id) }}">
-                                    <button>Upravit</button>
+                                    <button class="table-button">Upravit</button>
                                 </a>
                                 <a href="{{ url_for('delete_bike.page', bike_id=bike.id) }}">
-                                    <button>Smazat</button>
-                                </a>er
+                                    <button class="delete-bike">Smazat</button>
+                                </a>
                             {% elif session['role'] == 0 %}
                                 {% if is_rented(bike.id) == 3 %}
                                     <a href="{{ url_for('rent_bike.page', bike_id=bike.id) }}">

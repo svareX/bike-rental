@@ -3,14 +3,14 @@
 
 {% block content %}
 <div class="main auth-box">
-    <div class="box dashboard">
-        <h1>Statistika</h1>
-        <p>Počet registrovaných uživatelů: {{ userCount }}</p>
-        <p>Celkový příjem z výpůjček: {{ totalBikeRevenue }} Kč</p>
-        <p>Nejvíce vypůjčené kolo: {{ mostRentedBike }}</p>
-        <p>Nejvíce vypůjčená značka kol: {{ mostRentedBrand }}</p>
-        <p>Celkový počet výpůjček: {{ totalNumberOfRents }}</p>
-        <img src="data:image/png;base64,{{ chart_data }}" alt="Graf nejvíce vypůjčených značek">
+    <div class="box dashboard statistics">
+        <h1>Statistiky půjčovny</h1>
+        <p>Počet registrovaných uživatelů: <span>{{ userCount }}</span></p>
+        <p>Celkový příjem z výpůjček: <span>{{ totalBikeRevenue }}</span> Kč</p>
+        <p>Nejvíce vypůjčené kolo: <span>{{ mostRentedBike }}</span></p>
+        <p>Nejvíce vypůjčená značka kol: <span>{{ mostRentedBrand }}</span></p>
+        <p>Celkový počet výpůjček: <span>{{ totalNumberOfRents }}</span></p>
+        <img src="data:image/png;base64,{{ chart_data }}" alt="Graf nejvíce vypůjčených značek" class="chart">
     </div>
 </div>
 {% endblock%}

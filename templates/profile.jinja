@@ -53,19 +53,19 @@
             </div>
             {% if bikes %}
                 <h2>Historie vypůjčených kol</h2>
-                <table style="width:100%;text-align:center" border="1px">
-                    <tr>
-                        <th>Jméno</th>
-                        <th>Značka</th>
-                        <th>Datum od</th>
-                        <th>Datum do</th>
+                <table class="table">
+                    <tr class="table-header">
+                        <td class="header__item">Jméno</td>
+                        <th class="header__item">Značka</th>
+                        <th class="header__item">Datum od</th>
+                        <th class="header__item">Datum do</th>
                     </tr>
                     {% for bike in bikes %}
-                        <tr>
-                            <td>{{ bike.bike_name }}</td>
-                            <td>{{ bike.brand_name }}</td>
-                            <td>{{ bike.date_from }}</td>
-                            <td>{{ bike.date_to }}</td>
+                        <tr class="table-row">
+                            <td class="table-data">{{ bike.bike_name }}</td>
+                            <td class="table-data">{{ bike.brand_name }}</td>
+                            <td class="table-data">{{ bike.date_from }}</td>
+                            <td class="table-data">{{ bike.date_to }}</td>
                         </tr>
                     {% endfor %}
                 </table>
