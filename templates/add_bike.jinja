@@ -7,7 +7,17 @@
             <h2 class="list-header">Přidat kolo</h2>
             <form method="POST" enctype="multipart/form-data">
                 {{ form_field(form.name) }}
-                {{ form_field(form.brand_id) }}
+                <div id="brand-section">
+                    <div id="existing-brand" {% if show_new_brand %}style="display: none;"{% endif %}>
+                        {{ form_field(form.brand_id) }}
+                    </div>
+                    <div id="new-brand" {% if not show_new_brand %}style="display: none;"{% endif %}>
+                        <input type="text" name="new_brand_name" class="form-control" placeholder="Zadejte novou značku">
+                    </div>
+                    <button type="button" id="toggle-brand" class="btn btn-secondary">
+                        <span id="toggle-text">Přidat novou značku</span>
+                    </button>
+                </div>
                 {{ form_field(form.price_per_day) }}
                 {{ form_field(form.img) }}
                 {{ form_submit("Potvrdit") }}
@@ -17,4 +27,23 @@
             </form>
         </div>
     </div>
-{% endblock%}
+
+    <script>
+        document.getElementById('toggle-brand').addEventListener('click', function() {
+            const existingBrand = document.getElementById('existing-brand');
+            const newBrand = document.getElementById('new-brand');
+            const toggleText = document.getElementById('toggle-text');
+
+            if (existingBrand.style.display === 'none') {
+                existingBrand.style.display = 'block';
+                newBrand.style.display = 'none';
+                toggleText.textContent = 'Přidat novou značku';
+                newBrand.querySelector('input').value = ''; // Clear the input
+            } else {
+                existingBrand.style.display = 'none';
+                newBrand.style.display = 'block';
+                toggleText.textContent = 'Použít existující značku';
+            }
+        });
+    </script>
+{% endblock %}

@@ -11,6 +11,7 @@ manage_bike = Blueprint('manage_bike', __name__)
 @manage_bike.route('/manage_bike/<bike_id>', methods=["GET", "POST"])
 @auth.login_required
 @auth.employees_only
+@auth.check_bike_exist
 def page(bike_id):
     if BikeService.getStatus(bike_id) != 2: #Ochrana proti "managování" kol, které nečekají na vyřízení.
         flash('Neoprávněný přístup!', 'error')

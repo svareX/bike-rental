@@ -10,6 +10,7 @@ rent_bike = Blueprint('rent_bike', __name__)
 
 @rent_bike.route('/rent_bike/<bike_id>', methods=["GET", "POST"])
 @auth.login_required
+@auth.check_bike_exist
 def page(bike_id):
     if session['role'] != 0:
         flash('Pouze zákazníci si mohou vypůjčit kolo!', 'info')

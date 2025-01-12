@@ -13,6 +13,7 @@ edit_bike = Blueprint('edit_bike', __name__)
 @edit_bike.route("/edit_bike/<bike_id>", methods=["GET", "POST"])
 @auth.login_required
 @auth.employees_only
+@auth.check_bike_exist
 def page(bike_id):
     from app import app
     response = None

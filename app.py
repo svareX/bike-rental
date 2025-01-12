@@ -23,7 +23,9 @@ from views.bike_management.add_brand import add_brand
 from views.bike_management.bike_history import bike_history
 from views.bike_management.bike_history_details import bike_history_description
 from views.bike_management.delete_bike import page, delete_bike
+from views.bike_management.delete_brand import delete_brand
 from views.bike_management.edit_bike import edit_bike
+from views.bike_management.list_brands import list_brands
 from views.bike_management.list_manage_bike import list_manage_bike
 from views.bike_management.list_service_bike import list_service_bike
 from views.bike_management.manage_bike import manage_bike
@@ -56,6 +58,8 @@ app.register_blueprint(statistics)
 app.register_blueprint(add_employee)
 app.register_blueprint(manage_users)
 app.register_blueprint(delete_user)
+app.register_blueprint(list_brands)
+app.register_blueprint(delete_brand)
 
 @app.before_request
 def before_request():

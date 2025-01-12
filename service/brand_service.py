@@ -33,3 +33,21 @@ class BrandService():
             INSERT INTO brands (name) VALUES (?)'''
             brand = db.execute(sql, [brand_name])
             db.commit()
+
+    @staticmethod
+    def getIDByName(brand_name):
+        db = get_db()
+        sql = '''
+        SELECT id FROM brands WHERE name=?
+        '''
+        brand_id = db.execute(sql, [brand_name]).fetchone()
+        return brand_id[0]
+
+    @staticmethod
+    def delete(brand_id):
+        db = get_db()
+        sql = '''
+        DELETE FROM brands WHERE id=?
+        '''
+        db.execute(sql, [brand_id])
+        db.commit()

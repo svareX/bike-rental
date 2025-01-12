@@ -83,4 +83,4 @@ class RentBikeForm(BaseForm):
     payment_method = RadioField(label="Způsob platby",choices=[('1', 'Platba na místě'), ('2', 'Platba online')],default='1',coerce=str,validators=[validators.InputRequired()])
 
 class BrandForm(BaseForm):
-    name = StringField(name="brand_name", label="Název kola", validators=[validators.InputRequired(), validators.Length(min=5, max=30)])
+    name = StringField(name="brand_name", label="Název značky", validators=[validators.InputRequired(), validators.Length(min=5, max=30)])

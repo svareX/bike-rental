@@ -39,6 +39,9 @@
                             <p>
                                 <a href="{{ url_for('statistics.page') }}" class="{% if request.endpoint == 'statistics.page' %} active {% endif %}">Statistiky</a>
                             </p>
+                            <p>
+                                <a href="{{ url_for('list_brands.page') }}" class="{% if request.endpoint == 'list_brands.page' %} active {% endif %}">Seznam značek</a>
+                            </p>
                         </div>
                     </div>
                 {% elif session['role'] == 2 %}
@@ -101,6 +104,11 @@
                     <div>
                         <a href="{{ url_for('statistics.page') }}" class="{% if request.endpoint == 'statistics.page' %} active {% endif %}">
                         Statistiky
+                        </a>
+                    </div>
+                    <div>
+                        <a href="{{ url_for('list_brands.page') }}" class="{% if request.endpoint == 'list_brands.page' %} active {% endif %}">
+                        Správa značek
                         </a>
                     </div>
                 {% elif session['role'] == 2 %}

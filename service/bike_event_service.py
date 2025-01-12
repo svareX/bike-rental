@@ -116,3 +116,18 @@ class BikeEventService():
         sql = 'SELECT bike_events.description FROM bike_events WHERE bike_events.bike_id = ? ORDER BY date_to DESC LIMIT 1'
         description = db.execute(sql, [bike_id]).fetchone()
         return description[0] if description else None
+
+    @staticmethod
+    def deleteByBrandID(brand_id):
+        db = get_db()
+
+        # Delete bike_events using a subquery to find the relevant bike_ids
+        delete_sql = '''
+            DELETE FROM bike_events 
+            WHERE bike_id IN (
+                SELECT id FROM bikes 
+                WHERE brand_id = ?
+            )
+        '''
+        db.execute(delete_sql, [brand_id])
+        db.commit()

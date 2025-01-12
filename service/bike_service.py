@@ -1,4 +1,5 @@
 from database.database import get_db
+from service.bike_event_service import BikeEventService
 from service.brand_service import BrandService
 
 
@@ -153,3 +154,11 @@ class BikeService():
         # Execute the query
         bikes = db.execute(query, params).fetchall()
         return bikes
+
+    @staticmethod
+    def deleteByBrand(brand_id):
+        db = get_db()
+        sql = 'DELETE FROM bikes WHERE brand_id=?'
+        arguments = [brand_id]
+        db.execute(sql, arguments)
+        db.commit()

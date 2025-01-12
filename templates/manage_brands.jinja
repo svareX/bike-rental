@@ -1,0 +1,31 @@
+{% extends '__main.jinja' %}
+{% from 'macros/form.jinja' import form_field, form_inline_field, form_submit with context %}
+
+{% block content %}
+    <div class="main">
+        <div class="box dashboard">
+            <h2 class="list-header">Správa značek</h2>
+            <i>(Při smazání značky dojde i ke smazání kol a správ kol s touto značkou)</i>
+            {% if brands %}
+                <table class="table">
+                    <tr class="table-header">
+                        <th class="header__item">ID</th>
+                        <th class="header__item">Jméno</th>
+                        <th class="header__item">Akce</th>
+                    </tr>
+                    {% for brand in brands %}
+                        <tr class="table-row">
+                            <td class="table-data">{{ brand.id }}</td>
+                            <td class="table-data">{{ brand.name }}</td>
+                            <td class="table-data"><a href="{{ url_for('delete_brand.page', brand_id=brand.id) }}" onclick="return confirm('Chcete opravdu smazat tuto značku? {{ brand.name }}')">
+                                <button class="button-red">Odstranit</button>
+                            </a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                {% else %}
+                <p>Žádné značky neexistují.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

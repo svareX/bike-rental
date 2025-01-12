@@ -10,6 +10,7 @@ delete_bike = Blueprint('delete_bike', __name__)
 @delete_bike.route('/delete_bike/<bike_id>', methods=["GET", "POST"])
 @auth.login_required
 @auth.employees_only
+@auth.check_bike_exist
 def page(bike_id):
     bike = BikeService.getByID(bike_id)
 
