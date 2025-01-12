@@ -10,7 +10,7 @@ login = Blueprint('login', __name__)
 def page():
     form = forms.SignInForm(request.form)
 
-    if request.method == 'POST' and form.validate():
+    if request.method == 'POST':
         user = UserService.verify(request.form['email'], request.form['password'])
         if not user:
             flash('😣 Špatný e-mail nebo heslo!', 'error')

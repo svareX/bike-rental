@@ -14,7 +14,7 @@
             <p>Datum začátku zápůjčky: {{ dates.date_from }}</p>
             <p>Datum konce zápůjčky: {{ dates.date_to }}</p>
             <form method="POST">
-            {{ form.csrf_token }}
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
             {% if description %}
                 <p>{{ description }}</p>
             {% endif %}

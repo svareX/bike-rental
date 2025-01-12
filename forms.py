@@ -10,42 +10,25 @@ from wtforms.fields.datetime import DateTimeField, DateField
 from wtforms.fields.numeric import FloatField, DecimalField
 from wtforms.fields.simple import PasswordField, EmailField, FileField, TextAreaField, HiddenField
 from wtforms.validators import InputRequired
-from email_validator import validate_email, EmailNotValidError
-
-def validate_email_address(form, field):
-    try:
-        validate_email(field.data)
-    except EmailNotValidError as e:
-        raise validators.ValidationError(str(e))
 
 
-class BaseForm(Form):
-    class Meta:
-        csrf = True
-        csrf_class = SessionCSRF
-        csrf_secret = os.urandom(32)
-        @property
-        def csrf_context(self):
-            return session
-
-
-class RegisterForm(BaseForm):
+class RegisterForm(Form):
     first_name = StringField(name="first_name", label="Křestní jméno",validators=[validators.InputRequired(), validators.length(min=1, max=20)])
     last_name = StringField(name="last_name", label="Příjmení",validators=[validators.InputRequired(), validators.length(min=1, max=20)])
-    email = EmailField(name="email", label='E-mail', validators=[validators.InputRequired(), validators.Length(min=3, max=40), validate_email_address])
+    email = EmailField(name="email", label='E-mail', validators=[validators.InputRequired(), validators.Length(min=3, max=40), validators.Email()])
     password = PasswordField(name='password', label='Heslo', validators=[validators.Length(min=3), validators.InputRequired()])
 
-class SignInForm(BaseForm):
-    email = EmailField(name="email", label='E-mail', validators=[validators.InputRequired(), validators.Length(min=3, max=40), validate_email_address])
+class SignInForm(Form):
+    email = EmailField(name="email", label='E-mail', validators=[validators.InputRequired(), validators.Length(min=3, max=40), validators.Email()])
     password = PasswordField(name='password', label='Heslo', validators=[validators.Length(min=3), validators.InputRequired()])
 
-class EditProfileForm(BaseForm):
+class EditProfileForm(Form):
     def __init__(self, data):
         super(EditProfileForm, self).__init__(data)
         self.img.render_kw = {'accept': 'image/png, image/jpeg'}
     first_name = StringField(name="first_name", label="Nové křestní jméno",validators=[validators.InputRequired(), validators.length(min=1, max=20)])
     last_name = StringField(name="last_name", label="Nové příjmení",validators=[validators.InputRequired(), validators.length(min=1, max=20)])
-    email = EmailField(name="email", label='Nový e-mail', validators=[validators.InputRequired(), validators.Length(min=3, max=40), validate_email_address])
+    email = EmailField(name="email", label='Nový e-mail', validators=[validators.InputRequired(), validators.Length(min=3, max=40), validators.Email()])
     prev_password = PasswordField(name='prev_password', label='Aktuální heslo', validators=[validators.Length(min=3), validators.InputRequired()])
     curr_password = PasswordField(name='curr_password', label='Nové heslo', validators=[validators.Length(min=3), validators.InputRequired()])
 
@@ -77,10 +60,10 @@ class BikeForm(Form):
     #Pouze pro vyřizování kol
     description = TextAreaField(label="", render_kw={'rows': 5, 'placeholder': 'Poznámka'}, validators=[ validators.InputRequired()])
 
-class RentBikeForm(BaseForm):
+class RentBikeForm(Form):
     rent_datetime_from = DateField(name="rent_date_from", label="Datum začátku zápůjčky",render_kw={"min": datetime.date.today().isoformat()}, validators=[validators.InputRequired()])
     rent_datetime_to = DateField(name="rent_date_to", label="Datum konce zápůjčky", validators=[validators.InputRequired()])
     payment_method = RadioField(label="Způsob platby",choices=[('1', 'Platba na místě'), ('2', 'Platba online')],default='1',coerce=str,validators=[validators.InputRequired()])
 
-class BrandForm(BaseForm):
+class BrandForm(Form):
     name = StringField(name="brand_name", label="Název značky", validators=[validators.InputRequired(), validators.Length(min=5, max=30)])

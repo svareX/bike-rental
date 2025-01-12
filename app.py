@@ -3,6 +3,7 @@ import secrets
 from datetime import datetime
 
 from flask import Flask, render_template, request, flash, session, redirect, url_for
+from flask_wtf.csrf import CSRFProtect
 from flask_wtf.file import FileAllowed
 
 import forms
@@ -36,6 +37,9 @@ app = Flask(__name__)
 app.config['DEBUG'] = True
 app.config.from_object('config')
 database.init_app(app)
+
+csrf = CSRFProtect()
+csrf.init_app(app)
 
 
 app.register_blueprint(login)

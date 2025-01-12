@@ -9,7 +9,7 @@
             <p>Cena na den: {{ bike.price_per_day }}</p>
             <p>Název značky: {{ bike.brand_name }}</p>
             <form method="post">
-                {{ form.csrf_token }}
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                 {{ form_field(form.rent_datetime_from) }}
                 {{ form_field(form.rent_datetime_to) }}
                 <div>

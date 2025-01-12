@@ -11,7 +11,7 @@ add_brand = Blueprint('add_brand', __name__)
 @auth.employees_only
 def page():
     form = forms.BrandForm(request.form)
-    if request.method == 'POST' and form.validate():
+    if request.method == 'POST':
         brand = BrandService.add(request.form['brand_name'])
         if brand == 0:
             flash("Značka již existuje", "error")

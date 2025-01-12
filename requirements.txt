@@ -1,5 +1,4 @@
 Flask~=2.2.2
 click~=8.0.3
 matplotlib~=3.4.3
-email_validator
 Flask-WTF

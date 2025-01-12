@@ -10,7 +10,7 @@ register = Blueprint('register', __name__)
 def page():
     form = forms.RegisterForm(request.form)
 
-    if request.method == 'POST' and form.validate():
+    if request.method == 'POST':
         user = UserService.register(request.form['first_name'], request.form['last_name'], request.form['email'], request.form['password'])
         if user is None: #Pokud se uživatel se zadaným emailem už našel
             flash('😣 Uživatel s touto e-mailovou adresou již existuje!', 'error')
