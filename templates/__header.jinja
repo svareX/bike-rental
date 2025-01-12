@@ -24,7 +24,8 @@
                 <div>
                 {% if session['role'] == 1 %}
                     <div class="dropdown">
-                        <span>Operace</span>
+                        <span class="{% if request.endpoint == 'list_manage_bike.page' or request.endpoint == 'list_service_bike.page' 
+                        or request.endpoint == 'bike_history.page' or request.endpoint == 'statistics.page' %} active {% endif %}">Operace</span>
                         <div class="dropdown-content">
                             <p>
                                 <a href="{{ url_for('list_manage_bike.page') }}" class="{% if request.endpoint == 'list_manage_bike.page' %} active {% endif %}">Vrácení kol</a>
@@ -40,14 +41,30 @@
                             </p>
                         </div>
                     </div>
+                {% elif session['role'] == 2 %}
+                    <div class="dropdown">
+                        <span>Operace</span>
+                        <div class="dropdown-content">
+                            <p>
+                                <a href="{{ url_for('add_employee.page') }}" class="{% if request.endpoint == 'add_employee.page' %} active {% endif %}">
+                                Přidat zaměstnance
+                                </a>
+                            </p>
+                            <p>
+                                <a href="{{ url_for('manage_users.page') }}" class="{% if request.endpoint == 'manage_users.page' %} active {% endif %}">
+                                Správa uživatelů
+                                </a>
+                            </p>
+                        </div>
+                    </div>
                 {% endif %}
                 <a href="{{ url_for('logout.page') }}" class="signout">Odhlásit</a>
                 </div>
             {% else %}
-                    <a href={{ url_for("register.page") }}>
+                    <a href="{{ url_for('register.page') }}" class="{% if request.endpoint == 'register.page' %} active {% endif %}">
                         <div class="username">Registrace</div>
                     </a>
-                    <a href="{{ url_for('login.page') }}">
+                    <a href="{{ url_for('login.page') }}"class="{% if request.endpoint == 'login.page' %} active {% endif %}">
                         <div class="username">Přihlásit se</div>
                     </a>
             {% endif %}
@@ -85,10 +102,21 @@
                         Statistiky
                         </a>
                     </div>
+                {% elif session['role'] == 2 %}
+                    <div>
+                        <a href="{{ url_for('add_employee.page') }}" class="{% if request.endpoint == 'add_employee.page' %} active {% endif %}">
+                        Přidat zaměstnance
+                        </a>
+                    </div>
+                    <div>
+                        <a href="{{ url_for('manage_users.page') }}" class="{% if request.endpoint == 'manage_users.page' %} active {% endif %}">
+                        Správa uživatelů
+                        </a>
+                    </div>
                 {% endif %}
                 <div>
                     <a href="{{ url_for('logout.page') }}" class="signout">
-                    Odhlásit
+                    Odhlásit se
                     </a>
                 </div>
             {% else %}

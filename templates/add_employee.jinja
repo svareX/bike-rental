@@ -2,14 +2,14 @@
 {% from 'macros/form.jinja' import form_field, form_inline_field, form_submit with context %}
 
 {% block content %}
-    <div class="main">
+    <div class="main auth-box">
         <div class="box dashboard">
-            <h1>Přidat zaměstnance</h1>
+            <h1 class="list-header">Přidat zaměstnance</h1>
             <form method="post" {% if password %} hidden {% endif %} >
                 {{ form_field(form.first_name) }}
                 {{ form_field(form.last_name) }}
                 {{ form_field(form.email) }}
-                {{ form_submit('Vytvořit') }}
+                {{ form_submit('Vytvořit', class_name="button-green") }}
             </form>
             {% if password %}
                 <p>Vygenerované heslo (zašlete novému zaměstnanci): {{ password }}</p>

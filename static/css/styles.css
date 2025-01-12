@@ -169,9 +169,9 @@ footer {
     margin-left: 1em;
 }
 
-.nav a.active {
+.nav a.active, .dropdown span.active {
     background: #f3f3f3;
-    padding: 0.5em 1em;
+    padding: 0.5em;
     border-radius: 8px;
     font-weight: bold;
 }
@@ -197,7 +197,7 @@ footer {
 
 .mobile-nav a.active {
     background: #f3f3f3;
-    padding: 0.5em 1em;
+    padding: 0.5em;
     border-radius: 8px;
     font-weight: bold;
 }
@@ -238,7 +238,7 @@ footer {
 }
 @media screen and (max-width: 1050px) {
     .nav a.active {
-        padding: 0.5em 0.5em;
+        padding: 0.5em;
     }
 }
 
@@ -251,11 +251,19 @@ footer {
         padding: 0.5em;
         border-radius: 16px;
     }
+
+    .box {
+        padding: 1em;
+    }
 }
 
 @media screen and (max-width: 900px) {
     .logo svg {
         display: none;
+    }
+
+    .box {
+        padding: 1em 0.5em;
     }
 }
 
@@ -600,6 +608,14 @@ footer {
     margin: 2em 2em 1em 2em;
 }
 
+.auth-box {
+    margin: auto;
+    width: 35vw;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
 @media screen and (max-width: 1300px) {
     .grid {
         display: grid;
@@ -629,14 +645,6 @@ footer {
     }
 }
 
-.auth-box {
-    margin: auto;
-    width: 35vw;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-}
-
 .auth-link {
     margin: 2em 0 1em 0;
 }
@@ -654,6 +662,7 @@ input[class="submit-button"] {
     width: 50vw;
     display: flex;
     justify-content: center;
+    text-align: center;
 }
 
 .table-box {
@@ -704,6 +713,10 @@ input[class="submit-button"] {
     font-weight: bold;
 }
 
+.profile-box div hr {
+    margin: 1em 0 1em 0;
+}
+
 @media screen and (max-width: 720px) {
     .profile-box {
         margin: auto;
@@ -752,6 +765,11 @@ input[class="submit-button"] {
         flex-direction: column;
         padding: 0.5em;
         gap: 1em;
+    }
+
+    .profile-box {
+        margin: auto;
+        width: 98%;
     }
 
     .profile-box .box {
@@ -1016,8 +1034,12 @@ input[class="submit-button"] {
 
 .edit-bike:hover, .delete-bike:hover, .table-button:hover, .submit-button:hover {
     color: var(--text-active);
-    background-color: var(--text);
+    background-color: var(--accent);
     cursor: pointer;
+}
+
+.edit-bike:active, .delete-bike:active, .table-button:active, .submit-button:active {
+    background-color: var(--text);
 }
 
 
@@ -1110,12 +1132,25 @@ input[class="submit-button"] {
     transition: all 0.2s ease-out;
 }
 
+.button-green:hover, .button-red:hover {
+    color: var(--text-active);
+    cursor: pointer;
+}
+
 .button-green:hover {
     background-color: rgb(24, 141, 24);
 }
 
+.button-green:active {
+    background-color: rgb(22, 95, 22);
+}
+
 .button-red:hover {
     background-color: rgb(170, 34, 34);
+}
+
+.button-red:active {
+    background-color: rgb(118, 21, 21);
 }
 
 .mr-2 {
@@ -1144,7 +1179,7 @@ input[class="submit-button"] {
 
 .edit-profile:hover {
     cursor: pointer;
-    fill: var(--text);
+    fill: var(--text-active);
 }
 
 .dropdown {
@@ -1153,12 +1188,12 @@ input[class="submit-button"] {
     margin-left: 2em;
   }
 
-  .dropdown span {
+.dropdown span {
     cursor: pointer;
     color: var(--accent);
-  }
+}
   
-  .dropdown-content {
+.dropdown-content {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
@@ -1167,16 +1202,36 @@ input[class="submit-button"] {
     padding: 0;
     z-index: 10;
     text-align: center;
-  }
+}
 
-  .dropdown-content p {
+.dropdown-content p {
     margin: 1em 0;
-  }
+}
   
-  .dropdown:hover .dropdown-content {
+.dropdown:hover .dropdown-content {
     display: block;
-  }
+}
 
-  .text-center {
+
+.dropdown-content p a.active {
+    padding: 0.25em;
+}
+
+@media screen and (max-width: 1000px) { 
+    .dropdown {
+        margin: 0;
+    }
+
+    .signout {
+        margin: 0;
+    }
+
+    .topbar .user-info {
+        margin-right: 1.25em;
+    }
+}
+
+.text-center {
     text-align: center;
-  }
+}
+
