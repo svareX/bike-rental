@@ -19,7 +19,7 @@ def page(bike_id):
         return redirect(url_for('view_dashboard_page'))
 
     form = forms.RentBikeForm(request.form)
-    if request.method == "POST":
+    if request.method == "POST" and form.validate():
         payment_method = form.payment_method.data
         price = request.form.get('calculated_price')
         if not price or int(price) <= 0:

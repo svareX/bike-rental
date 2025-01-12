@@ -6,6 +6,7 @@
         <div class="box dashboard">
             <h1 class="list-header">Přidat zaměstnance</h1>
             <form method="post" {% if password %} hidden {% endif %} >
+                {{ form.csrf_token }}
                 {{ form_field(form.first_name) }}
                 {{ form_field(form.last_name) }}
                 {{ form_field(form.email) }}

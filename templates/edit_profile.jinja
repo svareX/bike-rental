@@ -8,12 +8,14 @@
             <hr>
             <h2>Změna e-mailu</h2>
             <form method="post">
+                {{ form.csrf_token }}
                 {{ form_field(form.email) }}
                 {{ form_submit('Změnit') }}
             </form>
             <hr>
             <h2>Změna jména</h2>
             <form method="post">
+                {{ form.csrf_token }}
                 {{ form_field(form.first_name) }}
                 {{ form_field(form.last_name) }}
                 {{ form_submit('Změnit') }}
@@ -21,6 +23,7 @@
             <hr>
             <h2>Změna hesla</h2>
             <form method="post">
+                {{ form.csrf_token }}
                 {{ form_field(form.prev_password) }}
                 {{ form_field(form.curr_password) }}
                 {{ form_submit('Změnit') }}
@@ -28,6 +31,7 @@
             <hr>
             <h2>Změna profilového obrázku</h2>
             <form method="post" enctype="multipart/form-data">
+                {{ form.csrf_token }}
                 {{ form_field(form.img) }}
                 {{ form_submit('Změnit') }}
             </form>

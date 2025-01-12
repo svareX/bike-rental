@@ -20,7 +20,7 @@ def page(bike_id):
     eventType = BikeEventService.getEventTypeByID(bike_id)
 
     form = forms.BikeForm(request.form, None, False)
-    if request.method == 'POST':
+    if request.method == 'POST' and form.validate():
         if request.form.get('return_bike') and eventType == 1:
             BikeEventService.changeBikeInfo(bike_id, 'Poznámka při vrácení: ' + request.form['description'], 1)
             flash('Kolo bylo úspěšně vráceno zpátky.', 'info')

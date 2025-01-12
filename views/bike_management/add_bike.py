@@ -19,7 +19,7 @@ def page():
     brands = BrandService.getAll()
     form = forms.BikeForm(request.form, brands)
 
-    if request.method == 'POST':
+    if request.method == 'POST' and form.validate():
         file = request.files['img']
         _, file_extension = os.path.splitext(file.filename)
         filename = secrets.token_hex(12 // 2) + file_extension

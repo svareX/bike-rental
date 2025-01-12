@@ -14,6 +14,7 @@
             <p>Datum začátku zápůjčky: {{ dates.date_from }}</p>
             <p>Datum konce zápůjčky: {{ dates.date_to }}</p>
             <form method="POST">
+            {{ form.csrf_token }}
                 {{ form_field(form.description) }}
                 {{ form_submit('Potvrdit operaci', name='return_bike', class_name="button-green mr-2") }}
                 {% if eventType != 2 %}

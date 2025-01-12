@@ -24,7 +24,7 @@ def page(bike_id):
     bike_form.fill_with_data(bike)
 
     # edit transaction
-    if request.method == 'POST':
+    if request.method == 'POST' and form.validate():
         if request.files['img']:
             file = request.files['img']
             _, file_extension = os.path.splitext(file.filename)
