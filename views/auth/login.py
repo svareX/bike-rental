@@ -16,6 +16,7 @@ def page():
             flash('😣 Špatný e-mail nebo heslo!', 'error')
         else:
             utils.login_user(session, user)
+            flash('Úspěšně jste se přihlásil.', 'success')
             return redirect(url_for('view_dashboard_page'))
 
     return render_template("login.jinja", form=form)

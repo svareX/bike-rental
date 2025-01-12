@@ -1,0 +1,36 @@
+{% extends '__main.jinja' %}
+{% from 'macros/form.jinja' import form_field, form_inline_field, form_submit with context %}
+
+{% block content %}
+    <div class="main">
+        <div class="box dashboard">
+            <h2>Správa uživatelů</h2>
+            {% if users %}
+                <table class="table">
+                    <tr class="table-header">
+                        <th class="header__item">ID</th>
+                        <th class="header__item">Křestní jméno</th>
+                        <th class="header__item">Příjmení</th>
+                        <th class="header__item">Email</th>
+                        <th class="header__item">Role</th>
+                        <th class="header__item">Akce</th>
+                    </tr>
+                    {% for user in users %}
+                        <tr class="table-row">
+                            <td class="table-data">{{ user.id }}</td>
+                            <td class="table-data">{{ user.first_name }}</td>
+                            <td class="table-data">{{ user.last_name }}</td>
+                            <td class="table-data">{{ user.email }}</td>
+                            <td class="table-data">{{ user.role }}</td>
+                            <td class="table-data"><a href="{{ url_for('delete_user.page', user_id=user.id) }}">
+                                <button>Odstranit</button>
+                            </a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                {% else %}
+                <p>Žádní uživatelé neexistují.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

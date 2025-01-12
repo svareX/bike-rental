@@ -55,3 +55,12 @@ def customers_only(func):
             return redirect(url_for('view_dashboard_page'))
         return func(*args, **kwargs)
     return decorated_function
+
+def admin_only(func):
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
+        if session['role'] != 2:
+            flash('🚫 Nemáte oprávnění pro tuto akci (nejste správce).', 'error')
+            return redirect(url_for('view_dashboard_page'))
+        return func(*args, **kwargs)
+    return decorated_function

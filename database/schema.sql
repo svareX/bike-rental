@@ -48,6 +48,7 @@ CREATE TABLE bike_events (
 );
 
 --Testovací účty, heslo = heslo
+INSERT INTO users(first_name, last_name, email, password, role, avatar, created_at, updated_at) VALUES ('Jan', 'Správce', 'spravce@gmail.com', '87db049e442d9562038011a70fd85a9ac45875dd497f469437f25cfe30df3125', 2, 'person.png', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 INSERT INTO users(first_name, last_name, email, password, role, avatar, created_at, updated_at) VALUES ('Jan', 'Zákazník', 'zakaznik@gmail.com', '87db049e442d9562038011a70fd85a9ac45875dd497f469437f25cfe30df3125', 0, 'person.png', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 INSERT INTO users(first_name, last_name, email, password, role, avatar, created_at, updated_at) VALUES ('Jan', 'Zaměstnanec', 'zamestnanec@gmail.com', '87db049e442d9562038011a70fd85a9ac45875dd497f469437f25cfe30df3125', 1, 'person.png', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
