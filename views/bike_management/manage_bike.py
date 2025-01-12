@@ -15,12 +15,13 @@ def page(bike_id):
     if BikeService.getStatus(bike_id) != 2: #Ochrana proti "managování" kol, které nečekají na vyřízení.
         flash('Neoprávněný přístup!', 'error')
         return redirect(url_for('list_manage_bike.page'))
+    description = BikeEventService.getDescriptionByBikeID(bike_id)
     bike = BikeService.getByID(bike_id)
     dates = BikeEventService.getRentDatesByID(bike_id)
     eventType = BikeEventService.getEventTypeByID(bike_id)
 
     form = forms.BikeForm(request.form, None, False)
-    if request.method == 'POST' and form.validate():
+    if request.method == 'POST':
         if request.form.get('return_bike') and eventType == 1:
             BikeEventService.changeBikeInfo(bike_id, 'Poznámka při vrácení: ' + request.form['description'], 1)
             flash('Kolo bylo úspěšně vráceno zpátky.', 'info')
@@ -31,4 +32,4 @@ def page(bike_id):
             BikeEventService.changeBikeInfo(bike_id, 'Poznámka pro servis: ' + request.form['description'], 2)
             flash('Kolo bylo zasláno do servisu.', 'info')
         return redirect(url_for('list_manage_bike.page'))
-    return render_template("manage_bike.jinja", bike=bike, form=form, dates=dates, eventType=eventType)
+    return render_template("manage_bike.jinja", bike=bike, form=form, dates=dates, eventType=eventType, description=description)

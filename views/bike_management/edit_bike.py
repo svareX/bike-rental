@@ -20,11 +20,11 @@ def page(bike_id):
     brands = BrandService.getAll()
 
     # forms
-    bike_form = forms.BikeForm(request.form, brands, True)
-    bike_form.fill_with_data(bike)
+    form = forms.BikeForm(request.form, brands, True)
+    form.fill_with_data(bike)
 
     # edit transaction
-    if request.method == 'POST' and form.validate():
+    if request.method == 'POST':
         if request.files['img']:
             file = request.files['img']
             _, file_extension = os.path.splitext(file.filename)
@@ -46,7 +46,7 @@ def page(bike_id):
             flash(response['error'], 'error')
             return render_template(
                 "edit_bike.jinja",
-                form=bike_form,
+                form=form,
                 bike=bike,
                 brands=brands
             )
@@ -56,6 +56,6 @@ def page(bike_id):
 
     return render_template(
         "edit_bike.jinja",
-        form=bike_form,
+        form=form,
         bike=bike
     )

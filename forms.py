@@ -40,6 +40,9 @@ class SignInForm(BaseForm):
     password = PasswordField(name='password', label='Heslo', validators=[validators.Length(min=3), validators.InputRequired()])
 
 class EditProfileForm(BaseForm):
+    def __init__(self, data):
+        super(EditProfileForm, self).__init__(data)
+        self.img.render_kw = {'accept': 'image/png, image/jpeg'}
     first_name = StringField(name="first_name", label="Nové křestní jméno",validators=[validators.InputRequired(), validators.length(min=1, max=20)])
     last_name = StringField(name="last_name", label="Nové příjmení",validators=[validators.InputRequired(), validators.length(min=1, max=20)])
     email = EmailField(name="email", label='Nový e-mail', validators=[validators.InputRequired(), validators.Length(min=3, max=40), validate_email_address])
@@ -48,7 +51,7 @@ class EditProfileForm(BaseForm):
 
     img = FileField(name="img", label='Profilový obrázek', validators=[validators.InputRequired(),
         FileAllowed(['jpg', 'png'], 'Images only!')])
-class BikeForm(BaseForm):
+class BikeForm(Form):
     def __init__(self, data, brands, editing=False):
         super(BikeForm, self).__init__(data)
         if brands is not None:
@@ -72,7 +75,7 @@ class BikeForm(BaseForm):
     ])
 
     #Pouze pro vyřizování kol
-    description = TextAreaField(label="", render_kw={'rows': 5, 'placeholder': 'Poznámka'})
+    description = TextAreaField(label="", render_kw={'rows': 5, 'placeholder': 'Poznámka'}, validators=[ validators.InputRequired()])
 
 class RentBikeForm(BaseForm):
     rent_datetime_from = DateField(name="rent_date_from", label="Datum začátku zápůjčky",render_kw={"min": datetime.date.today().isoformat()}, validators=[validators.InputRequired()])

@@ -16,5 +16,6 @@ def page():
             flash('😣 Uživatel s touto e-mailovou adresou již existuje!', 'error')
         else:
             utils.login_user(session, user) #Automaticky přihlásí uživatele po registraci
+            flash('Úspěšně jste se zaregistrovali.', 'success')
             return redirect(url_for('view_dashboard_page'))
     return render_template("register.jinja", form=form)

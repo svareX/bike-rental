@@ -42,13 +42,16 @@ class BikeService():
     def update(bikeID, bikeName, bikePricePerDay, bikeBrandId, bikeImg):
         db = get_db()
 
-        check_bikes = 'SELECT * FROM bikes WHERE name=? AND brand_id=?'
-        bike = db.execute(check_bikes, (bikeName, bikeBrandId,)).fetchone()
-        if bike:
-            return {
-                'error': f'Kolo s jménem "{bikeName}" a značkou "{BrandService.getNameByID(bikeBrandId)}" již existuje!'}
+        current_bike = db.execute('SELECT * FROM bikes WHERE id = ?', (bikeID,)).fetchone()
 
-        sql = 'UPDATE bikes SET name = ?, price_per_day = ?, brand_id= ?, img= ? WHERE id = ?'
+        if current_bike['name'] != bikeName or current_bike['brand_id'] != bikeBrandId:
+            check_bikes = 'SELECT * FROM bikes WHERE name=? AND brand_id=? AND id != ?'
+            bike = db.execute(check_bikes, (bikeName, bikeBrandId, bikeID)).fetchone()
+            if bike:
+                return {
+                    'error': f'Kolo s jménem "{bikeName}" a značkou "{BrandService.getNameByID(bikeBrandId)}" již existuje!'}
+
+        sql = 'UPDATE bikes SET name = ?, price_per_day = ?, brand_id = ?, img = ? WHERE id = ?'
         arguments = [bikeName, bikePricePerDay, bikeBrandId, bikeImg, bikeID]
         db.execute(sql, arguments)
         db.commit()

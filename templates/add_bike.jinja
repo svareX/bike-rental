@@ -6,7 +6,6 @@
         <div class="box dashboard">
             <h2 class="list-header">Přidat kolo</h2>
             <form method="POST" enctype="multipart/form-data">
-                {{ form.csrf_token }}
                 {{ form_field(form.name) }}
                 {{ form_field(form.brand_id) }}
                 {{ form_field(form.price_per_day) }}

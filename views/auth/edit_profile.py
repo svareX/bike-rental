@@ -16,7 +16,7 @@ def page():
     user = UserService.getByID(session['user_id'])
     form = forms.EditProfileForm(request.form)
 
-    if request.method == 'POST'  and form.validate():
+    if request.method == 'POST':
         if form.first_name.data and form.last_name.data:
             UserService.changeName(session['user_id'], request.form['first_name'], request.form['last_name'])
             session['first_name'] = request.form['first_name']

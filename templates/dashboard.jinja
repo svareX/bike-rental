@@ -87,7 +87,7 @@
                         {% if is_rented(bike.id) == 1 or is_rented(bike.id) == 2 %}
                         <div class="bike muted" {% if session['role'] == 0 %}onclick="window.location.href='{{ url_for('rent_bike.page', bike_id=bike.id|e) }}'"{% endif %}>
                         {% else %}
-                        <div class="bike" {% if session['role'] == 0 %}onclick="window.location.href='{{ url_for('rent_bike.page', bike_id=bike.id|e) }}'"{% endif %}>
+                        <div class="bike" onclick="window.location.href='{{ url_for('rent_bike.page', bike_id=bike.id|e) }}'">
                         {% endif %}
                             <p class="bike-header">
                                 <span>

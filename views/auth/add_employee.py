@@ -9,7 +9,7 @@ add_employee = Blueprint('add_employee', __name__)
 @add_employee.route("/add_employee", methods=['GET', 'POST'])
 def page():
     form = forms.RegisterForm(request.form)
-    if request.method == 'POST' and form.validate():
+    if request.method == 'POST':
         password = UserService.addEmployee(request.form['first_name'], request.form['last_name'], request.form['email'])
         if password is None:
             flash('Účet s tímto emailem již existuje!', 'error')

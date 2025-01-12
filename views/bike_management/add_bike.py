@@ -19,7 +19,7 @@ def page():
     brands = BrandService.getAll()
     form = forms.BikeForm(request.form, brands)
 
-    if request.method == 'POST' and form.validate():
+    if request.method == 'POST':
         file = request.files['img']
         _, file_extension = os.path.splitext(file.filename)
         filename = secrets.token_hex(12 // 2) + file_extension
@@ -41,6 +41,7 @@ def page():
                 flash(response['error'], 'error')  # Show an error message
                 return redirect(url_for('view_dashboard_page'))
             file.save(file_path)
+        flash('Kolo bylo úspěšně přidáno!', 'success')
         return redirect(url_for('view_dashboard_page'))
 
     return render_template("add_bike.jinja", form=form)
