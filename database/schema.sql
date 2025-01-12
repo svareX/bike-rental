@@ -17,9 +17,7 @@ CREATE TABLE users (
 
 CREATE TABLE brands (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name VARCHAR NOT NULL,
-    motto VARCHAR NOT NULL,
-    established DATE NOT NULL
+    name VARCHAR NOT NULL
 );
 
 CREATE TABLE bikes (
@@ -53,9 +51,9 @@ INSERT INTO users(first_name, last_name, email, password, role, avatar, created_
 INSERT INTO users(first_name, last_name, email, password, role, avatar, created_at, updated_at) VALUES ('Jan', 'Zaměstnanec', 'zamestnanec@gmail.com', '87db049e442d9562038011a70fd85a9ac45875dd497f469437f25cfe30df3125', 1, 'person.png', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 
-INSERT INTO brands(name, motto, established) VALUES ('Brand#1', 'Lorem ipsum', CURRENT_DATE);
-INSERT INTO brands(name, motto, established) VALUES ('Brand#2', 'Lorem ipsum', CURRENT_DATE);
-INSERT INTO brands(name, motto, established) VALUES ('Brand#3', 'Lorem ipsum', CURRENT_DATE);
+INSERT INTO brands(name) VALUES ('Brand#1');
+INSERT INTO brands(name) VALUES ('Brand#2');
+INSERT INTO brands(name) VALUES ('Brand#3');
 
 INSERT INTO bikes(name, brand_id, type, price_per_day, img) VALUES ('Bike#1', 2, 1, 185, 'bike_placeholder.png');
 INSERT INTO bikes(name, brand_id, type, price_per_day, img) VALUES ('Bike#2', 3, 1, 210, 'bike_placeholder.png');

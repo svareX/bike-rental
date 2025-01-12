@@ -74,9 +74,10 @@ class BikeForm(BaseForm):
     #Pouze pro vyřizování kol
     description = TextAreaField(label="", render_kw={'rows': 5, 'placeholder': 'Poznámka'})
 
-#Temporary
 class RentBikeForm(BaseForm):
     rent_datetime_from = DateField(name="rent_date_from", label="Datum začátku zápůjčky",render_kw={"min": datetime.date.today().isoformat()}, validators=[validators.InputRequired()])
     rent_datetime_to = DateField(name="rent_date_to", label="Datum konce zápůjčky", validators=[validators.InputRequired()])
-    payment_method = RadioField(label="Způsob platby",choices=[('1', 'Platba na místě'), ('2', 'Platba online')],default='1',coerce=str,validators=[validators.InputRequired()]
-    )
+    payment_method = RadioField(label="Způsob platby",choices=[('1', 'Platba na místě'), ('2', 'Platba online')],default='1',coerce=str,validators=[validators.InputRequired()])
+
+class BrandForm(BaseForm):
+    name = StringField(name="brand_name", label="Název kola", validators=[validators.InputRequired(), validators.Length(min=5, max=30)])

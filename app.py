@@ -19,6 +19,7 @@ from views.auth.logout import page, logout
 from views.auth.manage_users import manage_users
 from views.auth.register import register
 from views.bike_management.add_bike import add_bike
+from views.bike_management.add_brand import add_brand
 from views.bike_management.bike_history import bike_history
 from views.bike_management.bike_history_details import bike_history_description
 from views.bike_management.delete_bike import page, delete_bike
@@ -48,6 +49,7 @@ app.register_blueprint(list_manage_bike)
 app.register_blueprint(list_service_bike)
 app.register_blueprint(manage_bike)
 app.register_blueprint(bike_history_description)
+app.register_blueprint(add_brand)
 
 app.register_blueprint(bike_history)
 app.register_blueprint(statistics)
