@@ -28,6 +28,11 @@ input, textarea, button, select {
     border: 1px solid #ccc;
 }
 
+input:focus {
+    border: var(--accent) 2px solid;
+    outline: none;
+}
+
 button.danger,
 input.danger {
     background: red;
@@ -1346,7 +1351,7 @@ input[class="submit-button"] {
 
 .edit-profile:hover {
     cursor: pointer;
-    fill: var(--text-active);
+    fill: var(--accent);
 }
 
 .dropdown {

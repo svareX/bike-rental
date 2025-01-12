@@ -2,9 +2,9 @@
 {% from 'macros/form.jinja' import form_field, form_inline_field, form_submit with context %}
 
 {% block content %}
-    <div class="main">
+    <div class="main profile-box">
         <div class="box dashboard">
-            <h2>Upravit kolo</h2>
+            <h2 class="list-header">Upravit kolo</h2>
             <form method="POST" enctype="multipart/form-data">
                 {{ form_field(form.name) }}
                 {{ form_field(form.brand_id) }}
