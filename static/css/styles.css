@@ -59,7 +59,7 @@ input.danger {
     margin-right: 1em;
 }
 
-@media only screen and (max-width: 720px) {
+@media screen and (max-width: 720px) {
     input, textarea, button, select {
         padding: 1em;
     }
@@ -94,7 +94,7 @@ body {
     display: flex;
 }
 
-@media only screen and (max-width: 720px) {
+@media screen and (max-width: 720px) {
     .page {
         width: 100%; /* (B) */
     }
@@ -122,7 +122,7 @@ footer {
     margin: 1em;
 }
 
-@media only screen and (max-width: 720px) {
+@media screen and (max-width: 720px) {
     .box {
         padding: 1em 1em;
         margin: 0.5em;
@@ -148,13 +148,12 @@ footer {
 }
 
 .topbar a svg {
-    height: 4vh;
-    width: 4vw;
-    margin-right: 1.5em;
+    width: 3em;
 }
 
 .topbar h1 {
     margin: 0;
+    margin-left: 1.5em;
 }
 
 .nav {
@@ -163,7 +162,11 @@ footer {
 }
 
 .nav div {
-    margin-right: 2em;
+    margin-right: 1em;
+}
+
+.signout {
+    margin-left: 1em;
 }
 
 .nav a.active {
@@ -173,12 +176,23 @@ footer {
     font-weight: bold;
 }
 
+@media screen and (max-width: 1300px) {
+    .nav div {
+        margin-right: 0;
+    }
+
+    .topbar h1 {
+        margin-left: 0.5em;
+    }
+}
+
 .mobile-nav {
     display: none; /* (A) */
     flex-direction: column;
     align-items: center;
     margin-top: -1em;
     padding-top: 1em;
+    gap: 1em;
 }
 
 .mobile-nav a.active {
@@ -197,25 +211,6 @@ footer {
     margin-right: 1em;
 }
 
-@media only screen and (max-width: 720px) {
-    .topbar h1 {
-        font-size: 1.3em;
-        margin-right: auto;
-    }
-
-    .nav {
-        display: none; /* (A) */
-    }
-
-    .mobile-nav-toggle-button {
-        display: block; /* (A) */
-    }
-
-    .mobile-nav.visible {
-        display: flex; /* (A) */
-    }
-}
-
 .topbar .user-info {
     display: flex;
     align-items: center;
@@ -230,13 +225,7 @@ footer {
     font-size: 0.9em;
 }
 
-@media only screen and (max-width: 720px) {
-    .topbar .user-info .username {
-        display: none; /* (A) */
-    }
-}
-
-.topbar .user-avatar {
+.user-avatar {
     display: flex;
     justify-content: center;
     align-content: center;
@@ -245,6 +234,71 @@ footer {
     border-radius: 50%;
     width: 2em;
     height: 2em;
+    margin-right: 0;
+}
+@media screen and (max-width: 1050px) {
+    .nav a.active {
+        padding: 0.5em 0.5em;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .user-avatar, .user-avatar img{
+        display: none;
+    }
+
+    .topbar .user-info .username {
+        padding: 0.5em;
+        border-radius: 16px;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .logo svg {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .topbar .user-info .username {
+        display: none; /* (A) */
+    }
+
+    .topbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .topbar h1 {
+        font-size: 1.3em;
+        margin-right: auto;
+    }
+
+    .nav {
+        display: none; /* (A) */
+    }
+
+    .mobile-nav-toggle-button {
+        display: block; /* (A) */
+        margin: 0;
+    }
+
+    .mobile-nav.visible {
+        display: flex; /* (A) */
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .user-info {
+        margin: 1em;
+        margin-bottom: 0;
+    }
+
+    .mobile-nav div {
+        padding: 0;
+    }
 }
 
 /** -- Flash messages -- */
@@ -360,7 +414,7 @@ footer {
     margin-bottom: 1em;
 }
 
-@media only screen and (max-width: 720px) {
+@media screen and (max-width: 720px) {
     .account-list-box {
         display: none; /* (A) */
     }
@@ -462,7 +516,7 @@ footer {
     color: red;
 }
 
-@media only screen and (max-width: 720px) {
+@media screen and (max-width: 720px) {
     .new-transaction-form-layout div {
         width: 100%;
     }
@@ -535,8 +589,8 @@ footer {
 }
 
 .bike-img {
-    width: 100%;
-    height: 250px;
+    height: 15em;
+    width: 20em;
     object-fit: fill;
 }
 
@@ -544,6 +598,35 @@ footer {
     display: flex;
     justify-content: space-between;
     margin: 2em 2em 1em 2em;
+}
+
+@media screen and (max-width: 1300px) {
+    .grid {
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 1em 1em;
+        text-align: center;
+        padding: 0 1em 0 1em;
+    }
+
+    .bike {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .grid {
+        display: grid;
+        grid-template-columns: auto;
+        gap: 1em 1em;
+        text-align: center;
+        padding: 0 1em 0 1em;
+    }
+    
+    .bike-img {
+        height: 10em;
+        width: 15em;
+    }
 }
 
 .auth-box {
@@ -573,6 +656,11 @@ input[class="submit-button"] {
     justify-content: center;
 }
 
+.table-box {
+    margin: auto;
+    width: 70vw;
+}
+
 .profile {
     display: flex;
     flex-direction: row;
@@ -583,40 +671,11 @@ input[class="submit-button"] {
     min-height: 50vh;
 }
 
-@media only screen and (max-width: 720px) {
-    .profile-box {
-        margin: auto;
-        width: 98%;
-        display: flex;
-        justify-content: center;
-    }
-    .profile {
-        flex-direction: column;
-        padding: 0.5em;
-        gap: 1em;
-    }
-}
-
-
 .profile-img img {
     border-radius: 48%;
     width: 20em;
     height: 20em;
     object-fit: fill;
-}
-
-@media only screen and (max-width: 1300px) {
-    .profile-img img {
-        width: 15em;
-        height: 15em;
-    }
-}
-
-@media only screen and (max-width: 720px) {
-    .profile-img img {
-        width: 10em;
-        height: 10em;
-    }
 }
 
 .profile-info {
@@ -634,7 +693,30 @@ input[class="submit-button"] {
     text-align: center;
 }
 
+.profile-info-item {
+    display: flex;
+    flex: row;
+    justify-content: space-between;
+    word-break: break-all;
+}
+
+.profile-info-item span:not(.italic) {
+    font-weight: bold;
+}
+
 @media screen and (max-width: 720px) {
+    .profile-box {
+        margin: auto;
+        width: 98%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .table-box {
+        margin: auto;
+        width: 98%;
+    }
+
     .profile-info {
         display: flex;
         flex-direction: column;
@@ -649,17 +731,41 @@ input[class="submit-button"] {
     .profile-info-header {
         margin: 0;
     }
+
+    .profile-info-header:last-of-type {
+        margin-top: 2em;
+    }
+
+    .profile-img img {
+        width: 10em;
+        height: 10em;
+    }
 }
 
-.profile-info-item {
-    display: flex;
-    flex: row;
-    justify-content: space-between;
-    word-break: break-all;
-}
+@media screen and (max-width: 1300px) {
+    .profile-img img {
+        width: 15em;
+        height: 15em;
+    }
 
-.profile-info-item span:not(.italic) {
-    font-weight: bold;
+    .profile {
+        flex-direction: column;
+        padding: 0.5em;
+        gap: 1em;
+    }
+
+    .profile-box .box {
+        padding: 1em;
+    }
+
+    .profile-info {
+        padding: 0;
+    }
+
+    .profile-info-div {
+        width: 100%;
+        padding: 0;
+    }
 }
 
 .italic {
@@ -925,6 +1031,7 @@ input[class="submit-button"] {
 	background:black;
 	padding:(var(--table-half-spacing * 1.5)) 0;
     height: 6vh;
+    border-radius: 1em 1em 0 0;
 }
 
 .table-row {
@@ -954,6 +1061,10 @@ input[class="submit-button"] {
     font-weight: bolder;
 }
 
+.table-row:last-child {
+    border-radius: 0 0 1em 1em;
+}
+
 @media screen and (max-width: 1300px) {
     .table {
         overflow-x:auto;
@@ -967,6 +1078,10 @@ input[class="submit-button"] {
     .table-row {
         height: 10vh;
     }
+}
+
+.list-header {
+    text-align: center;
 }
 
 .chart {
@@ -1031,3 +1146,37 @@ input[class="submit-button"] {
     cursor: pointer;
     fill: var(--text);
 }
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-left: 2em;
+  }
+
+  .dropdown span {
+    cursor: pointer;
+    color: var(--accent);
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 140px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 0;
+    z-index: 10;
+    text-align: center;
+  }
+
+  .dropdown-content p {
+    margin: 1em 0;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .text-center {
+    text-align: center;
+  }
