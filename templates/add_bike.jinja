@@ -7,20 +7,30 @@
             <h2 class="list-header">Přidat kolo</h2>
             <form method="POST" enctype="multipart/form-data">
                 {{ form_field(form.name) }}
-                <div id="brand-section">
-                    <div id="existing-brand" {% if show_new_brand %}style="display: none;"{% endif %}>
-                        {{ form_field(form.brand_id) }}
+
+                <div id="brand-section" class="add-new-bike">
+                    <div>
+                        <div id="existing-brand" {% if show_new_brand %}style="display: none;"{% endif %}>
+                            {{ form_field(form.brand_id) }}
+                        </div>
+                        <div class="form-field block" id="new-brand" {% if not show_new_brand %}style="display: none;"{% endif %}>
+                            <div class="form-field-label">
+                                <label for="new_brand_name" id="new-brand">Název značky</label>
+                            </div>
+                            <input type="text" name="new_brand_name" class="form-control new-brand-input" placeholder="Zadejte novou značku">
+                        </div>
                     </div>
-                    <div id="new-brand" {% if not show_new_brand %}style="display: none;"{% endif %}>
-                        <input type="text" name="new_brand_name" class="form-control" placeholder="Zadejte novou značku">
+                    
+                    <div>
+                        <button type="button" id="toggle-brand" class="submit-button mt-1">
+                            <span id="toggle-text">Přidat novou značku</span>
+                        </button>
                     </div>
-                    <button type="button" id="toggle-brand" class="btn btn-secondary">
-                        <span id="toggle-text">Přidat novou značku</span>
-                    </button>
                 </div>
+
                 {{ form_field(form.price_per_day) }}
                 {{ form_field(form.img) }}
-                {{ form_submit("Potvrdit") }}
+                {{ form_submit("Potvrdit", class_name="button-green") }}
                 {% for error in form.img.errors %}
                     <p style="color: red;">{{ error }}</p>
                 {% endfor %}

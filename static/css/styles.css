@@ -257,13 +257,19 @@ footer {
     display: flex;
     justify-content: center;
     align-content: center;
-    background: #9D32C7;
     padding: 0.3em;
     border-radius: 50%;
     width: 2em;
     height: 2em;
     margin-right: 0;
 }
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
 @media screen and (max-width: 1050px) {
     .nav a.active {
         padding: 0.5em;
@@ -1315,6 +1321,12 @@ input[class="submit-button"] {
     cursor: pointer;
 }
 
+.button-green:focus, .button-red:focus {
+    border: none;
+    outline: none;
+}
+
+
 .button-green:hover {
     background-color: rgb(24, 141, 24);
 }
@@ -1417,5 +1429,44 @@ input[class="submit-button"] {
 
 .text-center {
     text-align: center;
+}
+
+.mb-2 {
+    margin-bottom: 2em;
+}
+
+.mt-1 {
+    margin-top: 1.5em;
+}
+
+.add-new-bike {
+    margin-left: auto;
+    display: grid;
+    grid-template-columns: 80% 20%;
+    width: 80%;
+}
+
+@media screen and (max-width: 720px) {
+    .add-new-bike {
+        width: 100%;
+        grid-template-columns: 50% 50%;
+    }    
+}
+
+#existing-brand {
+    font-size: 16px;
+    margin-left: auto;
+}
+
+#new-brand {
+    font-size: 14px;
+}
+
+#toggle-brand {
+    padding: 0.5em;
+}
+
+.new-brand-input {
+    width: 75%;
 }
 

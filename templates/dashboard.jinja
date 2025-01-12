@@ -76,8 +76,10 @@
 
             <div>
                 {% if session['role'] == 1 %}
-                    <a class="add-bike" href={{ url_for("add_bike.page") }}>Přidat kolo</a>
-                    <a href="{{ url_for("add_brand.page") }}">Přidat značku</a>
+                    <div class="flex space-between">
+                        <a class="add-bike" href={{ url_for("add_bike.page") }}>Přidat kolo</a>
+                        <a class="add-bike" href="{{ url_for("add_brand.page") }}">Přidat značku</a>
+                    </div>
                 {% endif %}
             </div>
 
