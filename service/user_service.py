@@ -1,4 +1,5 @@
 import hashlib
+import secrets
 
 from database.database import get_db
 import config
@@ -123,3 +124,37 @@ class UserService():
         '''
         db.execute(sql, [avatar_url, user_id])
         db.commit()
+
+    @staticmethod
+    def addEmployee(first_name, last_name, email):
+        db = get_db()
+        password = secrets.token_hex(12 // 2)
+        hashed_password = hashlib.sha256(f'{password}{config.PASSWORD_SALT}'.encode()).hexdigest()
+        sql = '''SELECT * FROM users WHERE email=?'''
+        user = db.execute(sql, [email]).fetchone()
+        if user:
+            return None
+        else:
+            sql = '''INSERT INTO users (first_name, last_name, email, password, role, avatar, created_at, updated_at) VALUES (?, ?, ?, ?, 1, 'person.png', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)'''
+            arguments = [first_name, last_name, email, hashed_password]
+            db.execute(sql, arguments)
+            db.commit()
+            return password
+
+    @staticmethod
+    def remove(user_id):
+        db = get_db()
+        sql = '''DELETE FROM users WHERE id = ?'''
+        db.execute(sql, [user_id])
+        db.commit()
+
+    @staticmethod
+    def getAll():
+        db = get_db()
+        sql = '''SELECT id, first_name, last_name, email, CASE role 
+            WHEN 0 THEN 'Zákazník'
+            WHEN 1 THEN 'Zaměstnanec'
+        END AS role
+        FROM users WHERE role != 2'''
+        users = db.execute(sql).fetchall()
+        return users

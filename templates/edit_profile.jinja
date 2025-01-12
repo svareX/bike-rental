@@ -31,6 +31,9 @@
                 {{ form_field(form.img) }}
                 {{ form_submit('Změnit') }}
             </form>
+            <hr>
+            <h2>Odstranit účet</h2>
+            <a href="{{ url_for('delete_user.page', user_id=session['user_id']) }}"><button>Odstranit účet</button></a>
         </div>
     </div>
 {% endblock %}

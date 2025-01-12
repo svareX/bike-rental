@@ -11,9 +11,12 @@ from service.bike_event_service import BikeEventService
 from service.bike_service import BikeService
 from service.brand_service import BrandService
 from service.user_service import UserService
+from views.auth.add_employee import add_employee
+from views.auth.delete_user import delete_user
 from views.auth.edit_profile import edit_profile
 from views.auth.login import login
 from views.auth.logout import page, logout
+from views.auth.manage_users import manage_users
 from views.auth.register import register
 from views.bike_management.add_bike import add_bike
 from views.bike_management.bike_history import bike_history
@@ -48,6 +51,9 @@ app.register_blueprint(bike_history_description)
 
 app.register_blueprint(bike_history)
 app.register_blueprint(statistics)
+app.register_blueprint(add_employee)
+app.register_blueprint(manage_users)
+app.register_blueprint(delete_user)
 
 @app.before_request
 def before_request():
