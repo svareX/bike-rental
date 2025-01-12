@@ -1,11 +1,11 @@
 {% extends '__main.jinja' %}
 
 {% block content %}
-    <div class="main">
+    <div class="main main-box">
         <div class="box dashboard">
             <div class="flex space-between">
                 <div>
-                    <h2>TREBIKE - česká jednička již řadu let!</h2>
+                    <h2 class="list-header">TREBIKE - česká jednička již řadu let!</h2>
                     <div class="dashboard-text">
                         <p class="dashboard-text-item">
                             Vítejte v nejspolehlivější půjčovně kol na českém trhu!
@@ -60,7 +60,7 @@
                         
                         <div class="custom-select">
                             {% if selected_brand or search_query or rent_status in ['free', 'rented'] %}
-                                <div>
+                                <div class="reset-container">
                                     <a href="{{ url_for('view_dashboard_page') }}">
                                         <button type="button" class="reset">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
@@ -99,12 +99,14 @@
                             <img src="{{ url_for('static', filename='img/' + bike.img) }}" alt="{{ bike.name }}" class="bike-img">
                             <p class="bike-price">Cena na den: <span>{{ bike.price_per_day }} Kč</span></p>
                             {% if session['role'] == 1 %}
-                                <a href="{{ url_for('edit_bike.page', bike_id=bike.id) }}">
-                                    <button class="table-button">Upravit</button>
-                                </a>
-                                <a href="{{ url_for('delete_bike.page', bike_id=bike.id) }}">
-                                    <button class="delete-bike">Smazat</button>
-                                </a>
+                                <div class="bike-actions">
+                                    <a href="{{ url_for('edit_bike.page', bike_id=bike.id) }}">
+                                        <button class="table-button">Upravit</button>
+                                    </a>
+                                    <a href="{{ url_for('delete_bike.page', bike_id=bike.id) }}">
+                                        <button class="button-red">Smazat</button>
+                                    </a>
+                                </div>
                             {% elif session['role'] == 0 %}
                                 {% if is_rented(bike.id) == 3 %}
                                     <a href="{{ url_for('rent_bike.page', bike_id=bike.id) }}">

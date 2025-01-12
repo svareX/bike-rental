@@ -92,6 +92,26 @@ body {
 
 .main {
     display: flex;
+    width: 100%;
+}
+
+.flex {
+    display: flex;
+}
+
+@media screen and (max-width: 1300px) {
+    .flex {
+        flex-direction: column;
+    }
+    
+    .flex div {
+        width: 100%;
+        margin: 0.5em 0;
+    }
+
+    .custom-select {
+        margin: 0;
+    }
 }
 
 @media screen and (max-width: 720px) {
@@ -101,6 +121,9 @@ body {
 
     .main {
         flex-wrap: wrap; /* (C) */
+        flex-direction: column;
+        width: 98vw;
+        margin-left: -5%;
     }
 }
 
@@ -258,6 +281,10 @@ footer {
 }
 
 @media screen and (max-width: 900px) {
+   .page {
+        width: 90%;
+   }
+
     .logo svg {
         display: none;
     }
@@ -268,8 +295,19 @@ footer {
 }
 
 @media screen and (max-width: 720px) {
+
     .topbar .user-info .username {
         display: none; /* (A) */
+    }
+
+    .user-avatar, .user-avatar img{
+        display: block;
+    }
+
+    .user-avatar img {
+        width: 2em;
+        height: 2em;
+        border-radius: 50%;
     }
 
     .topbar {
@@ -579,6 +617,12 @@ footer {
     width: 22.5rem;
 }
 
+.bike-actions {
+    display: flex;
+    justify-content: space-between;
+    margin: 1em 4em 1em 4em;
+}
+
 .muted {
     opacity: 0.5;
     filter: alpha(opacity=50);
@@ -616,32 +660,92 @@ footer {
     text-align: center;
 }
 
+@media screen and (max-width: 1675px) {
+    .grid {
+        display: grid;
+        width: 100%;
+        margin: auto;
+        grid-template-columns: 50% 50%;
+        gap: 3.3em 1em;
+        text-align: center;
+        padding: 0 1em 0 1em;
+    }
+
+    .bike {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .bike-img {
+        align-items: center;
+        margin: auto;
+    }
+
+    .bike-actions {
+        margin: 1em 1.5em 1em 1.5em;
+    }
+}
+
 @media screen and (max-width: 1300px) {
     .grid {
         display: grid;
-        grid-template-columns: auto auto;
         gap: 1em 1em;
         text-align: center;
         padding: 0 1em 0 1em;
     }
 
     .bike {
-        width: 100%;
+        padding: 0.75em;
+        margin: auto;
+        margin-bottom: 3em;
+        width: 90%
+    }
+
+    .bike:hover, .bike:focus, .bike:active {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+        cursor: pointer;
+    }   
+
+    .bike-img {
+        width: 90%;
+        height: 90%;
+    }
+
+    .bike-price {
+        margin: 1em 1em 0 1em;
     }
 }
 
 @media screen and (max-width: 720px) {
     .grid {
         display: grid;
-        grid-template-columns: auto;
+        grid-template-columns: 100%;
         gap: 1em 1em;
         text-align: center;
-        padding: 0 1em 0 1em;
+        padding: 0;
+        margin: 0;
     }
     
+
+    .bike-actions {
+        margin: 1em 5em 1em 5em;
+    }
+}
+
+@media screen and (max-width: 500px) {
     .bike-img {
         height: 10em;
         width: 15em;
+    }
+
+    .bike-actions {
+        margin: 0.5em;
+    }
+
+    .bike-actions a {
+        margin: 0 5px;
     }
 }
 
@@ -790,10 +894,6 @@ input[class="submit-button"] {
     font-style: italic;
 }
 
-.flex {
-    display: flex;
-}
-
 .space-between {
     justify-content: space-between;
 }
@@ -809,6 +909,13 @@ input[class="submit-button"] {
 .filter input[type="text"] {
     width: 15vw;
     margin-left: 5vw;
+}
+
+@media screen and (max-width: 1300px) {
+    .filter input[type="text"] {
+        width: 100%;
+        margin-left: 0;
+    }    
 }
 
 .filter select{
@@ -947,11 +1054,15 @@ input[class="submit-button"] {
     box-shadow: 0 0 10px 100px var(--accent) inset;
 }
 
-  .reset {
+.reset-container {
+    width: 6em;
+}
+
+.reset {
     display: flex;
     justify-content: center;
-    width: 3vw;
-    height: 2.25vw;
+    width: 4em;
+    height: 3.75em;
     text-align: center;
     background-color: #fff;
     border: 0.3em solid var(--accent-2);
@@ -959,15 +1070,15 @@ input[class="submit-button"] {
     color: #000;
     cursor: pointer;
     transition: all 0.2s ease-out;
-  }
+}
 
-  .reset:hover {
+.reset:hover {
     background-color: var(--accent-2);
     color: var(--accent-2);
     fill: white;
-  }
+}
 
-  .reset:active {
+.reset:active {
     background-color: var(--text-2);
     border: 0.3em solid var(--text-2);  
 }
@@ -1006,6 +1117,47 @@ input[class="submit-button"] {
     transform: scale(1.3);
     filter: drop-shadow(0px 3px 7px rgba(0, 0, 0, 0.05));
     cursor: help;
+}
+
+@media screen and (max-width: 1300px) {
+    .dashboard-text {
+        width: 70vw;
+        margin: 2em 0 0 0;
+        grid-template-columns: auto;
+        gap: 1.5em;
+    }
+
+    .dashboard-text-item {
+        width: 100%;
+        margin: auto;
+        height: 5em;
+        width: 90%;
+    }
+
+    .dashboard-text-item:hover, .dashboard-text-item:focus, .dashboard-text-item:active {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+        filter: drop-shadow(0px 3px 7px rgba(0, 0, 0, 0.05));
+        cursor: help;
+    } 
+    
+    .custom-select {
+        width: 100%;
+    }
+
+    .custom-select select, .custom-select input, .custom-submit {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .reset {
+        width: 5em;
+        height: 4em;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    
 }
 
 .add-bike {
@@ -1229,6 +1381,12 @@ input[class="submit-button"] {
     .topbar .user-info {
         margin-right: 1.25em;
     }
+}
+
+@media screen and (max-width: 720px) {
+    .topbar .user-info {
+        margin: 0;
+    }    
 }
 
 .text-center {
