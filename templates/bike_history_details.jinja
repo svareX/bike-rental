@@ -3,7 +3,7 @@
 {% block content %}
     <div class="main">
         <div class="box dashboard">
-            {% if bike_events %}
+            {% if bike_event %}
                 <h2>Historie správy kol</h2>
                 <table class="table">
                 <tr class="table-header">
@@ -13,9 +13,8 @@
                     <td class="header__item">Typ</td>
                     <td class="header__item">Stav</td>
                 </tr>
-                {% for bike_event in bike_events %}
                     <tr class="table-row">
-                        <td class="table-data"><a href="{{ url_for('bike_history_description.page', event_id = bike_event.id) }}">{{ bike_event.id }}</a></td>
+                        <td class="table-data">{{ bike_event.id }}</td>
                         <td class="table-data">{{ bike_event.bike_name }}</td>
                         <td class="table-data">{{ bike_event.brand_name }}</td>
                         <td class="table-data">{{ bike_event.type }}</td>
@@ -33,9 +32,15 @@
                             </td>
                         {% endif %}
                     </tr>
-                {% endfor %}
             {% endif %}
             </table>
+        <h3>Poznámka</h3>
+        {% if bike_event.description %}
+            <pre>{{ bike_event.description }}</pre>
+        {% else %}
+        Kolo nemá žádnou poznámku. <br>
+        {% endif %}
+        <a href="{{ url_for('bike_history.page') }}"><button>Zpět</button></a>
         </div>
     </div>
 {% endblock %}

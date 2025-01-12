@@ -4,6 +4,8 @@ from flask import url_for
 from flask import flash
 from functools import wraps
 
+from service.bike_service import BikeService
+
 
 def login_required(func):
     @wraps(func)
@@ -41,6 +43,15 @@ def employees_only(func):
     def decorated_function(*args, **kwargs):
         if session['role'] != 1:
             flash('🚫 Nemáte oprávnění pro tuto akci (nejste zaměstnanec).', 'error')
+            return redirect(url_for('view_dashboard_page'))
+        return func(*args, **kwargs)
+    return decorated_function
+
+def customers_only(func):
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
+        if session['role'] != 0:
+            flash('🚫 Nemáte oprávnění pro tuto akci (nejste zákazník).', 'error')
             return redirect(url_for('view_dashboard_page'))
         return func(*args, **kwargs)
     return decorated_function

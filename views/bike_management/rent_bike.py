@@ -10,7 +10,7 @@ rent_bike = Blueprint('rent_bike', __name__)
 
 @rent_bike.route('/rent_bike/<bike_id>', methods=["GET", "POST"])
 @auth.login_required
-#@auth.user_permission_required
+@auth.customers_only
 def page(bike_id):
     user = UserService.getByID(session['user_id'])
     bike = BikeService.getByID(bike_id)

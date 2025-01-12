@@ -84,9 +84,9 @@
                 {% if bikes %}
                     {% for bike in bikes %}
                         {% if is_rented(bike.id) == 1 or is_rented(bike.id) == 2 %}
-                        <div class="bike muted" onclick="window.location.href='{{ url_for('rent_bike.page', bike_id=bike.id|e) }}'">
+                        <div class="bike muted" {% if session['role'] == 0 %}onclick="window.location.href='{{ url_for('rent_bike.page', bike_id=bike.id|e) }}'"{% endif %}>
                         {% else %}
-                        <div class="bike" onclick="window.location.href='{{ url_for('rent_bike.page', bike_id=bike.id|e) }}'">
+                        <div class="bike" {% if session['role'] == 0 %}onclick="window.location.href='{{ url_for('rent_bike.page', bike_id=bike.id|e) }}'"{% endif %}>
                         {% endif %}
                             <p class="bike-header">
                                 <span>

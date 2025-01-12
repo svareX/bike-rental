@@ -69,7 +69,6 @@ class BikeService():
             FROM bike_events 
             WHERE bike_id = ? 
               AND (type = 1 OR type = 2) -- Group type conditions
-              AND (status = 1 OR status = 2) -- Group status conditions
             ORDER BY date_to DESC 
             LIMIT 1
         '''

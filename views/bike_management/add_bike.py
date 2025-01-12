@@ -39,7 +39,7 @@ def page():
 
             if response:
                 flash(response['error'], 'error')  # Show an error message
-                return redirect(url_for('page'))
+                return redirect(url_for('view_dashboard_page'))
             file.save(file_path)
         return redirect(url_for('view_dashboard_page'))
 

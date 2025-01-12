@@ -85,6 +85,34 @@ class BikeEventService():
     @staticmethod
     def getEventTypeByID(bike_id):
         db = get_db()
-        sql = 'SELECT bike_events.type FROM bike_events WHERE bike_id = ? AND status = 2'
+        sql = 'SELECT bike_events.type FROM bike_events WHERE bike_id = ? AND status = 2 ORDER BY date_to DESC LIMIT 1;'
         type = db.execute(sql, [bike_id]).fetchone()
         return type[0] if type else None
+
+    @staticmethod
+    def getByID(event_id):
+        db = get_db()
+        sql = '''
+            SELECT bike_events.id AS id, b.name AS bike_name, brands.name AS brand_name, 
+            CASE bike_events.type 
+                WHEN 1 THEN 'Výpůjčka a vrácení'
+                WHEN 2 THEN 'Výpůjčka -> Servis'
+            END AS type, 
+            CASE bike_events.status 
+                WHEN 1 THEN 'Aktuálně pronajaté'
+                WHEN 2 THEN 'Čeká na vyřízení'
+                WHEN 3 THEN 'Vráceno/Opraveno'
+            END AS status, bike_events.description AS description FROM bike_events 
+            JOIN bikes b ON b.id = bike_events.bike_id 
+            JOIN brands ON b.brand_id = brands.id
+            WHERE bike_events.id = ?
+            '''
+        bike_events = db.execute(sql, [event_id]).fetchone()
+        return bike_events
+
+    @staticmethod
+    def getDescriptionByBikeID(bike_id):
+        db = get_db()
+        sql = 'SELECT bike_events.description FROM bike_events WHERE bike_events.bike_id = ? ORDER BY date_to DESC LIMIT 1'
+        description = db.execute(sql, [bike_id]).fetchone()
+        return description[0] if description else None
