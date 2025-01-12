@@ -1284,6 +1284,12 @@ input[class="submit-button"] {
     margin: 2em 0 0 0;
 }
 
+@media screen and (max-width: 720px) {
+    .chart {
+        width: 85%;
+    }    
+}
+
 .status-ready, .status-waiting, .status-rented {
     font-weight: bold;
 }

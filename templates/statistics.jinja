@@ -2,7 +2,7 @@
 {% from 'macros/form.jinja' import form_field, form_inline_field, form_submit with context %}
 
 {% block content %}
-<div class="main auth-box">
+<div class="main profile-box">
     <div class="box dashboard statistics">
         <h1>Statistiky půjčovny</h1>
         <p>Počet registrovaných uživatelů: <span>{{ userCount }}</span></p>
@@ -10,7 +10,9 @@
         <p>Nejvíce vypůjčené kolo: <span>{{ mostRentedBike }}</span></p>
         <p>Nejvíce vypůjčená značka kol: <span>{{ mostRentedBrand }}</span></p>
         <p>Celkový počet výpůjček: <span>{{ totalNumberOfRents }}</span></p>
-        <img src="data:image/png;base64,{{ chart_data }}" alt="Graf nejvíce vypůjčených značek" class="chart">
+        <center>
+            <img src="data:image/png;base64,{{ chart_data }}" alt="Graf nejvíce vypůjčených značek" class="chart">
+        </center>
     </div>
 </div>
 {% endblock%}
