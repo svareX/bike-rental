@@ -24,7 +24,7 @@ def register_page():
             utils.login_user(session, user)  # Automaticky přihlásí uživatele po registraci
             flash('Úspěšně jste se zaregistrovali.', 'success')
             return redirect(url_for('view_dashboard_page'))
-    return render_template("register.jinja", form=form)
+    return render_template("auth/register.jinja", form=form)
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login_page():
@@ -39,7 +39,7 @@ def login_page():
             flash('Úspěšně jste se přihlásil.', 'success')
             return redirect(url_for('view_dashboard_page'))
 
-    return render_template("login.jinja", form=form)
+    return render_template("auth/login.jinja", form=form)
 
 @auth.route('/logout')
 def logout_page():

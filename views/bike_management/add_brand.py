@@ -18,4 +18,4 @@ def page():
         else:
             flash(f'Značka \"{request.form['brand_name']}\" úspěšně přidána.', 'success')
             return redirect(url_for('view_dashboard_page'))
-    return render_template("add_brand.jinja", form=form)
+    return render_template("brands/add_brand.jinja", form=form)

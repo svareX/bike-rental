@@ -14,17 +14,17 @@
 <div class="page-wrapper">
     <div class="page">
         <!-- Include navigation -->
-        {% include '__header.jinja' %}
+        {% include 'layout/__header.jinja' %}
 
         <!-- Flash messages -->
-        {% include '__messages.jinja' %}
+        {% include 'layout/__messages.jinja' %}
 
         <!-- Render main content -->
         {% block content %}
         {% endblock %}
 
         <!-- Include footer -->
-        {% include '__footer.jinja' %}
+        {% include 'layout/__footer.jinja' %}
     </div>
 </div>
 

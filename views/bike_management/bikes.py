@@ -35,7 +35,7 @@ def add_bike_page():
             if brand_result == 0:
                 flash('Tato značka již existuje!', 'error')
                 show_new_brand = True
-                return render_template("add_bike.jinja", form=form, show_new_brand=show_new_brand)
+                return render_template("bikes/add_bike.jinja", form=form, show_new_brand=show_new_brand)
 
             # Get the ID of the newly created brand
             brand_id = BrandService.getIDByName(new_brand_name)
@@ -60,7 +60,7 @@ def add_bike_page():
         flash('Kolo bylo úspěšně přidáno!', 'success')
         return redirect(url_for('view_dashboard_page'))
 
-    return render_template("add_bike.jinja", form=form, show_new_brand=show_new_brand)
+    return render_template("bikes/add_bike.jinja", form=form, show_new_brand=show_new_brand)
 
 @bikes.route("/edit_bike/<bike_id>", methods=["GET", "POST"])
 @auth.login_required
@@ -98,7 +98,7 @@ def edit_bike_page(bike_id):
         if response:
             flash(response['error'], 'error')
             return render_template(
-                "edit_bike.jinja",
+                "bikes/edit_bike.jinja",
                 form=form,
                 bike=bike,
                 brands=brands
@@ -108,7 +108,7 @@ def edit_bike_page(bike_id):
         return redirect(url_for('view_dashboard_page'))
 
     return render_template(
-        "edit_bike.jinja",
+        "bikes/edit_bike.jinja",
         form=form,
         bike=bike
     )
@@ -131,7 +131,7 @@ def delete_bike_page(bike_id):
         return redirect(url_for('view_dashboard_page'))
 
     return render_template(
-        "delete_bike.jinja",
+        "bikes/delete_bike.jinja",
         bike=bike
     )
 
@@ -161,7 +161,7 @@ def rent_bike_page(bike_id):
         flash('Kolo bylo úspěšně zapůjčeno.', 'success')
         return redirect(url_for('view_dashboard_page'))
 
-    return render_template("rent_bike.jinja", form=form, bike=bike, user=user)
+    return render_template("bikes/rent_bike.jinja", form=form, bike=bike, user=user)
 
 @bikes.route('/manage_bike/<bike_id>', methods=["GET", "POST"])
 @auth.login_required
@@ -188,4 +188,4 @@ def manage_bike_page(bike_id):
             BikeEventService.changeBikeInfo(bike_id, 'Poznámka pro servis: ' + request.form['description'], 2)
             flash('Kolo bylo zasláno do servisu.', 'info')
         return redirect(url_for('lists.list_manage_bike_page'))
-    return render_template("manage_bike.jinja", bike=bike, form=form, dates=dates, eventType=eventType, description=description)
+    return render_template("bikes/manage_bike.jinja", bike=bike, form=form, dates=dates, eventType=eventType, description=description)

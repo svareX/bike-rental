@@ -13,4 +13,4 @@ bike_history = Blueprint('bike_history', __name__)
 @auth.employees_only
 def page():
     bike_events = BikeEventService.getAll()
-    return render_template("bike_manage_history.jinja", bike_events=bike_events)
+    return render_template("bikes/history/bike_manage_history.jinja", bike_events=bike_events)
