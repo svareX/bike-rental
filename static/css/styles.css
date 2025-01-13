@@ -730,6 +730,11 @@ footer {
 }
 
 @media screen and (max-width: 720px) {
+    .auth-box {
+        margin: 0;
+        width: 100%;
+    }
+    
     .grid {
         display: grid;
         grid-template-columns: 100%;
