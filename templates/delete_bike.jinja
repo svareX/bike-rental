@@ -10,6 +10,7 @@
             <p>Název značky: {{ bike.brand_name }}</p>
             <img src="{{ url_for('static', filename="img/" + bike.img) }}" alt="{{ bike.name }}" height="200px" >
             <form method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                 {{ form_submit("Smazat kolo", name="delete_button", class_name="danger") }}
                 {{ form_submit("Zrušit", name="cancel_button") }}
             </form>

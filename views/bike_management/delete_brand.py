@@ -17,4 +17,4 @@ def page(brand_id):
     BikeEventService.deleteByBrandID(brand_id)
     BikeService.deleteByBrand(brand_id)
     flash('Značka byla úspěšně smazaná.','success')
-    return redirect(url_for('view_dashboard_page'))
+    return redirect(url_for('lists.list_brands_page'))

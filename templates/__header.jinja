@@ -24,14 +24,14 @@
                 <div>
                 {% if session['role'] == 1 %}
                     <div class="dropdown">
-                        <span class="{% if request.endpoint == 'list_manage_bike.page' or request.endpoint == 'list_service_bike.page' 
+                        <span class="{% if request.endpoint == 'lists.list_manage_bike_page' or request.endpoint == 'lists.list_service_bike_page'
                         or request.endpoint == 'bike_history.page' or request.endpoint == 'statistics.page' %} active {% endif %}">Operace</span>
                         <div class="dropdown-content">
                             <p>
-                                <a href="{{ url_for('list_manage_bike.page') }}" class="{% if request.endpoint == 'list_manage_bike.page' %} active {% endif %}">Vrácení kol</a>
+                                <a href="{{ url_for('lists.list_manage_bike_page') }}" class="{% if request.endpoint == 'lists.list_manage_bike_page' %} active {% endif %}">Vrácení kol</a>
                             </p>
                             <p>
-                                <a href="{{ url_for('list_service_bike.page') }}" class="{% if request.endpoint == 'list_service_bike.page' %} active {% endif %}">Oprava kol</a>
+                                <a href="{{ url_for('lists.list_service_bike_page') }}" class="{% if request.endpoint == 'lists.list_service_bike_page' %} active {% endif %}">Oprava kol</a>
                             </p>
                             <p>
                                 <a href="{{ url_for('bike_history.page') }}" class="{% if request.endpoint == 'bike_history.page' %} active {% endif %}">Historie kol</a>
@@ -40,7 +40,7 @@
                                 <a href="{{ url_for('statistics.page') }}" class="{% if request.endpoint == 'statistics.page' %} active {% endif %}">Statistiky</a>
                             </p>
                             <p>
-                                <a href="{{ url_for('list_brands.page') }}" class="{% if request.endpoint == 'list_brands.page' %} active {% endif %}">Seznam značek</a>
+                                <a href="{{ url_for('lists.list_brands_page') }}" class="{% if request.endpoint == 'lists.list_brands_page' %} active {% endif %}">Seznam značek</a>
                             </p>
                         </div>
                     </div>
@@ -61,13 +61,13 @@
                         </div>
                     </div>
                 {% endif %}
-                <a href="{{ url_for('logout.page') }}" class="signout">Odhlásit</a>
+                <a href="{{ url_for('auth.logout_page') }}" class="signout">Odhlásit</a>
                 </div>
             {% else %}
-                    <a href="{{ url_for('register.page') }}" class="{% if request.endpoint == 'register.page' %} active {% endif %}">
+                    <a href="{{ url_for('auth.register_page') }}" class="{% if request.endpoint == 'auth.register_page' %} active {% endif %}">
                         <div class="username">Registrace</div>
                     </a>
-                    <a href="{{ url_for('login.page') }}"class="{% if request.endpoint == 'login.page' %} active {% endif %}">
+                    <a href="{{ url_for('auth.login_page') }}"class="{% if request.endpoint == 'auth.login_page' %} active {% endif %}">
                         <div class="username">Přihlásit se</div>
                     </a>
             {% endif %}
@@ -87,12 +87,12 @@
                 </a>
                 {% if session['role'] == 1 %}
                     <div>
-                        <a href="{{ url_for('list_manage_bike.page') }}" class="{% if request.endpoint == 'list_manage_bike.page' %} active {% endif %}">
+                        <a href="{{ url_for('lists.list_manage_bike_page') }}" class="{% if request.endpoint == 'lists.list_manage_bike_page' %} active {% endif %}">
                             Vrácení kol
                         </a>
                     </div>
                     <div>
-                        <a href="{{ url_for('list_service_bike.page') }}" class="{% if request.endpoint == 'list_service_bike.page' %} active {% endif %}">
+                        <a href="{{ url_for('lists.list_service_bike_page') }}" class="{% if request.endpoint == 'lists.list_service_bike_page' %} active {% endif %}">
                             Oprava kol
                         </a>
                     </div>
@@ -107,7 +107,7 @@
                         </a>
                     </div>
                     <div>
-                        <a href="{{ url_for('list_brands.page') }}" class="{% if request.endpoint == 'list_brands.page' %} active {% endif %}">
+                        <a href="{{ url_for('lists.list_brands_page') }}" class="{% if request.endpoint == 'lists.list_brands_page' %} active {% endif %}">
                         Správa značek
                         </a>
                     </div>
@@ -124,18 +124,18 @@
                     </div>
                 {% endif %}
                 <div>
-                    <a href="{{ url_for('logout.page') }}" class="signout">
+                    <a href="{{ url_for('auth.logout_page') }}" class="signout">
                     Odhlásit se
                     </a>
                 </div>
             {% else %}
                 <div>
-                    <a href="{{ url_for('register.page') }}">
+                    <a href="{{ url_for('auth.register_page') }}">
                     Registrace
                     </a>
                 </div>
                 <div>
-                    <a href="{{ url_for('login.page') }}">
+                    <a href="{{ url_for('auth.login_page') }}">
                     Přihlášení
                     </a>
                 </div>

@@ -77,7 +77,7 @@
             <div>
                 {% if session['role'] == 1 %}
                     <div class="flex space-between">
-                        <a class="add-bike" href={{ url_for("add_bike.page") }}>Přidat kolo</a>
+                        <a class="add-bike" href={{ url_for("bikes.add_bike_page") }}>Přidat kolo</a>
                         <a class="add-bike" href="{{ url_for("add_brand.page") }}">Přidat značku</a>
                     </div>
                 {% endif %}
@@ -87,9 +87,9 @@
                 {% if bikes %}
                     {% for bike in bikes %}
                         {% if is_rented(bike.id) == 1 or is_rented(bike.id) == 2 %}
-                        <div class="bike muted" {% if session['role'] == 0 %}onclick="window.location.href='{{ url_for('rent_bike.page', bike_id=bike.id|e) }}'"{% endif %}>
+                        <div class="bike muted" {% if session['role'] == 0 %}onclick="window.location.href='{{ url_for('bikes.rent_bike_page', bike_id=bike.id|e) }}'"{% endif %}>
                         {% else %}
-                        <div class="bike" onclick="window.location.href='{{ url_for('rent_bike.page', bike_id=bike.id|e) }}'">
+                        <div class="bike" onclick="window.location.href='{{ url_for('bikes.rent_bike_page', bike_id=bike.id|e) }}'">
                         {% endif %}
                             <p class="bike-header">
                                 <span>
@@ -103,16 +103,16 @@
                             <p class="bike-price">Cena na den: <span>{{ bike.price_per_day }} Kč</span></p>
                             {% if session['role'] == 1 %}
                                 <div class="bike-actions">
-                                    <a href="{{ url_for('edit_bike.page', bike_id=bike.id) }}">
+                                    <a href="{{ url_for('bikes.edit_bike_page', bike_id=bike.id) }}">
                                         <button class="table-button">Upravit</button>
                                     </a>
-                                    <a href="{{ url_for('delete_bike.page', bike_id=bike.id) }}">
+                                    <a href="{{ url_for('bikes.delete_bike_page', bike_id=bike.id) }}">
                                         <button class="button-red">Smazat</button>
                                     </a>
                                 </div>
                             {% elif session['role'] == 0 %}
                                 {% if is_rented(bike.id) == 3 %}
-                                    <a href="{{ url_for('rent_bike.page', bike_id=bike.id) }}">
+                                    <a href="{{ url_for('bikes.rent_bike_page', bike_id=bike.id) }}">
                                         <button>Vypůjčit si</button>
                                     </a>
                                 {% elif is_rented(bike.id) == 1 %}

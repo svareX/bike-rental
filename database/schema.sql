@@ -64,5 +64,5 @@ INSERT INTO bikes(name, brand_id, type, price_per_day, img) VALUES ('Bike#6', 3,
 
 INSERT INTO bike_events(user_id, bike_id, type, date_from, date_to, total_price, payment_method, status) VALUES (1,1,1,'2024-12-08', '2024-12-11', 185*4, 1, 1);
 INSERT INTO bike_events(user_id, bike_id, type, date_from, date_to, total_price, payment_method, status) VALUES (1,2,1,'2024-12-09', '2024-12-16', 210*8, 2, 1);
-INSERT INTO bike_events(user_id, bike_id, type, date_from, date_to, total_price, payment_method, status) VALUES (1,3,2,'2024-12-01', '2024-12-03',100*3, 2, 1);
+INSERT INTO bike_events(user_id, bike_id, type, date_from, date_to, total_price, payment_method, status) VALUES (1,3,1,'2024-12-01', '2024-12-03',100*3, 2, 1);
 INSERT INTO bike_events(user_id, bike_id, type, date_from, date_to, total_price, payment_method, status) VALUES (1,1,1,'2024-12-05', '2024-12-06',185*2, 2, 3);

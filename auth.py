@@ -14,7 +14,7 @@ def login_required(func):
         print(session)
         if "authenticated" not in session:
             flash("🚫 Musíte být přihlášen pro přístup na tuto stránku.", "error")
-            return redirect(url_for("login.page"))
+            return redirect(url_for("auth.login_page"))
         return func(*args, **kwargs)
     return decorated_function
 
@@ -25,7 +25,7 @@ def roles_required(*roles):
         def decorated_function(*args, **kwargs):
             if session['role'] not in roles:
                 flash('🚫 Nemáte oprávnění pro tuto akci.', 'error')
-                return redirect(url_for('login.page'))
+                return redirect(url_for('auth.login_page'))
             return func(*args, **kwargs)
         return decorated_function
     return roles_decorator
