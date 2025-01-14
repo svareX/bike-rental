@@ -9,7 +9,7 @@ class BikeService():
     def getAll():
         db = get_db()
         sql = '''
-                    SELECT b.id, b.name, b.price_per_day, b.type, b.img, br.name AS brand_name, br.id AS bike_brand_id
+                    SELECT b.id, b.name, b.price_per_day, b.img, br.name AS brand_name, br.id AS bike_brand_id
                     FROM bikes b
                     JOIN brands br ON b.brand_id = br.id
                 '''
@@ -26,7 +26,7 @@ class BikeService():
             return {'error': f'Kolo s jménem "{bikeName}" a značkou "{BrandService.getNameByID(bikeBrand_id)}" již existuje!'}
 
 
-        sql = 'INSERT INTO bikes (name, brand_id, type, price_per_day, img) VALUES (?, ?, 0, ?, ?)'
+        sql = 'INSERT INTO bikes (name, brand_id, price_per_day, img) VALUES (?, ?, ?, ?)'
         arguments = [bikeName, bikeBrand_id, bikePrice_per_day, bikeImg]
         db.execute(sql, arguments)
         db.commit()
@@ -78,41 +78,6 @@ class BikeService():
         '''
         rented = db.execute(sql, [bike_id]).fetchone()
         return rented['status'] if rented else 0
-    @staticmethod
-    def getByBrand(brand_id):
-        db = get_db()
-        sql = '''
-            SELECT b.id, b.name, b.price_per_day, b.type, b.img, br.name AS brand_name, br.id AS bike_brand_id
-            FROM bikes b
-            JOIN brands br ON b.brand_id = br.id
-            WHERE br.id = ?
-        '''
-        bikes = db.execute(sql, [brand_id]).fetchall()
-        return bikes
-
-    @staticmethod
-    def getByBrandAndSearch(brand_id, search_query):
-        db = get_db()
-        sql = '''
-            SELECT b.id, b.name, b.price_per_day, b.type, b.img, br.name AS brand_name, br.id AS bike_brand_id
-            FROM bikes b
-            JOIN brands br ON b.brand_id = br.id
-            WHERE br.id = ? AND b.name LIKE ?
-        '''
-        bikes = db.execute(sql, [brand_id, f"%{search_query}%"]).fetchall()
-        return bikes
-
-    @staticmethod
-    def getBySearch(search_query):
-        db = get_db()
-        sql = '''
-            SELECT b.id, b.name, b.price_per_day, b.type, b.img, br.name AS brand_name, br.id AS bike_brand_id
-            FROM bikes b
-            JOIN brands br ON b.brand_id = br.id
-            WHERE b.name LIKE ?
-        '''
-        bikes = db.execute(sql, [f"%{search_query}%"]).fetchall()
-        return bikes
 
     @staticmethod
     def getBikesFiltered(brand_id=None, search_query=None, rent_status=None):
