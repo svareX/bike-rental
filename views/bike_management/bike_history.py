@@ -1,10 +1,7 @@
-from flask import Blueprint, request, flash, session, redirect, url_for, render_template
+from flask import Blueprint, render_template
 
 import auth
-import forms
 from service.bike_event_service import BikeEventService
-from service.bike_service import BikeService
-from service.user_service import UserService
 
 bike_history = Blueprint('bike_history', __name__)
 

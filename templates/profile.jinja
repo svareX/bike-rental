@@ -26,6 +26,8 @@
                             <span>Role: </span>
                             {% if user.role == 0 %}
                                 Uživatel
+                            {% elif user.role == 1 %}
+                                Zaměstnanec
                             {% else %}
                                 Správce
                             {% endif %}

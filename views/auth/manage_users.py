@@ -1,8 +1,6 @@
-from flask import Blueprint, request, flash, session, redirect, url_for, render_template
+from flask import Blueprint, render_template
 
 import auth
-import forms
-import utils
 from service.user_service import UserService
 
 manage_users = Blueprint('manage_users', __name__)

@@ -25,19 +25,16 @@ def add_bike_page():
         _, file_extension = os.path.splitext(file.filename)
         filename = secrets.token_hex(12 // 2) + file_extension
 
-        # Handle new brand if provided
         brand_id = request.form.get('brand_id')
         new_brand_name = request.form.get('new_brand_name')
 
         if new_brand_name:
-            # Try to add new brand
             brand_result = BrandService.add(new_brand_name)
             if brand_result == 0:
                 flash('Tato značka již existuje!', 'error')
                 show_new_brand = True
                 return render_template("bikes/add_bike.jinja", form=form, show_new_brand=show_new_brand)
 
-            # Get the ID of the newly created brand
             brand_id = BrandService.getIDByName(new_brand_name)
 
         if file:
@@ -72,11 +69,9 @@ def edit_bike_page(bike_id):
     bike = BikeService.getByID(bike_id)
     brands = BrandService.getAll()
 
-    # forms
     form = forms.BikeForm(request.form, brands, True)
     form.fill_with_data(bike)
 
-    # edit transaction
     if request.method == 'POST':
         if request.files['img']:
             file = request.files['img']

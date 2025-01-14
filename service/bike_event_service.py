@@ -31,7 +31,6 @@ class BikeEventService():
                 'bike_name': bike['bike_name'],
                 'brand_name': bike['brand_name'],
                 'date_from': datetime.strptime(bike['date_from'], "%Y-%m-%d").strftime("%d. %m. %Y"),
-                # Example: 12.06.2024
                 'date_to': datetime.strptime(bike['date_to'], "%Y-%m-%d").strftime("%d. %m. %Y")
             }
             formatted_bikes.append(formatted_bike)
@@ -121,7 +120,6 @@ class BikeEventService():
     def deleteByBrandID(brand_id):
         db = get_db()
 
-        # Delete bike_events using a subquery to find the relevant bike_ids
         delete_sql = '''
             DELETE FROM bike_events 
             WHERE bike_id IN (

@@ -4,7 +4,6 @@ import forms
 import utils
 from service.user_service import UserService
 
-# Create a single blueprint for all auth operations
 auth = Blueprint('auth', __name__)
 
 @auth.route("/register", methods=['GET', 'POST'])

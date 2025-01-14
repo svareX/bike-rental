@@ -11,7 +11,7 @@ delete_user = Blueprint('delete_user', __name__)
 @auth.login_required
 def page(user_id):
     user = UserService.getByID(user_id)
-    if session['role'] == 2 and int(user_id) != 1:  # Admin can delete any user except themselves
+    if session['role'] == 2 and int(user_id) != 1:  # Mazání uživatelů, když jste admin
         current_image = user['avatar']
         current_image_path = os.path.join(current_app.root_path, 'static/img', current_image)
         if os.path.exists(current_image_path) and current_image != "person.png":
@@ -19,7 +19,7 @@ def page(user_id):
         UserService.remove(user_id)
         flash('Účet byl úspěšně smazán.', 'success')
 
-    elif session['user_id'] == int(user_id) and int(user_id) != 1:  # Allow users to delete themselves
+    elif session['user_id'] == int(user_id) and int(user_id) != 1:  # Uživatelé si mažou účty sami
         current_image = user['avatar']
         current_image_path = os.path.join(current_app.root_path, 'static/img', current_image)
         if os.path.exists(current_image_path) and current_image != "person.png":

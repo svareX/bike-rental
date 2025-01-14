@@ -1,7 +1,8 @@
-from flask import Blueprint, request, flash, session, redirect, url_for, render_template
-import matplotlib.pyplot as plt
 import base64
 import io
+
+import matplotlib.pyplot as plt
+from flask import Blueprint, render_template
 
 import auth
 from service.statistics_service import StatisticsService
@@ -20,27 +21,23 @@ def page():
 
     brand_rents = StatisticsService.getBrandRents()
 
-    # Extract labels (brand names) and sizes (counts) from the result
-    labels = [row[1] for row in brand_rents]  # Brand names
-    sizes = [row[0] for row in brand_rents]   # Rent counts
+    labels = [row[1] for row in brand_rents]
+    sizes = [row[0] for row in brand_rents]
 
-    # Create the pie chart
     plt.figure(figsize=(6, 6), dpi=100)
     plt.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=140)
     plt.axis('equal')
 
-    # Save the chart to a temporary buffer
     img_buf = io.BytesIO()
     plt.savefig(img_buf, format='png', bbox_inches='tight')
     plt.close()
     img_buf.seek(0)
 
-    # Convert the image to base64 string
     chart_data = base64.b64encode(img_buf.getvalue()).decode('utf-8')
 
     return render_template(
         "statistics.jinja",
-        chart_data=chart_data,  # Now passing the base64 encoded string
+        chart_data=chart_data,
         labels=labels,
         sizes=sizes,
         userCount=userCount,

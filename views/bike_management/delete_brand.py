@@ -1,6 +1,4 @@
-import os
-
-from flask import Blueprint, request, flash, session, redirect, url_for, render_template, current_app
+from flask import Blueprint, flash, redirect, url_for
 
 import auth
 from service.bike_event_service import BikeEventService

@@ -1,15 +1,11 @@
 import datetime
-import os
 
-from flask import session
-from flask_wtf.file import FileAllowed, FileRequired
+from flask_wtf.file import FileAllowed
 from wtforms import Form, StringField, validators
-from wtforms.csrf.session import SessionCSRF
 from wtforms.fields.choices import SelectField, RadioField
-from wtforms.fields.datetime import DateTimeField, DateField
-from wtforms.fields.numeric import FloatField, DecimalField
-from wtforms.fields.simple import PasswordField, EmailField, FileField, TextAreaField, HiddenField
-from wtforms.validators import InputRequired
+from wtforms.fields.datetime import DateField
+from wtforms.fields.numeric import DecimalField
+from wtforms.fields.simple import PasswordField, EmailField, FileField, TextAreaField
 
 
 class RegisterForm(Form):

@@ -135,7 +135,6 @@ class BikeService():
         '''
         params = []
 
-        # Add filters dynamically
         if brand_id and brand_id.isdigit():
             query += " AND bikes.brand_id = ?"
             params.append(brand_id)
@@ -145,13 +144,10 @@ class BikeService():
             params.append(f"%{search_query}%")
 
         if rent_status == "free":
-            # Free bikes: No latest event, or latest event status = 3 (returned)
             query += " AND (latest_event.bike_id IS NULL OR latest_event.status = 3)"
         elif rent_status == "rented":
-            # Rented bikes: Latest event status = 1 (rented) or 2 (managed)
             query += " AND latest_event.status IN (1, 2)"
 
-        # Execute the query
         bikes = db.execute(query, params).fetchall()
         return bikes
 
